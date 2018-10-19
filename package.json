@@ -1,0 +1,73 @@
+{
+  "name": "danger-plugin-toolbox",
+  "description": "Danger Plugin Toolbox is a Danger JS plugin containing a set of common validations and utilities, build to make it easy to start using Danger JS.",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "engines": {
+    "node": "^8.12.0",
+    "npm": "^6.4.1"
+  },
+  "scripts": {
+    "pretest": "ensure-node-env",
+    "lint": "eslint . --ext .js",
+    "lint:staged": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:fix:staged": "eslint . --fix",
+    "test": "jest --silent=false",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage",
+    "build": "babel src --out-dir dist --ignore *.test.js,**/__mocks__/",
+    "danger": "danger ci",
+    "release": "node release.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint:staged --",
+      "git add"
+    ],
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sogame/danger-plugin-toolbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sogame/danger-plugin-toolbox/issues"
+  },
+  "homepage": "https://github.com/sogame/danger-plugin-toolbox#readme",
+  "author": {
+    "name": "Sogame",
+    "email": "sogame@gmail.com"
+  },
+  "keywords": [
+    "danger",
+    "danger-plugin"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "ajv": "6.5.4",
+    "babel-cli": "6.26.0",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "23.6.0",
+    "babel-preset-env": "1.7.0",
+    "danger": "4.4.8",
+    "ensure-node-env": "1.0.8",
+    "eslint-config-skyscanner-with-prettier": "0.4.0",
+    "husky": "1.1.2",
+    "inquirer": "6.2.0",
+    "jest": "23.6.0",
+    "lint-staged": "7.3.0",
+    "release-it": "7.6.2"
+  }
+}

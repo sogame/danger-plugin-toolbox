@@ -1,0 +1,16 @@
+language: node_js
+
+addons:
+  sonarcloud:
+    organization: "sogame-github"
+
+install:
+  - npm ci --quiet
+  - npm install -g danger-plugin-toolbox@0.0.1-beta.0
+  - npm link danger-plugin-toolbox # Link the global version of "danger-plugin-toolbox" into the local "node_modules/"
+
+script:
+  - npm run danger
+  - npm run lint
+  - npm run test:coverage
+  - sonar-scanner # SonarCloud

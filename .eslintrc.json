@@ -1,0 +1,25 @@
+{
+  "extends": ["skyscanner-with-prettier"],
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "plugins": [],
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.test.js"
+        ]
+      }
+    ],
+    "no-console": "error"
+  },
+  "globals": {
+    "danger": false,
+    "fail": false,
+    "warn": false,
+    "message": false
+  }
+}

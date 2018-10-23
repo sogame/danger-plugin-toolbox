@@ -26,4 +26,4 @@ jsLocalEslintChange();
 
 jsLockfile();
 
-jsTestShortcuts();
+jsTestShortcuts({ logTypeFocused: 'fail' });

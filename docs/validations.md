@@ -23,6 +23,34 @@ commonChangelog({ logType: 'fail' });
 commonChangelog({ changelogFile: 'unreleased.md', logType: 'message' });
 ```
 
+### commonCommitMessage
+
+Make sure all commit messages match a regex.
+
+##### Parameters
+
+1. `regex`: The regex used to match the strings.
+1. `message`: The message to show when any commit does not match the regex.
+
+##### Defined constants
+
+- `COMMON_COMMIT_MESSAGE_JIRA_REGEX`: When using this regex, the validation will fail if any commit message does not start with a Jira ticket (like `[FOO-123]`) or the string `[NO-JIRA]`.
+- `COMMON_COMMIT_MESSAGE_JIRA_MSG`: A sample message to use with `COMMON_COMMIT_MESSAGE_JIRA_REGEX`.
+
+##### Configuration
+
+| Property | Type                       | Default Value |
+| -------- | -------------------------- | ------------- |
+| logType  | enum (warn, fail, message) | warn          |
+
+##### Usage
+
+```
+commonCommitMessage(/foo/, 'Some commit message does not contain "foo".');
+commonCommitMessage(COMMON_COMMIT_MESSAGE_JIRA_REGEX, COMMON_COMMIT_MESSAGE_JIRA_MSG);
+commonCommitMessage(COMMON_COMMIT_MESSAGE_JIRA_REGEX, COMMON_COMMIT_MESSAGE_JIRA_MSG, { logType: 'fail' });
+```
+
 ### commonContributingGuide
 
 Thank the author of [external contributions](utilities.md#externalpr) and link to the contributing guidelines.
@@ -60,6 +88,10 @@ commonContribution({ msg: 'Many thanks for your collaboration!' });
 ### commonFileExists
 
 Make sure the files exist in the repo.
+
+##### Parameters
+
+1. `files`: The file or list of files (both string and array of strings are valid) to check.
 
 ##### Configuration
 

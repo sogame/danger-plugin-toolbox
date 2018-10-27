@@ -1,4 +1,8 @@
 import commonChangelog from './rules/common/changelog';
+import commonCommitMessage, {
+  COMMON_COMMIT_MESSAGE_JIRA_REGEX,
+  COMMON_COMMIT_MESSAGE_JIRA_MSG,
+} from './rules/common/commitMessage';
 import commonContributingGuide from './rules/common/contributingGuide';
 import commonContribution from './rules/common/contribution';
 import commonFileExists from './rules/common/fileExists';
@@ -25,6 +29,9 @@ import jsTestShortcuts from './rules/js/testShortcuts';
 export * from './rules/helpers';
 export {
   commonChangelog,
+  commonCommitMessage,
+  COMMON_COMMIT_MESSAGE_JIRA_REGEX,
+  COMMON_COMMIT_MESSAGE_JIRA_MSG,
   commonContributingGuide,
   commonContribution,
   commonFileExists,

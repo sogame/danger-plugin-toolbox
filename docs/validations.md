@@ -78,7 +78,7 @@ commonFileExists('file.js', { logType: 'fail' });
 
 ### commonPrDescription
 
-Check there is a description in the pull request (unless the pull request is flagged as [trivial](utilities.md#istrivial) or it is from `dev` or `develop` into `master`).
+Check there is a description in the pull request (unless the pull request is flagged as [trivial](utilities.md#istrivial)).
 
 ##### Configuration
 

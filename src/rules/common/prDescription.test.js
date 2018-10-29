@@ -1,9 +1,7 @@
 import * as helpers from '../helpers';
 import commonPrDescription from './prDescription';
 
-const mockHelpers = (sourceBranch, targetBranch, isTrivial, prDescription) => {
-  helpers.sourceBranch = sourceBranch;
-  helpers.targetBranch = targetBranch;
+const mockHelpers = (isTrivial, prDescription) => {
   helpers.isTrivial = isTrivial;
   helpers.prDescription = prDescription;
 };
@@ -18,24 +16,8 @@ describe('commonPrDescription', () => {
     jest.resetAllMocks();
   });
 
-  it('should not warn when merging "dev" into "master"', () => {
-    mockHelpers('dev', 'master', false, '');
-
-    commonPrDescription();
-
-    expect(global.warn).not.toHaveBeenCalled();
-  });
-
-  it('should not warn when merging "develop" into "master"', () => {
-    mockHelpers('develop', 'master', false, '');
-
-    commonPrDescription();
-
-    expect(global.warn).not.toHaveBeenCalled();
-  });
-
   it('should not warn when is trivial', () => {
-    mockHelpers('foo', 'bar', true, '');
+    mockHelpers(true, '');
 
     commonPrDescription();
 
@@ -43,7 +25,7 @@ describe('commonPrDescription', () => {
   });
 
   it('should not warn when description is long', () => {
-    mockHelpers('foo', 'bar', false, 'a long description');
+    mockHelpers(false, 'a long description');
 
     commonPrDescription();
 
@@ -51,7 +33,7 @@ describe('commonPrDescription', () => {
   });
 
   it('should warn when description is short', () => {
-    mockHelpers('foo', 'bar', false, 'abc');
+    mockHelpers(false, 'abc');
 
     commonPrDescription();
 
@@ -59,39 +41,39 @@ describe('commonPrDescription', () => {
   });
 
   it('should allow modifying the description length', () => {
-    mockHelpers('foo', 'bar', false, 'abc');
+    mockHelpers(false, 'abc');
 
     commonPrDescription({ minLength: 2 });
 
     expect(global.warn).not.toHaveBeenCalled();
 
-    mockHelpers('foo', 'bar', false, 'a');
+    mockHelpers(false, 'a');
     commonPrDescription({ minLength: 2 });
 
     expect(global.warn).toHaveBeenCalledWith(errorMsg);
   });
 
   it('should use default min description length when the provided one is not an integer', () => {
-    mockHelpers('foo', 'bar', false, 'abcde');
+    mockHelpers(false, 'abcde');
 
     commonPrDescription({ minLength: 'z' });
 
     expect(global.warn).not.toHaveBeenCalled();
 
-    mockHelpers('foo', 'bar', false, 'abcd');
+    mockHelpers(false, 'abcd');
     commonPrDescription({ minLength: 'z' });
 
     expect(global.warn).toHaveBeenCalledWith(errorMsg);
   });
 
   it('should use default min description length when the provided one is <0', () => {
-    mockHelpers('foo', 'bar', false, 'abcde');
+    mockHelpers(false, 'abcde');
 
     commonPrDescription({ minLength: -1 });
 
     expect(global.warn).not.toHaveBeenCalled();
 
-    mockHelpers('foo', 'bar', false, 'abcd');
+    mockHelpers(false, 'abcd');
     commonPrDescription({ minLength: -1 });
 
     expect(global.warn).toHaveBeenCalledWith(errorMsg);
@@ -99,7 +81,7 @@ describe('commonPrDescription', () => {
 
   it('should trim descriptions', () => {
     const multilineDescription = '  a      \n  bb  ';
-    mockHelpers('foo', 'bar', false, multilineDescription);
+    mockHelpers(false, multilineDescription);
 
     commonPrDescription();
 
@@ -107,7 +89,7 @@ describe('commonPrDescription', () => {
   });
 
   it('should strip mentions', () => {
-    mockHelpers('foo', 'bar', false, 'abc  @mention');
+    mockHelpers(false, 'abc  @mention');
 
     commonPrDescription();
 
@@ -115,7 +97,7 @@ describe('commonPrDescription', () => {
   });
 
   it('should log as "logType" when is provided', () => {
-    mockHelpers('foo', 'bar', false, 'abc');
+    mockHelpers(false, 'abc');
 
     commonPrDescription({ logType: 'fail' });
 

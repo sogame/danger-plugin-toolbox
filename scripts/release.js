@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
 
 const inquirer = require('inquirer'); // eslint-disable-line import/no-extraneous-dependencies
+const semver = require('semver'); // eslint-disable-line import/no-extraneous-dependencies
 const releaseit = require('release-it'); // eslint-disable-line import/no-extraneous-dependencies
+
+const pkg = require('../package.json');
 
 const questions = [
   {
@@ -20,25 +23,33 @@ async function release() {
     const { version } = await inquirer.prompt(questions);
     const isPreRelease = version === 'pre-release';
     const preReleaseTag = isPreRelease ? 'beta' : null;
+    const versionNumber = isPreRelease
+      ? preReleaseTag
+      : semver.inc(pkg.version, version);
+
+    let buildCommand = 'npm run build';
+    if (!isPreRelease) {
+      buildCommand = `${buildCommand} && npm run update:changelog ${versionNumber}`;
+    }
 
     const releaseOptions = {
-      increment: isPreRelease ? 'prerelease' : version,
+      increment: isPreRelease ? 'prerelease' : versionNumber,
       preReleaseId: preReleaseTag,
       'non-interactive': true,
       pkgFiles: ['package.json', 'package-lock.json'],
       requireCleanWorkingDir: true,
+      buildCommand,
       src: {
         commit: true,
         tag: true,
         push: true,
-        beforeStartCommand: 'npm run build',
       },
       npm: {
         publish: true,
         tag: isPreRelease ? preReleaseTag : 'latest',
       },
       github: {
-        release: isPreRelease,
+        release: !isPreRelease,
         preRelease: isPreRelease,
       },
     };

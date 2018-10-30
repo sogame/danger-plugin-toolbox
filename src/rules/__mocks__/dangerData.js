@@ -25,3 +25,9 @@ export const mockSourceProjectId = 'Source Project ID';
 export const mockLinesAddedFile = {
   'file1.js': 'lines added file1',
 };
+
+export const mockHref = (url, text) => `[[${url}||${text || ''}]]`;
+
+export const mockTargetRepoUrl = 'http://www.github.com/target/repo';
+
+export const mockSourceRepoUrl = 'http://www.github.com/source/repo';

@@ -6,7 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- New utility [`linkToTargetRepo`](docs/utilities.md#linktotargetrepo) to generate links to files in the target repository.
+- New utility [`linkToSourceRepo`](docs/utilities.md#linktosourcerepo) to generate links to files in the source repository.
+- New utility [`targetRepoUrl`](docs/utilities.md#targetrepourl) containing the target repository url.
+- New utility [`sourceRepoUrl`](docs/utilities.md#sourcerepourl) containing the source repository url.
 
 ## [1.1.0] - 2018-10-29
 

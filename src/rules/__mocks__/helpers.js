@@ -17,10 +17,19 @@ export const inCommitGrep = pattern =>
 export const committedFilesGrep = pattern =>
   mockCommittedFiles.filter(filename => filename.match(pattern) !== null);
 
-export const href = filename => `[[${filename}]]`;
+export const href = (filename, text) => `[[${filename}||${text || ''}]]`;
 
 export const fileAddedLineMatch = (filename, pattern) =>
   new Promise(resolve => {
     const fileContents = mockFilesContent[filename] || '';
     resolve(fileContents.match(pattern) !== null);
   });
+
+const linkToRepo = (repoUrl, file, text, branch) =>
+  `[[${repoUrl}||${file}||${text}||${branch}]]`;
+
+export const linkToTargetRepo = (file, text, branch) =>
+  linkToRepo('targetRepo', file, text, branch);
+
+export const linkToSourceRepo = (file, text, branch) =>
+  linkToRepo('sourceRepo', file, text, branch);

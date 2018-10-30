@@ -10,6 +10,9 @@ import {
   mockSourceBranch,
   mockSourceProjectId,
   mockLinesAddedFile,
+  mockHref,
+  mockTargetRepoUrl,
+  mockSourceRepoUrl,
 } from './src/rules/__mocks__/dangerData';
 
 global.danger = {
@@ -31,15 +34,15 @@ global.danger = {
       user: { login: mockPrAuthor },
       base: {
         ref: mockTargetBranch,
-        repo: { id: mockTargetProjectId },
+        repo: { id: mockTargetProjectId, html_url: mockTargetRepoUrl },
       },
       head: {
         ref: mockSourceBranch,
-        repo: { id: mockSourceProjectId },
+        repo: { id: mockSourceProjectId, html_url: mockSourceRepoUrl },
       },
     },
   },
-  utils: { href: jest.fn() },
+  utils: { href: (...params) => mockHref(...params) },
 };
 
 jest.mock('fs');

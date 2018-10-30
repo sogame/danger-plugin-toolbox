@@ -10,6 +10,9 @@ import {
   mockSourceBranch,
   mockSourceProjectId,
   mockLinesAddedFile,
+  mockHref,
+  mockTargetRepoUrl,
+  mockSourceRepoUrl,
 } from './__mocks__/dangerData';
 import {
   createdFiles,
@@ -28,6 +31,8 @@ import {
   inCommitGrep,
   fileAddedLines,
   fileAddedLineMatch,
+  linkToTargetRepo,
+  linkToSourceRepo,
 } from './helpers';
 
 jest.unmock('./helpers');
@@ -199,6 +204,106 @@ describe('helpers', () => {
         const expected = false;
 
         const result = await fileAddedLineMatch(filename, pattern);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
+    describe('linkToTargetRepo', () => {
+      it('should return the url for the file', () => {
+        const filename = 'file.js';
+
+        const expectedRepoUrl = `${mockTargetRepoUrl}/blob/master/${filename}`;
+        const expected = mockHref(expectedRepoUrl, filename);
+
+        const result = linkToTargetRepo(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return the url for the file with the defined text', () => {
+        const filename = 'file.js';
+        const linkText = 'link text';
+
+        const expectedRepoUrl = `${mockTargetRepoUrl}/blob/master/${filename}`;
+        const expected = mockHref(expectedRepoUrl, linkText);
+
+        const result = linkToTargetRepo(filename, linkText);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return the url for the file for the defined branch', () => {
+        const filename = 'file.js';
+        const branch = 'branch_name';
+
+        const expectedRepoUrl = `${mockTargetRepoUrl}/blob/${branch}/${filename}`;
+        const expected = mockHref(expectedRepoUrl, filename);
+
+        const result = linkToTargetRepo(filename, null, branch);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return the url for the file for the defined branch with the defined text', () => {
+        const filename = 'file.js';
+        const branch = 'branch_name';
+        const linkText = 'link text';
+
+        const expectedRepoUrl = `${mockTargetRepoUrl}/blob/${branch}/${filename}`;
+        const expected = mockHref(expectedRepoUrl, linkText);
+
+        const result = linkToTargetRepo(filename, linkText, branch);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
+    describe('linkToSourceRepo', () => {
+      it('should return the url for the file', () => {
+        const filename = 'file.js';
+
+        const expectedRepoUrl = `${mockSourceRepoUrl}/blob/master/${filename}`;
+        const expected = mockHref(expectedRepoUrl, filename);
+
+        const result = linkToSourceRepo(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return the url for the file with the defined text', () => {
+        const filename = 'file.js';
+        const linkText = 'link text';
+
+        const expectedRepoUrl = `${mockSourceRepoUrl}/blob/master/${filename}`;
+        const expected = mockHref(expectedRepoUrl, linkText);
+
+        const result = linkToSourceRepo(filename, linkText);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return the url for the file for the defined branch', () => {
+        const filename = 'file.js';
+        const branch = 'branch_name';
+
+        const expectedRepoUrl = `${mockSourceRepoUrl}/blob/${branch}/${filename}`;
+        const expected = mockHref(expectedRepoUrl, filename);
+
+        const result = linkToSourceRepo(filename, null, branch);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return the url for the file for the defined branch with the defined text', () => {
+        const filename = 'file.js';
+        const branch = 'branch_name';
+        const linkText = 'link text';
+
+        const expectedRepoUrl = `${mockSourceRepoUrl}/blob/${branch}/${filename}`;
+        const expected = mockHref(expectedRepoUrl, linkText);
+
+        const result = linkToSourceRepo(filename, linkText, branch);
 
         expect(result).toEqual(expected);
       });

@@ -50,6 +50,36 @@ Return the contents of all the lines that have been added in the provided file.
 
 Do the file added lines match a regex?
 
+### linkToTargetRepo
+
+Get a link to a file in the target repository (the one where the pull request will be merged into).
+
+Parameters:
+
+1. `filename`: The file to link to.
+1. `text`: The text to use for the link. Defaults to the value of `filename`.
+1. `branch`: The branch to link to. Defaults to `master`.
+
+```
+const link1 = linkToTargetRepo('foler/file.js');
+const link2 = linkToTargetRepo('CHANGELOG.md', 'changelog');
+```
+
+### linkToSourceRepo
+
+Get a link to a file in the source repository (the one where the pull request is being send from).
+
+Parameters:
+
+1. `filename`: The file to link to.
+1. `text`: The text to use for the link. Defaults to the value of `filename`.
+1. `branch`: The branch to link to. Defaults to `master`.
+
+```
+const link1 = linkToSourceRepo('foler/file.js');
+const link2 = linkToSourceRepo('CHANGELOG.md', 'changelog');
+```
+
 ### createdFiles
 
 Files added in the pull request (shorthand for `danger.git.created_files`).
@@ -86,6 +116,10 @@ Branch name where the pull request will be merged into (shorthand for `danger.gi
 
 Project ID where the pull request will be merged into (shorthand for `danger.github.pr.base.repo.id`).
 
+### targetRepoUrl
+
+Project repository url where the pull request will be merged into (shorthand for `danger.github.pr.base.repo.html_url`).
+
 ### sourceBranch
 
 Branch name where the pull request is being send from (shorthand for `danger.github.pr.head.ref`).
@@ -93,6 +127,10 @@ Branch name where the pull request is being send from (shorthand for `danger.git
 ### sourceProjectId
 
 Project ID where the pull request is being send from (shorthand for `danger.github.pr.head.repo.id`).
+
+### sourceRepoUrl
+
+Project repository url where the pull request is being send from (shorthand for `danger.github.pr.head.repo.html_url`).
 
 ### href
 

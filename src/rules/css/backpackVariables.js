@@ -1,5 +1,5 @@
 //
-// Recommend using Backpack variables/spacings (or whole multiples of them) instead of creating new values.
+// Recommend using Backpack variables/spacings (or whole multiples of them) instead of creating new values
 //
 
 import getMessageLogger from '../getMessageLogger';

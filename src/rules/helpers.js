@@ -12,11 +12,11 @@ const {
       user: { login: prAuthor },
       base: {
         ref: targetBranch,
-        repo: { id: targetProjectId },
+        repo: { id: targetProjectId, html_url: targetRepoUrl },
       },
       head: {
         ref: sourceBranch,
-        repo: { id: sourceProjectId },
+        repo: { id: sourceProjectId, html_url: sourceRepoUrl },
       },
     },
   },
@@ -70,3 +70,14 @@ export const fileAddedLineMatch = async (filename, pattern) => {
   const addedLines = await fileAddedLines(filename);
   return addedLines.match(pattern) !== null;
 };
+
+const linkToRepo = (repoUrl, file, text, branch = 'master') => {
+  const linkText = text || file;
+  return href(`${repoUrl}/blob/${branch}/${file}`, linkText);
+};
+
+export const linkToTargetRepo = (file, text, branch) =>
+  linkToRepo(targetRepoUrl, file, text, branch);
+
+export const linkToSourceRepo = (file, text, branch) =>
+  linkToRepo(sourceRepoUrl, file, text, branch);

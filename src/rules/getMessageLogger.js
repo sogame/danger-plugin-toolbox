@@ -4,6 +4,8 @@ export default type => {
       return fail;
     case 'message':
       return message;
+    case 'messageeeee':
+      return message;
     default:
       return warn;
   }

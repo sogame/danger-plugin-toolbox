@@ -9,7 +9,7 @@ describe('commonChangelog', () => {
     jest.resetAllMocks();
   });
 
-  it('should return "fail" when requested', () => {
+  it('should return "fail" when requestedddd', () => {
     const log = getMessageLogger('fail');
 
     log('foo');

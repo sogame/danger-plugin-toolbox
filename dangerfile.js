@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const {
   inCommitGrep,
   inCommit,
@@ -13,6 +15,26 @@ const {
   jsLockfile,
   jsTestShortcuts,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
+
+/*
+const { commonFileWarnings } = require('./src/rules/common/fileWarnings');
+const lintLog = fs.readFileSync('lint.log').toString();
+const lintWarnings = lintLog.match(/^.*\bwarning\b.*$/gim);
+const lintWarningsMd = lintWarnings.map(line => `- ${line}`).join('\n');
+message(`LINT LOG\n${lintWarningsMd}`);
+*/
+const commonFileWarnings = file => {
+  const contents = fs.readFileSync(file).toString();
+  const warnings = contents.match(/^.*\bwarning\b.*$/gim);
+  if (warnings) {
+    const warningsStr = warnings.map(line => `- ${line}`).join('\n');
+    warn(
+      `The file \`${file}\` contains the following warnings:\n${warningsStr}`,
+    );
+  }
+};
+commonFileWarnings('lint.log');
+commonFileWarnings('test.log');
 
 commonPrDescriptionContribution();
 

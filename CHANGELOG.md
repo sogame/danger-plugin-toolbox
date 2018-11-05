@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- New validation [`commonFileWarnings`](docs/validations.md#commonfilewarnings) to list all file lines containing the word `warning` (useful to surface linting/test warnings).
 
 ## [1.2.0] - 2018-10-31
 

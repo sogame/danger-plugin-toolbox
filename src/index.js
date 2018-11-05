@@ -6,6 +6,7 @@ import commonCommitMessage, {
 import commonContributingGuide from './rules/common/contributingGuide';
 import commonContribution from './rules/common/contribution';
 import commonFileExists from './rules/common/fileExists';
+import commonFileWarnings from './rules/common/fileWarnings';
 import commonPrDescription from './rules/common/prDescription';
 import commonPrDescriptionContribution from './rules/common/prDescriptionContribution';
 import commonValidJson from './rules/common/validJson';
@@ -35,6 +36,7 @@ export {
   commonContributingGuide,
   commonContribution,
   commonFileExists,
+  commonFileWarnings,
   commonPrDescription,
   commonPrDescriptionContribution,
   commonValidJson,

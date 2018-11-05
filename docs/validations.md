@@ -108,6 +108,29 @@ commonFileExists(['file1.js', 'folder/file2.js']);
 commonFileExists('file.js', { logType: 'fail' });
 ```
 
+### commonFileWarnings
+
+List file lines containing the word "warning".
+
+This can be used to surface warnings when running linters or tests: it only requires keeping the linter/test output in a log file witn a command like `(set -o pipefail; npm run lint |& tee linter.log);`.
+
+##### Parameters
+
+1. `file`: The file to check (find warnings).
+
+##### Configuration
+
+| Property | Type                       | Default Value |
+| -------- | -------------------------- | ------------- |
+| logType  | enum (warn, fail, message) | warn          |
+
+##### Usage
+
+```
+commonFileWarnings('linter.log');
+commonFileWarnings('tests.log', { logType: 'fail' });
+```
+
 ### commonPrDescription
 
 Check there is a description in the pull request (unless the pull request is flagged as [trivial](utilities.md#istrivial)).

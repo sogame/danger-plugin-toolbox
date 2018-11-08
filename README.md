@@ -23,7 +23,7 @@ const {
   jsLockfile,
   commonValidJson,
   inCommitGrep,
-} require('danger-plugin-toolbox');
+} = require('danger-plugin-toolbox');
 
 jsLockfile();
 

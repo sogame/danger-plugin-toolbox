@@ -64,3 +64,5 @@ changedRules.forEach(curChange => {
     );
   }
 });
+
+// fileContains('CHANGELOG.md', /^## \[Unreleased\]$/m);

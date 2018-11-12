@@ -5,6 +5,7 @@ import commonCommitMessage, {
 } from './rules/common/commitMessage';
 import commonContributingGuide from './rules/common/contributingGuide';
 import commonContribution from './rules/common/contribution';
+import commonFileContains from './rules/common/fileContains';
 import commonFileExists from './rules/common/fileExists';
 import commonFileWarnings from './rules/common/fileWarnings';
 import commonPrDescription from './rules/common/prDescription';
@@ -35,6 +36,7 @@ export {
   COMMON_COMMIT_MESSAGE_JIRA_MSG,
   commonContributingGuide,
   commonContribution,
+  commonFileContains,
   commonFileExists,
   commonFileWarnings,
   commonPrDescription,

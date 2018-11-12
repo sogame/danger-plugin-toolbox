@@ -85,6 +85,32 @@ commonContribution();
 commonContribution({ msg: 'Many thanks for your collaboration!' });
 ```
 
+### commonFileContains
+
+Make sure file contents match a regex.
+
+`reverse` can be used to make sure file contents do not match a regex.
+
+##### Parameters
+
+1. `file`: The file to check.
+1. `regex`: The regex used to match the file contents.
+
+##### Configuration
+
+| Property     | Type                                   | Default Value |
+| ------------ | -------------------------------------- | ------------- |
+| reverse      | bool                                   | false         |
+| logType      | enum (warn, fail, message)             | warn          |
+| buildMessage | func(filename, regex, reverse): string |               |
+
+##### Usage
+
+```
+commonFileContains('changelog.md', /unreleased/mi);
+commonFileContains('file.js', /^\s*var /mi { reverse: true });
+```
+
 ### commonFileExists
 
 Make sure the files exist in the repo.

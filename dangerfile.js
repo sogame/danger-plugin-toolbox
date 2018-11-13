@@ -12,6 +12,7 @@ const {
   jsLocalEslintChange,
   jsLockfile,
   jsTestShortcuts,
+  commonFileContains,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 
 commonPrDescriptionContribution();
@@ -31,6 +32,12 @@ jsLocalEslintChange();
 jsLockfile();
 
 jsTestShortcuts({ logTypeFocused: 'fail' });
+
+const noUnreleasedSection = () =>
+  'CHANGELOG.md is missing the "Unreleased" section.';
+commonFileContains('CHANGELOG.md', /^## \[Unreleased\]$/m, {
+  buildMessage: noUnreleasedSection,
+});
 
 // Make sure documentation has been added/updated when a validation/helper is added/updated
 const validationsMd = 'docs/validations.md';
@@ -64,5 +71,3 @@ changedRules.forEach(curChange => {
     );
   }
 });
-
-// fileContains('CHANGELOG.md', /^## \[Unreleased\]$/m);

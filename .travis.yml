@@ -6,7 +6,7 @@ addons:
 
 install:
   - npm ci --quiet
-  - npm install -g danger-plugin-toolbox@1.2.0
+  - npm install -g danger-plugin-toolbox@1.3.1
   - npm link danger-plugin-toolbox # Link the global version of "danger-plugin-toolbox" into the local "node_modules/"
 
 script:

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.3.1] - 2018-11-13
+
 ### Fixed
 
 - Fix messages in `commonFileContains` validation.

@@ -13,10 +13,10 @@ const mockFiles = {
 fs.setMockFiles(mockFiles);
 
 const buildRegularMessage = (filename, regex) =>
-  `The file \`${filename}\` matches \`${regex}\`.`;
+  `The file \`${filename}\` does not match \`${regex}\`.`;
 
 const builReverseMessage = (filename, regex) =>
-  `The file \`${filename}\` does not match \`${regex}\`.`;
+  `The file \`${filename}\` matches \`${regex}\`.`;
 
 const buildCustomMessage = (filename, regex) =>
   `Custom message: \`${filename}\`, \`${regex}\`.`;

@@ -9,8 +9,8 @@ import { inCommit } from '../helpers';
 
 const defaultMessage = (file, regex, reverse) =>
   reverse
-    ? `The file \`${file}\` does not match \`${regex}\`.`
-    : `The file \`${file}\` matches \`${regex}\`.`;
+    ? `The file \`${file}\` matches \`${regex}\`.`
+    : `The file \`${file}\` does not match \`${regex}\`.`;
 
 export default (
   file,

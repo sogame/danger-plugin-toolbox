@@ -22,12 +22,15 @@ export default async ({ logTypeSkipped, logTypeFocused } = {}) => {
   const logFocused = getMessageLogger(logTypeFocused);
   const jsFiles = committedFilesGrep(/(\.test\.js|\.test\.jsx|\.spec\.js)$/i);
   await jsFiles.forEach(async filename => {
-    const hasSkippedTests = await hasJsSkippedTests(filename);
+    const [hasSkippedTests, hasFocusedTests] = await Promise.all([
+      hasJsSkippedTests(filename),
+      hasJsFocusedTests(filename),
+    ]);
+
     if (hasSkippedTests) {
       logSkipped(`The file \`${filename}\` may contain skipped tests.`);
     }
 
-    const hasFocusedTests = await hasJsFocusedTests(filename);
     if (hasFocusedTests) {
       logFocused(
         `The file \`${filename}\` may contain focused ("only") tests.`,

@@ -8,11 +8,13 @@ const validJs = 'valid.js';
 const invalidJs = 'invalid.js';
 const invalidJsCase = 'invalid.Js';
 const invalidJsx = 'invalid.jsx';
+const invalidTs = 'invalid.ts';
 const mockFiles = {
   [validJs]: 'const foo = 42;',
   [invalidJs]: 'console.log("foo");',
   [invalidJsCase]: 'console.log("foo");',
   [invalidJsx]: 'console.log("foo");',
+  [invalidTs]: 'console.log("foo");',
 };
 
 helpers.setMockFilesContent(mockFiles);
@@ -34,11 +36,33 @@ describe('jsConsoleCommands', () => {
     expect(global.warn).not.toHaveBeenCalled();
   });
 
-  it('should warn when any console command is used', async () => {
+  it('should warn when any console command is used (js)', async () => {
     const files = [validJs, invalidJs];
     helpers.setMockCommittedFiles(files);
 
     const expectedMsg = buildMessage(invalidJs);
+
+    await jsConsoleCommands();
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+  });
+
+  it('should warn when any console command is used (jsx)', async () => {
+    const files = [validJs, invalidJsx];
+    helpers.setMockCommittedFiles(files);
+
+    const expectedMsg = buildMessage(invalidJsx);
+
+    await jsConsoleCommands();
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+  });
+
+  it('should warn when any console command is used (ts)', async () => {
+    const files = [validJs, invalidTs];
+    helpers.setMockCommittedFiles(files);
+
+    const expectedMsg = buildMessage(invalidTs);
 
     await jsConsoleCommands();
 

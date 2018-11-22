@@ -19,6 +19,7 @@ const fit = 'fit.test.js';
 const itOnly = 'itOnly.test.js';
 const testOnly = 'testOnly.test.js';
 const invalidJsx = 'xdescribe.test.jsx';
+const invalidTs = 'xdescribe.test.ts';
 const invalidSpec = 'xdescribe.spec.jsx';
 const invalidCase = 'xdescribe.test.JS';
 const mockFiles = {
@@ -34,6 +35,7 @@ const mockFiles = {
   [itOnly]: 'it.only("should ...")',
   [testOnly]: 'test.only("should ...")',
   [invalidJsx]: 'xdescribe("should ...")',
+  [invalidTs]: 'xdescribe("should ...")',
   [invalidSpec]: 'xdescribe("should ...")',
   [invalidCase]: 'xdescribe("should ...")',
 };
@@ -170,6 +172,28 @@ describe('jsTestShortcuts', () => {
 
       expect(global.warn).toHaveBeenCalledWith(expectedMsg);
     });
+  });
+
+  it('should support jsx files', async () => {
+    const files = [validJs, invalidJsx];
+    helpers.setMockCommittedFiles(files);
+
+    const expectedMsg = buildMessageSkipped(invalidJsx);
+
+    await jsTestShortcuts();
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+  });
+
+  it('should support ts files', async () => {
+    const files = [validJs, invalidTs];
+    helpers.setMockCommittedFiles(files);
+
+    const expectedMsg = buildMessageSkipped(invalidTs);
+
+    await jsTestShortcuts();
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
   });
 
   it('should ignore file extension casing', async () => {

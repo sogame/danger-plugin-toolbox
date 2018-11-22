@@ -20,7 +20,7 @@ export default async ({ logTypeSkipped, logTypeFocused } = {}) => {
 
   const logSkipped = getMessageLogger(logTypeSkipped);
   const logFocused = getMessageLogger(logTypeFocused);
-  const jsFiles = committedFilesGrep(/(\.test\.js|\.test\.jsx|\.spec\.js)$/i);
+  const jsFiles = committedFilesGrep(/\.(test|spec)\.(js|jsx|ts)$/i);
   await jsFiles.forEach(async filename => {
     const [hasSkippedTests, hasFocusedTests] = await Promise.all([
       hasJsSkippedTests(filename),

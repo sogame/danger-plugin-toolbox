@@ -10,7 +10,7 @@ export default async ({ logType } = {}) => {
     fileAddedLineMatch(filename, /console\.[a-z]+/);
 
   const log = getMessageLogger(logType);
-  const jsFiles = committedFilesGrep(/(\.js|\.jsx)$/i);
+  const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
   await jsFiles.forEach(async filename => {
     const hasConsole = await hasJsConsoleCommands(filename);
     if (hasConsole) {

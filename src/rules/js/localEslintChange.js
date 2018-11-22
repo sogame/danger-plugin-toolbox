@@ -10,7 +10,7 @@ export default async ({ logType } = {}) => {
     fileAddedLineMatch(filename, /eslint-disable/);
 
   const log = getMessageLogger(logType);
-  const jsFiles = committedFilesGrep(/(\.js|\.jsx)$/i);
+  const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
   await jsFiles.forEach(async filename => {
     const hasDisabledRules = await hasDisabledEslint(filename);
     if (hasDisabledRules) {

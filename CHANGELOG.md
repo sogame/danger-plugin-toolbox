@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.4.0] - 2018-11-25
+
 ### Added
 
 - Add support for TypeScript files in `jsConsoleCommands`, `jsLocalEslintChange` and `jsTestShortcuts`.

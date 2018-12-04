@@ -1,25 +1,29 @@
 const {
-  inCommitGrep,
-  inCommit,
   committedFilesGrep,
-  linkToTargetRepo,
-  commonPrDescriptionContribution,
-  commonContributingGuide,
   commonChangelog,
+  commonContributingGuide,
+  commonFileContains,
+  commonPrDescriptionContribution,
   commonValidJson,
+  inCommit,
+  inCommitGrep,
   jsConsoleCommands,
   jsGlobalEslintChange,
   jsLocalEslintChange,
   jsLockfile,
   jsTestShortcuts,
-  commonFileContains,
+  linkToTargetRepo,
+  prAuthor,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 
 commonPrDescriptionContribution();
 
 commonContributingGuide();
 
-commonChangelog();
+// Only require "CHANGELOG.md" to be updated when the PR is not created by Greenkeeper
+if (prAuthor !== 'greenkeeper') {
+  commonChangelog();
+}
 
 commonValidJson();
 

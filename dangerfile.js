@@ -24,6 +24,7 @@ commonContributingGuide();
 if (prAuthor !== 'greenkeeper') {
   commonChangelog();
 }
+message(`prAuthor: ${prAuthor}`);
 
 commonValidJson();
 

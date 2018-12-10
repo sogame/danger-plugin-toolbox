@@ -21,10 +21,9 @@ commonPrDescriptionContribution();
 commonContributingGuide();
 
 // Only require "CHANGELOG.md" to be updated when the PR is not created by Greenkeeper
-if (prAuthor !== 'greenkeeper') {
+if (prAuthor !== 'greenkeeper[bot]') {
   commonChangelog();
 }
-message(`prAuthor: ${prAuthor}`);
 
 commonValidJson();
 

@@ -37,9 +37,11 @@ async function release() {
       preReleaseId: preReleaseTag,
       'non-interactive': true,
       pkgFiles: ['package.json', 'package-lock.json'],
-      requireCleanWorkingDir: true,
-      buildCommand,
-      src: {
+      scripts: {
+        beforeStage: buildCommand,
+      },
+      git: {
+        requireCleanWorkingDir: true,
         commit: true,
         tag: true,
         push: true,

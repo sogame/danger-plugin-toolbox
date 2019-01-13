@@ -4,8 +4,8 @@
   "version": "1.4.0",
   "main": "dist/index.js",
   "engines": {
-    "node": "^10.13.0",
-    "npm": "^6.4.1"
+    "node": ">=10.15.0",
+    "npm": ">=6.4.1"
   },
   "scripts": {
     "pretest": "ensure-node-env",

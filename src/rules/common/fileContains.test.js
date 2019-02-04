@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import * as helpers from '../helpers';
+
 import commonFileContains from './fileContains';
 
 const fileFoo = 'fileFoo.txt';

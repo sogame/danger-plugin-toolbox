@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import commonPrDescriptionContribution from './prDescriptionContribution';
 
 const mockHelpers = (externalPr, isTrivial, prDescription) => {

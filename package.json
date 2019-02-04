@@ -38,7 +38,9 @@
     ]
   },
   "jest": {
-    "setupFilesAfterEnv": ["<rootDir>/setupTests.js"]
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.js"
+    ]
   },
   "repository": {
     "type": "git",

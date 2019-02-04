@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import jsConsoleCommands from './consoleCommands';
 
 const buildMessage = filename =>

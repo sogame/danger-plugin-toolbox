@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import commonContribution from './contribution';
 
 const author = 'John Doe';

@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import cssGlobalStylelintChange from './globalStylelintChange';
 
 const getMessageStylelintrc = (path = '') =>

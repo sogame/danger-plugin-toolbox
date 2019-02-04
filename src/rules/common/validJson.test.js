@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import * as helpers from '../helpers';
+
 import commonValidJson from './validJson';
 
 const validJson = 'valid.json';

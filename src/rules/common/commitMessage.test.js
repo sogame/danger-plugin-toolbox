@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import commonCommitMessage, {
   COMMON_COMMIT_MESSAGE_JIRA_REGEX,
 } from './commitMessage';

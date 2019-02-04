@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import imageMinified from './minified';
 
 describe('imageMinified', () => {

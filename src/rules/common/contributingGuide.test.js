@@ -1,5 +1,6 @@
 import { mockHref } from '../__mocks__/dangerData';
 import * as helpers from '../helpers';
+
 import commonContributingGuide from './contributingGuide';
 
 const author = 'John Doe';

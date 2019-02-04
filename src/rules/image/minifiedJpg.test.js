@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import imageMinifiedJpg from './minifiedJpg';
 
 const message =

@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import cssBackpackVariables from './backpackVariables';
 
 const validScss = 'valid.scss';

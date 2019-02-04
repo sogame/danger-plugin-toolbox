@@ -1,4 +1,5 @@
 import * as helpers from '../helpers';
+
 import cssLocalStylelintChange from './localStylelintChange';
 
 const validScss = 'valid.scss';

@@ -60,7 +60,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "ajv": "6.9.2",
+    "ajv": "6.10.0",
     "babel-cli": "6.26.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.1.0",

@@ -214,19 +214,22 @@ commonValidJson({ logType: 'fail' });
 
 ### cssBackpackVariables
 
-Recommend using [Backpack](https://backpack.github.io/) variables/spacings (or whole multiples of them) instead of creating new values.
+Recommend using [Backpack](https://backpack.github.io/) variables/spacings (or whole multiples of them) instead of creating new values. Also, checks if `$bpk-one-pixel-rem` is used, as this can hide the usage of `px` units.
 
 ##### Configuration
 
-| Property | Type                       | Default Value |
-| -------- | -------------------------- | ------------- |
-| logType  | enum (warn, fail, message) | warn          |
+| Property                | Type                       | Default Value |
+| ----------------------- | -------------------------- | ------------- |
+| logTypeNonBackpackUnits | enum (warn, fail, message) | warn          |
+| logTypeOnePixelRem      | enum (warn, fail, message) | warn          |
+| logType                 | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 cssBackpackVariables();
-cssBackpackVariables({ logType: 'fail' });
+cssBackpackVariables({ logTypeNonBackpackUnits: 'fail', logTypeOnePixelRem: 'message' });
+cssBackpackVariables({ logType: 'fail' }); // Set both log types to "fail"
 ```
 
 ### cssGlobalStylelintChange

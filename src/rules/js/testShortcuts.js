@@ -5,7 +5,7 @@
 import getMessageLogger from '../getMessageLogger';
 import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
 
-export default async ({ logTypeSkipped, logTypeFocused } = {}) => {
+export default async ({ logTypeSkipped, logTypeFocused, logType } = {}) => {
   const hasJsSkippedTests = filename =>
     fileAddedLineMatch(
       filename,
@@ -18,8 +18,8 @@ export default async ({ logTypeSkipped, logTypeFocused } = {}) => {
       /fdescribe|describe\.only|fit|it\.only|test\.only/i,
     );
 
-  const logSkipped = getMessageLogger(logTypeSkipped);
-  const logFocused = getMessageLogger(logTypeFocused);
+  const logSkipped = getMessageLogger(logTypeSkipped || logType);
+  const logFocused = getMessageLogger(logTypeFocused || logType);
   const jsFiles = committedFilesGrep(/\.(test|spec)\.(js|jsx|ts)$/i);
   await jsFiles.forEach(async filename => {
     const [hasSkippedTests, hasFocusedTests] = await Promise.all([

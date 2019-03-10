@@ -89,11 +89,59 @@ describe('jsLockfile', () => {
     expect(global.fail).toHaveBeenCalled();
   });
 
+  it('should log as "logTypePackage" when "logType" is also provided', () => {
+    const files = ['file.js', 'package.json'];
+    helpers.setMockCommittedFiles(files);
+
+    jsLockfile({
+      logTypePackage: 'fail',
+      logType: 'message',
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
   it('should log as "logTypePackageLock" when is provided', () => {
     const files = ['file.js', 'package-lock.json'];
     helpers.setMockCommittedFiles(files);
 
     jsLockfile({ logTypePackageLock: 'fail' });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logTypePackageLock" when "logType" is also provided', () => {
+    const files = ['file.js', 'package-lock.json'];
+    helpers.setMockCommittedFiles(files);
+
+    jsLockfile({
+      logTypePackageLock: 'fail',
+      logType: 'message',
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logType" when provided but "logTypePackage" is not', () => {
+    const files = ['file.js', 'package.json'];
+    helpers.setMockCommittedFiles(files);
+
+    jsLockfile({ logType: 'fail' });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logType" when provided but "logTypePackageLock" is not', () => {
+    const files = ['file.js', 'package-lock.json'];
+    helpers.setMockCommittedFiles(files);
+
+    jsLockfile({ logType: 'fail' });
 
     expect(global.warn).not.toHaveBeenCalled();
     expect(global.fail).toHaveBeenCalled();

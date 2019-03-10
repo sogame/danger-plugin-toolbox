@@ -151,7 +151,7 @@ describe('cssBackpackVariables', () => {
     );
   });
 
-  it('should log as "logType" when provided but "logTypeNonBackpackUnits" is not ', async () => {
+  it('should log as "logType" when provided but "logTypeNonBackpackUnits" is not', async () => {
     const files = [validScss, invalidUnitsScss, invalidPixelScss];
     helpers.setMockCommittedFiles(files);
 
@@ -169,7 +169,7 @@ describe('cssBackpackVariables', () => {
     );
   });
 
-  it('should log as "logType" when provided but "logTypeOnePixelRem" is not ', async () => {
+  it('should log as "logType" when provided but "logTypeOnePixelRem" is not', async () => {
     const files = [validScss, invalidUnitsScss, invalidPixelScss];
     helpers.setMockCommittedFiles(files);
 

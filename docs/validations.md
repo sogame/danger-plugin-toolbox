@@ -242,6 +242,7 @@ Check if global stylelint configuration (`.stylelintrc`) or `.stylelintignore` h
 | ---------------------- | -------------------------- | ------------- |
 | logTypeStylelintrc     | enum (warn, fail, message) | warn          |
 | logTypeStylelintignore | enum (warn, fail, message) | warn          |
+| logType                | enum (warn, fail, message) | warn          |
 | path                   | string                     | ''            |
 
 ##### Usage
@@ -249,6 +250,7 @@ Check if global stylelint configuration (`.stylelintrc`) or `.stylelintignore` h
 ```
 cssGlobalStylelintChange();
 cssGlobalStylelintChange({ logTypeStylelintrc: 'fail', logTypeStylelintignore: 'message' });
+cssGlobalStylelintChange({ logType: 'fail' }); // Set both log types to "fail"
 cssGlobalStylelintChange({ path: 'another/folder/' });
 ```
 
@@ -432,6 +434,7 @@ Check if global eslint configuration (`.eslintrc`) or `.eslintignore` have been 
 | ------------------- | -------------------------- | ------------- |
 | logTypeEslintrc     | enum (warn, fail, message) | warn          |
 | logTypeEslintignore | enum (warn, fail, message) | warn          |
+| logType             | enum (warn, fail, message) | warn          |
 | path                | string                     | ''            |
 
 ##### Usage
@@ -439,6 +442,7 @@ Check if global eslint configuration (`.eslintrc`) or `.eslintignore` have been 
 ```
 jsGlobalEslintChange();
 jsGlobalEslintChange({ logTypeEslintrc: 'fail', logTypeEslintignore: 'message' });
+jsGlobalEslintChange({ logType: 'fail' }); // Set both log types to "fail"
 jsGlobalEslintChange({ path: 'another/folder/' });
 ```
 
@@ -469,6 +473,7 @@ If dependencies change (changes in `package.json`), `package-lock.json` also mus
 | ------------------ | -------------------------- | ------------- |
 | logTypePackage     | enum (warn, fail, message) | warn          |
 | logTypePackageLock | enum (warn, fail, message) | warn          |
+| logType            | enum (warn, fail, message) | warn          |
 | path               | string                     | ''            |
 
 ##### Usage
@@ -476,6 +481,7 @@ If dependencies change (changes in `package.json`), `package-lock.json` also mus
 ```
 jsLockfile();
 jsLockfile({ logTypePackage: 'fail', logTypePackageLock: 'message' });
+jsLockfile({ logType: 'fail' }); // Set both log types to "fail"
 jsLockfile({ path: 'another/folder/' });
 ```
 
@@ -489,10 +495,12 @@ Check if there are test shortcuts (skipped/focused tests).
 | -------------- | -------------------------- | ------------- |
 | logTypeSkipped | enum (warn, fail, message) | warn          |
 | logTypeFocused | enum (warn, fail, message) | warn          |
+| logType        | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 jsTestShortcuts();
 jsTestShortcuts({ logTypeSkipped: 'message', logTypeFocused: 'fail' });
+jsTestShortcuts({ logType: 'fail' }); // Set both log types to "fail"
 ```

@@ -218,6 +218,20 @@ describe('jsTestShortcuts', () => {
     expect(global.fail).toHaveBeenCalled();
   });
 
+  it('should log as "logTypeSkipped" when "logType" is also provided', async () => {
+    const files = [validJs, xdescribe];
+    helpers.setMockCommittedFiles(files);
+
+    await jsTestShortcuts({
+      logTypeSkipped: 'fail',
+      logType: 'message',
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
   it('should log as "logTypeFocused" when is provided', async () => {
     const files = [validJs, fdescribe];
     helpers.setMockCommittedFiles(files);
@@ -225,6 +239,20 @@ describe('jsTestShortcuts', () => {
     await jsTestShortcuts({ logTypeFocused: 'fail' });
 
     expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logTypeFocused" when "logType" is also provided', async () => {
+    const files = [validJs, fdescribe];
+    helpers.setMockCommittedFiles(files);
+
+    await jsTestShortcuts({
+      logTypeFocused: 'fail',
+      logType: 'message',
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
     expect(global.fail).toHaveBeenCalled();
   });
 
@@ -240,5 +268,25 @@ describe('jsTestShortcuts', () => {
     expect(global.warn).not.toHaveBeenCalled();
     expect(global.message).toHaveBeenCalledWith(buildMessageSkipped(xdescribe));
     expect(global.fail).toHaveBeenCalledWith(buildMessageFocused(fdescribe));
+  });
+
+  it('should log as "logType" when provided but "logTypeSkipped" is not', async () => {
+    const files = [validJs, xdescribe];
+    helpers.setMockCommittedFiles(files);
+
+    await jsTestShortcuts({ logType: 'fail' });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logType" when provided but "logTypeFocused" is not', async () => {
+    const files = [validJs, fdescribe];
+    helpers.setMockCommittedFiles(files);
+
+    await jsTestShortcuts({ logType: 'fail' });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
   });
 });

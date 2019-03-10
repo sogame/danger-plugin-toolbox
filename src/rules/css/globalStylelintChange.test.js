@@ -111,6 +111,20 @@ describe('cssGlobalStylelintChange', () => {
     expect(global.fail).toHaveBeenCalled();
   });
 
+  it('should log as "logTypeStylelintrc" when "logType" is also provided', () => {
+    const files = ['file.js', '.stylelintrc'];
+    helpers.setMockCommittedFiles(files);
+
+    cssGlobalStylelintChange({
+      logTypeStylelintrc: 'fail',
+      logType: 'message',
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
   it('should log as "logTypeStylelintignore" when is provided', () => {
     const files = ['file.js', '.stylelintignore'];
     helpers.setMockCommittedFiles(files);
@@ -118,6 +132,20 @@ describe('cssGlobalStylelintChange', () => {
     cssGlobalStylelintChange({ logTypeStylelintignore: 'fail' });
 
     expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logTypeStylelintignore" when "logType" is also provided', () => {
+    const files = ['file.js', '.stylelintignore'];
+    helpers.setMockCommittedFiles(files);
+
+    cssGlobalStylelintChange({
+      logTypeStylelintignore: 'fail',
+      logType: 'message',
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
     expect(global.fail).toHaveBeenCalled();
   });
 
@@ -133,5 +161,25 @@ describe('cssGlobalStylelintChange', () => {
     expect(global.warn).not.toHaveBeenCalled();
     expect(global.message).toHaveBeenCalledWith(getMessageStylelintrc());
     expect(global.fail).toHaveBeenCalledWith(getMessageStylelinignore());
+  });
+
+  it('should log as "logType" when provided but "logTypeStylelintrc" is not', () => {
+    const files = ['file.js', '.stylelintrc'];
+    helpers.setMockCommittedFiles(files);
+
+    cssGlobalStylelintChange({ logType: 'fail' });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logType" when provided but "logTypeStylelintignore" is not', () => {
+    const files = ['file.js', '.stylelintignore'];
+    helpers.setMockCommittedFiles(files);
+
+    cssGlobalStylelintChange({ logType: 'fail' });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
   });
 });

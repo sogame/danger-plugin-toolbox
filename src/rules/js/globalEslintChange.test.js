@@ -112,6 +112,20 @@ describe('jsGlobalEslintChange', () => {
     expect(global.fail).toHaveBeenCalled();
   });
 
+  it('should log as "logTypeEslintrc" when "logType" is also provided', async () => {
+    const files = ['file.js', '.eslintrc'];
+    helpers.setMockCommittedFiles(files);
+
+    jsGlobalEslintChange({
+      logTypeEslintrc: 'fail',
+      logType: 'message',
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
   it('should log as "logTypeEslintignore" when is provided', async () => {
     const files = ['file.js', '.eslintignore'];
     helpers.setMockCommittedFiles(files);
@@ -119,6 +133,20 @@ describe('jsGlobalEslintChange', () => {
     jsGlobalEslintChange({ logTypeEslintignore: 'fail' });
 
     expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logTypeEslintignore" when "logType" is also provided', async () => {
+    const files = ['file.js', '.eslintignore'];
+    helpers.setMockCommittedFiles(files);
+
+    jsGlobalEslintChange({
+      logTypeEslintignore: 'fail',
+      logType: 'message',
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
     expect(global.fail).toHaveBeenCalled();
   });
 
@@ -134,5 +162,25 @@ describe('jsGlobalEslintChange', () => {
     expect(global.warn).not.toHaveBeenCalled();
     expect(global.message).toHaveBeenCalledWith(getMessageEslintrc());
     expect(global.fail).toHaveBeenCalledWith(getMessageEslinignore());
+  });
+
+  it('should log as "logType" when provided but "logTypeEslintrc" is not', async () => {
+    const files = ['file.js', '.eslintrc'];
+    helpers.setMockCommittedFiles(files);
+
+    jsGlobalEslintChange({ logType: 'fail' });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
+  });
+
+  it('should log as "logType" when provided but "logTypeEslintignore" is not', async () => {
+    const files = ['file.js', '.eslintignore'];
+    helpers.setMockCommittedFiles(files);
+
+    jsGlobalEslintChange({ logType: 'fail' });
+
+    expect(global.warn).not.toHaveBeenCalled();
+    expect(global.fail).toHaveBeenCalled();
   });
 });

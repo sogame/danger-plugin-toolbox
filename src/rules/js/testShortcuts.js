@@ -9,13 +9,13 @@ export default async ({ logTypeSkipped, logTypeFocused, logType } = {}) => {
   const hasJsSkippedTests = filename =>
     fileAddedLineMatch(
       filename,
-      /^\s*(xdescribe|describe\.skip|xit|it\.skip|test\.skip)\(/i,
+      /(xdescribe|describe\.skip|xit|it\.skip|test\.skip)\(/i,
     );
 
   const hasJsFocusedTests = filename =>
     fileAddedLineMatch(
       filename,
-      /^\s*(fdescribe|describe\.only|fit|it\.only|test\.only)\(/i,
+      /(fdescribe|describe\.only|fit|it\.only|test\.only)\(/i,
     );
 
   const logSkipped = getMessageLogger(logTypeSkipped || logType);

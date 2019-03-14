@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Fixed
+
+- Improve `jsTestShortcuts` check (make sure it's a function call).
 
 ## [1.5.0] - 2019-3-14
 
@@ -17,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
-- Improve `jsTestShortcuts` check (make sure it's a function call at the begining of a line).
+- Improve `jsTestShortcuts` check (make sure it's a function call).
 
 ## [1.4.0] - 2018-11-25
 

@@ -5,6 +5,7 @@ const {
   commonFileContains,
   commonPrDescriptionContribution,
   commonValidJson,
+  commonFileWarnings,
   inCommit,
   inCommitGrep,
   jsConsoleCommands,
@@ -26,6 +27,10 @@ if (prAuthor !== 'greenkeeper[bot]') {
 }
 
 commonValidJson();
+
+commonFileWarnings('lint.log');
+
+commonFileWarnings('test.log');
 
 jsConsoleCommands();
 

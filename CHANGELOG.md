@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.5.0] - 2019-3-14
+
 ### Added
 
 - The validation [`cssBackpackVariables`](docs/validations.md#cssbackpackvariables) now also checks if `$bpk-one-pixel-rem` is used. This can hide the usage of `px` units.

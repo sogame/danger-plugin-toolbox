@@ -23,6 +23,10 @@ const invalidJsx = 'xdescribe.test.jsx';
 const invalidTs = 'xdescribe.test.ts';
 const invalidSpec = 'xdescribe.spec.jsx';
 const invalidCase = 'xdescribe.test.JS';
+const noFunctionCall = 'noFunctionCall.test.ts';
+const noStartLine = 'noStartLine.test.ts';
+const startLineNoWhitespaces = 'startLineNoWhitespaces.test.ts';
+const startLineWhitespaces = 'startLineWhitespaces.test.ts';
 const mockFiles = {
   [validJs]: 'it("should ...")',
   [xdescribe]: 'xdescribe("should ...")',
@@ -39,6 +43,10 @@ const mockFiles = {
   [invalidTs]: 'xdescribe("should ...")',
   [invalidSpec]: 'xdescribe("should ...")',
   [invalidCase]: 'xdescribe("should ...")',
+  [noFunctionCall]: 'xdescribe foo',
+  [noStartLine]: 'fooxdescribe("should ...")',
+  [startLineNoWhitespaces]: 'xdescribe("should ...")',
+  [startLineWhitespaces]: '    xdescribe("should ...")',
 };
 
 helpers.setMockFilesContent(mockFiles);
@@ -206,6 +214,46 @@ describe('jsTestShortcuts', () => {
     expect(global.warn).toHaveBeenCalledWith(
       expect.stringContaining(invalidCase),
     );
+  });
+
+  it('should not warn when it is not a function call', async () => {
+    const files = [noFunctionCall];
+    helpers.setMockCommittedFiles(files);
+
+    await jsTestShortcuts();
+
+    expect(global.warn).not.toHaveBeenCalled();
+  });
+
+  it('should not warn when function call is not at the start of the line', async () => {
+    const files = [noStartLine];
+    helpers.setMockCommittedFiles(files);
+
+    await jsTestShortcuts();
+
+    expect(global.warn).not.toHaveBeenCalled();
+  });
+
+  it('should warn when at the start of line (without whitespaces)', async () => {
+    const files = [startLineNoWhitespaces];
+    helpers.setMockCommittedFiles(files);
+
+    const expectedMsg = buildMessageSkipped(startLineNoWhitespaces);
+
+    await jsTestShortcuts();
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+  });
+
+  it('should warn when at the start of line (with whitespaces)', async () => {
+    const files = [startLineWhitespaces];
+    helpers.setMockCommittedFiles(files);
+
+    const expectedMsg = buildMessageSkipped(startLineWhitespaces);
+
+    await jsTestShortcuts();
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
   });
 
   it('should log as "logTypeSkipped" when is provided', async () => {

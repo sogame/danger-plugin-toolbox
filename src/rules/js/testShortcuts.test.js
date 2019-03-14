@@ -339,7 +339,7 @@ describe('jsTestShortcuts', () => {
     expect(global.fail).toHaveBeenCalled();
   });
 
-  it('should log as "logType" when provided but "logTypeFocused" is not', async () => {
+  it.skip('should log as "logType" when provided but "logTypeFocused" is not', async () => {
     const files = [validJs, fdescribe];
     helpers.setMockCommittedFiles(files);
 

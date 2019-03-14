@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.5.1] - 2019-3-14
+
 ### Fixed
 
 - Improve `jsTestShortcuts` check (make sure it's a function call).

@@ -83,6 +83,14 @@ describe('commonCommitMessage', () => {
         expect(result).not.toBeNull();
       });
 
+      it('should match strings starting with a Jira ticket without braces', () => {
+        const message = 'FOO-123 Some text';
+
+        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+
+        expect(result).not.toBeNull();
+      });
+
       it('should match strings starting with "[NO-JIRA]"', () => {
         const message = '[NO-JIRA] Some text';
 
@@ -91,12 +99,28 @@ describe('commonCommitMessage', () => {
         expect(result).not.toBeNull();
       });
 
-      it('should not match strings starting with a Jira ticket without braces', () => {
-        const message = 'FOO-123 Some text';
+      it('should match strings starting with "NO-JIRA"', () => {
+        const message = 'NO-JIRA Some text';
 
         const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
 
-        expect(result).toBeNull();
+        expect(result).not.toBeNull();
+      });
+
+      it('should be case insensitive (Jira ticket)', () => {
+        const message = '[fOo-123] Some text';
+
+        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+
+        expect(result).not.toBeNull();
+      });
+
+      it('should be case insensitive (NO-JIRA)', () => {
+        const message = 'No-Jira Some text';
+
+        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+
+        expect(result).not.toBeNull();
       });
 
       it('should not match when the ticket is not at the start of the string', () => {
@@ -109,6 +133,14 @@ describe('commonCommitMessage', () => {
 
       it('should not match a string in braces', () => {
         const message = '[FOO] Some text';
+
+        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+
+        expect(result).toBeNull();
+      });
+
+      it('should not match if there is no space after the Jira ticket', () => {
+        const message = '[FOO-123]Some text';
 
         const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
 

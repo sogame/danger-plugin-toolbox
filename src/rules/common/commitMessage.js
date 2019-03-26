@@ -5,9 +5,9 @@
 import getMessageLogger from '../getMessageLogger';
 import { commits } from '../helpers';
 
-export const COMMON_COMMIT_MESSAGE_JIRA_REGEX = /^\[[a-zA-Z]+-\d+\]|\[NO-JIRA\]/;
+export const COMMON_COMMIT_MESSAGE_JIRA_REGEX = /^(\[[a-z]+-\d+\] )|([a-z]+-\d+ )|(\[NO-JIRA\] )|(NO-JIRA )/i;
 export const COMMON_COMMIT_MESSAGE_JIRA_MSG =
-  'Please include a JIRA reference like `[XXX-YYYY]` in each commit or use `[NO-JIRA]`.';
+  'Please include a JIRA reference like `[XXX-DDDD]` in each commit or use `[NO-JIRA]`.';
 
 export default (regex, message, { logType } = {}) => {
   if (!regex) {

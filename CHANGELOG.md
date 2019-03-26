@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- The regex to check for a Jira ticket in a commit message now allows not using braces around the ticket id (so `ABC-123 My commit message` will now work). The regex is also case insensitive now.
 
 ## [1.5.1] - 2019-3-14
 

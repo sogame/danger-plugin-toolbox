@@ -34,7 +34,7 @@ Make sure all commit messages match a regex.
 
 ##### Defined constants
 
-- `COMMON_COMMIT_MESSAGE_JIRA_REGEX`: When using this regex, the validation will fail if any commit message does not start with a Jira ticket (like `[FOO-123]`) or the string `[NO-JIRA]`.
+- `COMMON_COMMIT_MESSAGE_JIRA_REGEX`: When using this regex, the validation will fail if any commit message does not start with a Jira ticket (like `FOO-123`) or the string `NO-JIRA`.
 - `COMMON_COMMIT_MESSAGE_JIRA_MSG`: A sample message to use with `COMMON_COMMIT_MESSAGE_JIRA_REGEX`.
 
 ##### Configuration

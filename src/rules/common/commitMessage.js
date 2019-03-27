@@ -7,7 +7,7 @@ import { commits } from '../helpers';
 
 export const COMMON_COMMIT_MESSAGE_JIRA_REGEX = /^(\[[a-z]+-\d+\] )|([a-z]+-\d+ )|(\[NO-JIRA\] )|(NO-JIRA )/i;
 export const COMMON_COMMIT_MESSAGE_JIRA_MSG =
-  'Please include a JIRA reference like `[XXX-DDDD]` in each commit or use `[NO-JIRA]`.';
+  'Please include a JIRA ticket (like `XXX-DDDD` or `NO-JIRA` if there is no ticket) at the beginning of each commit.';
 
 export default (regex, message, { logType } = {}) => {
   if (!regex) {

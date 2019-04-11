@@ -72,7 +72,7 @@
     "inquirer": "6.2.2",
     "jest": "24.7.1",
     "lint-staged": "8.1.5",
-    "release-it": "10.4.1",
+    "release-it": "10.4.2",
     "semver": "6.0.0"
   }
 }

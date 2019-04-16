@@ -1,5 +1,5 @@
 //
-// Check if eslint has been disabled in the commited files (js or jsx).
+// Check if eslint has been disabled in the commited files.
 //
 
 import getMessageLogger from '../getMessageLogger';

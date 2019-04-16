@@ -448,7 +448,7 @@ jsGlobalEslintChange({ path: 'another/folder/' });
 
 ### jsLocalEslintChange
 
-Check if eslint has been disabled in the commited files (js or jsx).
+Check if eslint has been disabled in the commited files.
 
 ##### Configuration
 
@@ -483,6 +483,23 @@ jsLockfile();
 jsLockfile({ logTypePackage: 'fail', logTypePackageLock: 'message' });
 jsLockfile({ logType: 'fail' }); // Set both log types to "fail"
 jsLockfile({ path: 'another/folder/' });
+```
+
+### jsRecommendAsyncAwait
+
+Check is Promises are being used, and recommend using Async/Await instead.
+
+##### Configuration
+
+| Property | Type                       | Default Value |
+| -------- | -------------------------- | ------------- |
+| logType  | enum (warn, fail, message) | warn          |
+
+##### Usage
+
+```
+jsRecommendAsyncAwait();
+jsRecommendAsyncAwait({ logType: 'fail' });
 ```
 
 ### jsTestShortcuts

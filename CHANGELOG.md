@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- New validation [`jsRecommendAsyncAwait`](docs/validations.md#jsRecommendAsyncAwait) to recommend using Async/Await instead of Promises.
+
 ### Changed
 
 - Change the message `COMMON_COMMIT_MESSAGE_JIRA_MSG` (this is the suggested message to use when commits do not include a Jira ticket in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)).

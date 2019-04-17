@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.7.0] - 2019-4-17
+
 ### Added
 
 - New validation [`jsRecommendAsyncAwait`](docs/validations.md#jsRecommendAsyncAwait) to recommend using Async/Await instead of Promises.

@@ -71,9 +71,12 @@ if (changedUtilities && !changedUtilitiesDoc) {
 }
 
 // Make sure tests are added/updated when adding/updating validations or utilities
-const changedRules = committedFilesGrep(/^src\/rules\/\w+\/?\w+\.js$/);
+const changedRules = committedFilesGrep(/^src\/rules\/(\w+\/)?\w+\.js$/);
 changedRules.forEach(curChange => {
-  const curChangeTest = curChange.replace('.js', '.test.js');
+  const curChangeTest = curChange.replace(
+    /^(src\/rules\/(\w+\/)?)(\w+)(\.js)$/,
+    '$1__tests__/$3.test$4',
+  );
   if (!inCommit(curChangeTest)) {
     warn(
       `The file \`${curChange}\` has been added or modified but the corresponding test (\`${curChangeTest}\`) hasn't.`,

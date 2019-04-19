@@ -1,5 +1,5 @@
 //
-// Recommend using class properties when creating class components.
+// Recommend using class properties to define `state` and PropTypes when creating React class components.
 //
 
 import fs from 'fs';

@@ -40,6 +40,10 @@
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/setupTests.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js"
     ]
   },
   "repository": {

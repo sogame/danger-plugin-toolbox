@@ -108,7 +108,7 @@ Make sure file contents match a regex.
 
 ```
 commonFileContains('changelog.md', /unreleased/mi);
-commonFileContains('file.js', /^\s*var /mi { reverse: true });
+commonFileContains('file.js', /^\s*var /mi, { reverse: true });
 ```
 
 ### commonFileExists

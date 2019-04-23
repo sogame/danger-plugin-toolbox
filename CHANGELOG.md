@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.8.0] - 2019-4-23
+
 ### Added
 
 - New validation [`reactRecommendClassProperties`](docs/validations.md#reactRecommendClassProperties) to recommend using class properties to define `state` and PropTypes in React components.

@@ -138,7 +138,7 @@ commonFileExists('file.js', { logType: 'fail' });
 
 List file lines containing the word "warning".
 
-This can be used to surface warnings when running linters or tests: it only requires keeping the linter/test output in a log file witn a command like `(set -o pipefail; npm run lint |& tee linter.log);`.
+This can be used to surface warnings when running linters or tests: it only requires keeping the linter/test output in a log file with a command like `(set -o pipefail; npm run lint |& tee linter.log);`.
 
 ##### Parameters
 
@@ -258,7 +258,7 @@ cssGlobalStylelintChange({ path: 'another/folder/' });
 
 ### cssLocalStylelintChange
 
-Check if stylelint has been disabled in the commited files (scss or css).
+Check if stylelint has been disabled in the committed files (scss or css).
 
 ##### Configuration
 
@@ -275,7 +275,7 @@ cssLocalStylelintChange({ logType: 'fail' });
 
 ### cssRemOverEm
 
-Check if `em` are used instead of `rem` in the commited files (scss or css).
+Check if `em` are used instead of `rem` in the committed files (scss or css).
 
 ##### Configuration
 
@@ -450,7 +450,7 @@ jsGlobalEslintChange({ path: 'another/folder/' });
 
 ### jsLocalEslintChange
 
-Check if eslint has been disabled in the commited files.
+Check if eslint has been disabled in the committed files.
 
 ##### Configuration
 

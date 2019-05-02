@@ -13,4 +13,5 @@ script:
   - (set -o pipefail; npm run lint |& tee lint.log);
   - (set -o pipefail; npm run test:coverage |& tee test.log);
   - npm run danger
+  - npm run spellcheck:ci
   - sonar-scanner # SonarCloud

@@ -15,7 +15,7 @@ npm install danger-plugin-toolbox --save-dev
 
 ## Usage
 
-Edit your `dangerfile.js` to import the required validations and utilities, and buil the contents using those:
+Edit your `dangerfile.js` to import the required validations and utilities, and build the contents using those:
 
 ```js
 const { warn } = require('danger');

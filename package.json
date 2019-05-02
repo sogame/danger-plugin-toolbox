@@ -16,6 +16,8 @@
     "test": "jest --silent=false",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage",
+    "spellcheck": "mdspell --report --en-gb --ignore-numbers --ignore-acronyms --no-suggestions",
+    "spellcheck:ci": "npm run spellcheck -- '**/*.md' '!**/node_modules/**/*.md'",
     "build": "babel src --out-dir dist --ignore *.test.js,**/__mocks__/",
     "update:changelog": "node ./scripts/update-changelog",
     "danger": "danger ci",
@@ -33,6 +35,7 @@
       "git add"
     ],
     "*.md": [
+      "npm run spellcheck",
       "prettier --write",
       "git add"
     ]
@@ -76,6 +79,7 @@
     "inquirer": "6.3.1",
     "jest": "24.7.1",
     "lint-staged": "8.1.5",
+    "markdown-spellcheck": "^1.3.1",
     "release-it": "10.4.5",
     "semver": "6.0.0"
   }

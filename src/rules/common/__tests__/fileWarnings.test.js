@@ -63,6 +63,14 @@ describe('commonFileWarnings', () => {
     expect(global.fail).toHaveBeenCalled();
   });
 
+  it('should use the defined message when is provided', () => {
+    const expectedMsg = 'Expected message';
+
+    commonFileWarnings(singleWarning, { msg: expectedMsg });
+
+    expect(global.warn).toHaveBeenCalledWith(`${expectedMsg}\n- [[warning]]`);
+  });
+
   it('should show a warning when the "file" parameter is missing', () => {
     commonFileWarnings();
 

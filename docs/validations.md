@@ -149,11 +149,13 @@ This can be used to surface warnings when running linters or tests: it only requ
 | Property | Type                       | Default Value |
 | -------- | -------------------------- | ------------- |
 | logType  | enum (warn, fail, message) | warn          |
+| msg      | string                     |               |
 
 ##### Usage
 
 ```
 commonFileWarnings('linter.log');
+commonFileWarnings('linter.log', { msg: 'There are the following linting errors:' });
 commonFileWarnings('tests.log', { logType: 'fail' });
 ```
 

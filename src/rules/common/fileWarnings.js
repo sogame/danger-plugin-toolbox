@@ -6,7 +6,7 @@ import fs from 'fs';
 
 import getMessageLogger from '../getMessageLogger';
 
-export default (file, { logType } = {}) => {
+export default (file, { logType, msg } = {}) => {
   if (!file) {
     warn('`commonFileWarnings`: missing "file" parameter');
   } else {
@@ -15,9 +15,9 @@ export default (file, { logType } = {}) => {
     if (warnings) {
       const log = getMessageLogger(logType);
       const warningsStr = warnings.map(line => `- ${line}`).join('\n');
-      log(
-        `The file \`${file}\` contains the following warnings:\n${warningsStr}`,
-      );
+      const introMsg =
+        msg || `The file \`${file}\` contains the following warnings:`;
+      log(`${introMsg}\n${warningsStr}`);
     }
   }
 };

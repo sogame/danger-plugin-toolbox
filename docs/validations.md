@@ -169,11 +169,13 @@ Check there is a description in the pull request (unless the pull request is fla
 | --------- | -------------------------- | ------------- |
 | logType   | enum (warn, fail, message) | warn          |
 | minLength | integer                    | 5             |
+| msg       | string                     |               |
 
 ##### Usage
 
 ```
 commonPrDescription();
+commonPrDescription({ msg: 'Please add a description.' });
 commonPrDescription({ logType: 'message' });
 commonPrDescription({ minLength: 10, logType: 'fail' });
 ```
@@ -188,11 +190,13 @@ Check there is a description in [external contributions](utilities.md#externalpr
 | --------- | -------------------------- | ------------- |
 | logType   | enum (warn, fail, message) | warn          |
 | minLength | integer                    | 5             |
+| msg       | string                     |               |
 
 ##### Usage
 
 ```
 commonPrDescriptionContribution();
+commonPrDescriptionContribution({ msg: 'Please add a description.' });
 commonPrDescriptionContribution({ logType: 'message' });
 commonPrDescriptionContribution({ minLength: 10, logType: 'fail' });
 ```

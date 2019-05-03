@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Improved [`commonFileWarnings`](docs/validations.md#commonfilewarnings) validation.
 
+### Added
+
+- Allow customising the message in [`commonPrDescription`](docs/validations.md#commonprdescription).
+- Allow customising the message in [`commonPrDescriptionContribution`](docs/validations.md#commonprdescriptioncontribution).
+
 ## [1.9.0] - 2019-5-2
 
 ### Added

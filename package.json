@@ -1,34 +1,41 @@
 {
   "name": "danger-plugin-toolbox",
-  "description": "Danger Plugin Toolbox is a Danger JS plugin containing a set of common validations and utilities, build to make it easy to start using Danger JS.",
   "version": "1.10.0",
-  "main": "dist/index.js",
+  "description": "Danger Plugin Toolbox is a Danger JS plugin containing a set of common validations and utilities, build to make it easy to start using Danger JS.",
+  "license": "MIT",
   "engines": {
     "node": ">=10.15.3",
     "npm": ">=6.4.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sogame/danger-plugin-toolbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sogame/danger-plugin-toolbox/issues"
+  },
+  "homepage": "https://github.com/sogame/danger-plugin-toolbox#readme",
+  "author": {
+    "email": "sogame@gmail.com",
+    "name": "Sogame"
+  },
+  "main": "dist/index.js",
   "scripts": {
-    "pretest": "ensure-node-env",
+    "build": "babel src --out-dir dist --ignore *.test.js,**/__mocks__/",
+    "danger": "danger ci",
+    "format:packagejson": "format-package -w",
     "lint": "eslint . --ext .js",
-    "lint:staged": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "lint:fix:staged": "eslint . --fix",
-    "test": "jest --silent=false",
-    "test:watch": "npm test -- --watch",
-    "test:coverage": "npm test -- --coverage",
+    "lint:staged": "eslint .",
+    "release": "node ./scripts/release.js",
     "spellcheck": "mdspell --report --en-gb --ignore-numbers --ignore-acronyms --no-suggestions",
     "spellcheck:ci": "npm run spellcheck -- '**/*.md' '!**/node_modules/**/*.md'",
-    "format:packagejson": "format-package -w",
-    "build": "babel src --out-dir dist --ignore *.test.js,**/__mocks__/",
-    "update:changelog": "node ./scripts/update-changelog",
-    "danger": "danger ci",
-    "release": "node ./scripts/release.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
+    "pretest": "ensure-node-env",
+    "test": "jest --silent=false",
+    "test:coverage": "npm test -- --coverage",
+    "test:watch": "npm test -- --watch",
+    "update:changelog": "node ./scripts/update-changelog"
   },
   "lint-staged": {
     "*.js": [
@@ -45,32 +52,25 @@
       "git add"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
   "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/setupTests.js"
-    ],
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/index.js"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.js"
     ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:sogame/danger-plugin-toolbox.git"
-  },
-  "bugs": {
-    "url": "https://github.com/sogame/danger-plugin-toolbox/issues"
-  },
-  "homepage": "https://github.com/sogame/danger-plugin-toolbox#readme",
-  "author": {
-    "name": "Sogame",
-    "email": "sogame@gmail.com"
   },
   "keywords": [
     "danger",
     "danger-plugin"
   ],
-  "license": "MIT",
   "devDependencies": {
     "ajv": "6.10.0",
     "babel-cli": "6.26.0",

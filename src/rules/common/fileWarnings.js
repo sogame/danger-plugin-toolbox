@@ -1,5 +1,5 @@
 //
-// List file lines containing the word "warning".
+// List file lines containing warnings (like "warning" or "warning:").
 //
 
 import fs from 'fs';
@@ -11,7 +11,7 @@ export default (file, { logType, msg } = {}) => {
     warn('`commonFileWarnings`: missing "file" parameter');
   } else {
     const contents = fs.readFileSync(file).toString();
-    const warnings = contents.match(/^.*\bwarning\b.*$/gim);
+    const warnings = contents.match(/^.*\bwarning( |:).*$/gim);
     if (warnings) {
       const log = getMessageLogger(logType);
       const warningsStr = warnings.map(line => `- ${line}`).join('\n');

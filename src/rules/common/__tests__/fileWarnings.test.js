@@ -6,11 +6,15 @@ const noWarnings = 'noWarnings.log';
 const singleWarning = 'singleWarning.log';
 const multipleWarnings = 'multipleWarnings.log';
 const singleWarningCase = 'singleWarning.LOg';
+const warningColon = 'warningColon.log';
+const warningQuote = 'warningQuote.log';
 const mockFiles = {
   [noWarnings]: 'some content but no warnings', // should not fail, as the word is "warnings", not "warning"
-  [singleWarning]: 'foo\n[[warning]]\nbar',
+  [singleWarning]: 'foo\n[[warning ]]\nbar',
   [multipleWarnings]: 'foo\n[[warning 1]]\nbar\n[[warning 2]]',
-  [singleWarningCase]: 'foo\n[[warning]]\nbar',
+  [singleWarningCase]: 'foo\n[[warning ]]\nbar',
+  [warningColon]: 'foo\n[[warning:]]\nbar',
+  [warningQuote]: 'foo\n[[warning"]]\nbar',
 };
 
 fs.setMockFiles(mockFiles);
@@ -23,21 +27,21 @@ describe('commonFileWarnings', () => {
     jest.resetAllMocks();
   });
 
-  it('should not warn when there are no lines containing "warning"', () => {
+  it('should not warn when there are no lines containing "warning "', () => {
     commonFileWarnings(noWarnings);
 
     expect(global.warn).not.toHaveBeenCalled();
   });
 
-  it('should warn when there is a line containing "warning"', () => {
+  it('should warn when there is a line containing "warning "', () => {
     commonFileWarnings(singleWarning);
 
     expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(`- [[warning]]`),
+      expect.stringContaining(`- [[warning ]]`),
     );
   });
 
-  it('should warn when there are multiple lines containing "warning"', () => {
+  it('should warn when there are multiple lines containing "warning "', () => {
     commonFileWarnings(multipleWarnings);
 
     expect(global.warn).toHaveBeenCalledWith(
@@ -48,11 +52,25 @@ describe('commonFileWarnings', () => {
     );
   });
 
+  it('should warn when there is a line containing "warning:"', () => {
+    commonFileWarnings(warningColon);
+
+    expect(global.warn).toHaveBeenCalledWith(
+      expect.stringContaining(`- [[warning:]]`),
+    );
+  });
+
+  it(`should not warn when there is a line containing 'warning"'`, () => {
+    commonFileWarnings(warningQuote);
+
+    expect(global.warn).not.toHaveBeenCalled();
+  });
+
   it('should ignore file extension casing', () => {
     commonFileWarnings(singleWarningCase);
 
     expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(`- [[warning]]`),
+      expect.stringContaining(`- [[warning ]]`),
     );
   });
 
@@ -68,7 +86,7 @@ describe('commonFileWarnings', () => {
 
     commonFileWarnings(singleWarning, { msg: expectedMsg });
 
-    expect(global.warn).toHaveBeenCalledWith(`${expectedMsg}\n- [[warning]]`);
+    expect(global.warn).toHaveBeenCalledWith(`${expectedMsg}\n- [[warning ]]`);
   });
 
   it('should show a warning when the "file" parameter is missing', () => {

@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Fixed
+
+- Improved [`commonFileWarnings`](docs/validations.md#commonfilewarnings) validation.
 
 ## [1.9.0] - 2019-5-2
 

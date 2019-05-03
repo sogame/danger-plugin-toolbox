@@ -7,7 +7,7 @@ import { externalPr, isTrivial, prDescription } from '../helpers';
 
 const DEFAULT_MIN_LENGTH = 5;
 
-export default ({ logType, minLength } = {}) => {
+export default ({ logType, minLength, msg } = {}) => {
   const skipCheck = !externalPr || isTrivial;
   const prDescNoMentions = prDescription.replace(/@\w+/, '');
   const prDescLines = prDescNoMentions.split('\n').map(line => line.trim());
@@ -19,6 +19,6 @@ export default ({ logType, minLength } = {}) => {
       : minLength;
   if (prDescText.length < minDescLength && !skipCheck) {
     const log = getMessageLogger(logType);
-    log('Please provide a summary in the pull request description.');
+    log(msg || 'Please provide a summary in the pull request description.');
   }
 };

@@ -105,6 +105,15 @@ describe('commonPrDescriptionContribution', () => {
     expect(global.warn).toHaveBeenCalledWith(errorMsg);
   });
 
+  it('should use the defined message when is provided', () => {
+    mockHelpers(true, false, 'abc');
+
+    const expectedMsg = 'Expected message';
+    commonPrDescriptionContribution({ msg: expectedMsg });
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+  });
+
   it('should log as "logType" when is provided', () => {
     mockHelpers(true, false, 'abc');
 

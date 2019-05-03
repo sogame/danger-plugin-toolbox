@@ -18,6 +18,7 @@
     "test:coverage": "npm test -- --coverage",
     "spellcheck": "mdspell --report --en-gb --ignore-numbers --ignore-acronyms --no-suggestions",
     "spellcheck:ci": "npm run spellcheck -- '**/*.md' '!**/node_modules/**/*.md'",
+    "format:packagejson": "format-package -w",
     "build": "babel src --out-dir dist --ignore *.test.js,**/__mocks__/",
     "update:changelog": "node ./scripts/update-changelog",
     "danger": "danger ci",
@@ -37,6 +38,10 @@
     "*.md": [
       "npm run spellcheck",
       "prettier --write",
+      "git add"
+    ],
+    "package.json": [
+      "npm run format:packagejson",
       "git add"
     ]
   },
@@ -75,6 +80,7 @@
     "danger": "7.1.4",
     "ensure-node-env": "1.2.3",
     "eslint-config-skyscanner-with-prettier": "0.8.0",
+    "format-package": "^4.5.0",
     "husky": "2.2.0",
     "inquirer": "6.3.1",
     "jest": "24.7.1",

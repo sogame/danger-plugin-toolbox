@@ -10,8 +10,8 @@ install:
   - npm link danger-plugin-toolbox # Link the global version of "danger-plugin-toolbox" into the local "node_modules/"
 
 script:
-  - (set -o pipefail; npm run lint |& tee lint.log);
-  - (set -o pipefail; npm run test:coverage |& tee test.log);
+  #- (set -o pipefail; npm run lint |& tee lint.log);
+  #- (set -o pipefail; npm run test:coverage |& tee test.log);
   - npm run danger
-  - npm run spellcheck:ci
-  - sonar-scanner # SonarCloud
+  #- npm run spellcheck:ci
+  #- sonar-scanner # SonarCloud

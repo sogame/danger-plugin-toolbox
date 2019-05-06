@@ -1,3 +1,4 @@
+// const { warn, danger } = require('danger'); // eslint-disable-line import/no-extraneous-dependencies
 const {
   committedFilesGrep,
   commonChangelog,
@@ -5,7 +6,7 @@ const {
   commonFileContains,
   commonPrDescriptionContribution,
   commonValidJson,
-  commonFileWarnings,
+  // commonFileWarnings,
   inCommit,
   inCommitGrep,
   jsConsoleCommands,
@@ -16,6 +17,10 @@ const {
   linkToTargetRepo,
   prAuthor,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
+
+const {
+  git: { structuredDiffForFile },
+} = danger;
 
 commonPrDescriptionContribution();
 
@@ -28,9 +33,9 @@ if (prAuthor !== 'greenkeeper[bot]') {
 
 commonValidJson();
 
-commonFileWarnings('lint.log');
-
+/*
 commonFileWarnings('test.log');
+*/
 
 jsConsoleCommands();
 
@@ -83,3 +88,40 @@ changedRules.forEach(curChange => {
     );
   }
 });
+
+const structuredFileAddedLines = async filename => {
+  const addedLines = {};
+  const { chunks } = await structuredDiffForFile(filename);
+  chunks.forEach(({ changes }) => {
+    changes.forEach(({ type, ln, content }) => {
+      if (type === 'add') {
+        addedLines[ln] = content.substr(1);
+      }
+    });
+  });
+  return addedLines;
+};
+
+const structuredFileAddedLineMatches = async (filename, pattern) => {
+  const addedLines = await structuredFileAddedLines(filename);
+  const matches = [];
+  Object.entries(addedLines).forEach(([line, content]) => {
+    if (content.match(pattern) !== null) {
+      matches.push(line);
+    }
+  });
+  return matches;
+};
+
+const getDiff = async () => {
+  const file = 'dangerfile.js';
+  const matches = await structuredFileAddedLineMatches(file, /warn/);
+  matches.forEach(line => {
+    warn('Nice!', file, line);
+  });
+
+  const { chunks } = await structuredDiffForFile(file);
+  warn(JSON.stringify(chunks));
+};
+
+getDiff();

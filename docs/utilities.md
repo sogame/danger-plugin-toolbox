@@ -46,9 +46,42 @@ if (inCommitGrep(/.+\.log$/)) {
 
 Return the contents of all the lines that have been added in the provided file.
 
+```
+const addedLinesString = fileAddedLines('file.js');
+```
+
 ### fileAddedLineMatch
 
 Do the file added lines match a regex?
+
+```
+const someLineMatch = fileAddedLineMatch('file.js', /pattern/);
+if (someLineMatch) {
+  ...
+}
+```
+
+### structuredFileAddedLines
+
+Return an object with the content of all the lines that have been added in the provided file. The keys in the object are the line numbers.
+
+```
+const addedLines = structuredFileAddedLines('file.js');
+Object.entries(addedLines).forEach(([lineNumber, content]) => {
+  ...
+});
+```
+
+### structuredFileAddedLineMatches
+
+Return an array with the line numbers of all the added lines that match a regex.
+
+```
+const lineNumbers = structuredFileAddedLineMatches('file.js', /pattern/);
+lineNumbers.forEach(lineNumber => {
+  ...
+});
+```
 
 ### linkToTargetRepo
 

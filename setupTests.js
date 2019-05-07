@@ -10,6 +10,7 @@ import {
   mockSourceBranch,
   mockSourceProjectId,
   mockLinesAddedFile,
+  mockStructuredLinesAddedFile,
   mockHref,
   mockTargetRepoUrl,
   mockSourceRepoUrl,
@@ -25,6 +26,11 @@ global.danger = {
         const added = mockLinesAddedFile[filename];
         const result = added ? { added } : null;
         resolve(result);
+      }),
+    structuredDiffForFile: filename =>
+      new Promise(resolve => {
+        const diff = mockStructuredLinesAddedFile[filename];
+        resolve(diff);
       }),
   },
   github: {

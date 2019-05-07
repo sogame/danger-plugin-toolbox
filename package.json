@@ -63,6 +63,11 @@
       "src/**/*.js",
       "!src/index.js"
     ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 99.5
+      }
+    },
     "setupFilesAfterEnv": [
       "<rootDir>/setupTests.js"
     ]

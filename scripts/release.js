@@ -36,6 +36,7 @@ async function release() {
       increment: isPreRelease ? 'prerelease' : versionNumber,
       preReleaseId: preReleaseTag,
       'non-interactive': true,
+      pkgFiles: ['package.json', 'package-lock.json'],
       scripts: {
         beforeStage: buildCommand,
       },

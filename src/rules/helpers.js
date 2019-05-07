@@ -4,6 +4,7 @@ const {
     modified_files: modifiedFiles,
     commits,
     diffForFile,
+    structuredDiffForFile,
   },
   github: {
     pr: {
@@ -71,6 +72,30 @@ export const fileAddedLines = async filename => {
 export const fileAddedLineMatch = async (filename, pattern) => {
   const addedLines = await fileAddedLines(filename);
   return addedLines.match(pattern) !== null;
+};
+
+export const structuredFileAddedLines = async filename => {
+  const addedLines = {};
+  const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
+  chunks.forEach(({ changes }) => {
+    changes.forEach(({ type, ln, content }) => {
+      if (type === 'add') {
+        addedLines[ln] = content.substr(1);
+      }
+    });
+  });
+  return addedLines;
+};
+
+export const structuredFileAddedLineMatches = async (filename, pattern) => {
+  const addedLines = await structuredFileAddedLines(filename);
+  const matches = [];
+  Object.entries(addedLines).forEach(([line, content]) => {
+    if (content.match(pattern) !== null) {
+      matches.push(parseInt(line, 10));
+    }
+  });
+  return matches;
 };
 
 const linkToRepo = (repoUrl, file, text, branch = 'master') => {

@@ -77,6 +77,8 @@ scss
 sourceBranch
 sourceProjectId
 sourceRepoUrl
+structuredFileAddedLines
+structuredFileAddedLineMatches
 stylelint
 targetBranch
 targetProjectId

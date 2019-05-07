@@ -26,6 +26,106 @@ export const mockLinesAddedFile = {
   'file1.js': 'lines added file1',
 };
 
+const chunksFile1 = [
+  {
+    changes: [
+      {
+        type: 'add',
+        ln: 1,
+        content: '+line added 1',
+      },
+      {
+        type: 'normal',
+        ln: 2,
+        content: 'line 2',
+      },
+      {
+        type: 'del',
+        ln: 4,
+        content: '-line 4',
+      },
+    ],
+  },
+  {
+    changes: [
+      {
+        type: 'normal',
+        ln: 10,
+        content: 'line 10',
+      },
+      {
+        type: 'add',
+        ln: 11,
+        content: '+line 11',
+      },
+      {
+        type: 'add',
+        ln: 12,
+        content: '+line added 12',
+      },
+    ],
+  },
+  {
+    changes: [
+      {
+        type: 'del',
+        ln: 20,
+        content: '-line 20',
+      },
+    ],
+  },
+];
+
+const chunksDeletedOnly = [
+  {
+    changes: [
+      {
+        type: 'normal',
+        ln: 2,
+        content: 'line 2',
+      },
+      {
+        type: 'del',
+        ln: 4,
+        content: '-line 4',
+      },
+    ],
+  },
+  {
+    changes: [
+      {
+        type: 'normal',
+        ln: 10,
+        content: 'line 10',
+      },
+      {
+        type: 'del',
+        ln: 11,
+        content: '-line 11',
+      },
+      {
+        type: 'del',
+        ln: 12,
+        content: '-line 12',
+      },
+    ],
+  },
+  {
+    changes: [
+      {
+        type: 'del',
+        ln: 20,
+        content: '-line 20',
+      },
+    ],
+  },
+];
+
+export const mockStructuredLinesAddedFile = {
+  'structuredFile1.js': { chunks: chunksFile1 },
+  'structuredDelOnly.js': { chunks: chunksDeletedOnly },
+};
+
 export const mockHref = (url, text) => `[[${url}||${text || ''}]]`;
 
 export const mockTargetRepoUrl = 'http://www.github.com/target/repo';

@@ -10,6 +10,7 @@ import {
   mockSourceBranch,
   mockSourceProjectId,
   mockLinesAddedFile,
+  mockStructuredLinesAddedFile,
   mockHref,
   mockTargetRepoUrl,
   mockSourceRepoUrl,
@@ -31,6 +32,8 @@ import {
   inCommitGrep,
   fileAddedLines,
   fileAddedLineMatch,
+  structuredFileAddedLines,
+  structuredFileAddedLineMatches,
   linkToTargetRepo,
   linkToSourceRepo,
 } from '../helpers';
@@ -204,6 +207,80 @@ describe('helpers', () => {
         const expected = false;
 
         const result = await fileAddedLineMatch(filename, pattern);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
+    describe('structuredFileAddedLines', () => {
+      it('should return the added lines for the file', async () => {
+        const filename = 'structuredFile1.js';
+        const { chunks } = mockStructuredLinesAddedFile[filename];
+        const changes = Object.values(chunks).reduce(
+          (acc, { changes: curChanges }) => [...acc, ...curChanges],
+          [],
+        );
+        const expected = changes.reduce((acc, { type, ln, content }) => {
+          if (type === 'add') {
+            acc[ln] = content.substr(1);
+          }
+          return acc;
+        }, {});
+
+        const result = await structuredFileAddedLines(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty object when the file has no additions', async () => {
+        const filename = 'structuredDelOnly.js';
+        const expected = {};
+
+        const result = await structuredFileAddedLines(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty object when the file is not in the commit', async () => {
+        const filename = 'invalidFile.js';
+        const expected = {};
+
+        const result = await structuredFileAddedLines(filename);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
+    describe('structuredFileAddedLineMatches', () => {
+      it('should return the line numbers for the lines that match', async () => {
+        const filename = 'structuredFile1.js';
+        const pattern = /line added/;
+
+        const expected = [1, 12];
+
+        const result = await structuredFileAddedLineMatches(filename, pattern);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty array when there are not matches', async () => {
+        const filename = 'structuredFile1.js';
+        const pattern = /foo/;
+
+        const expected = [];
+
+        const result = await structuredFileAddedLineMatches(filename, pattern);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty array when there are no additions', async () => {
+        const filename = 'structuredDelOnly.js';
+        const pattern = /line/;
+
+        const expected = [];
+
+        const result = await structuredFileAddedLineMatches(filename, pattern);
 
         expect(result).toEqual(expected);
       });

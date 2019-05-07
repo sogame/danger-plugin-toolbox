@@ -1,4 +1,3 @@
-import { mockHref } from '../../__mocks__/dangerData';
 import * as helpers from '../../helpers';
 import commonContributingGuide from '../contributingGuide';
 
@@ -6,7 +5,7 @@ const author = 'John Doe';
 helpers.prAuthor = author;
 
 const buildMessage = (authorName, filename) => {
-  const link = mockHref(filename);
+  const link = helpers.linkToTargetRepo(filename);
   return `Thanks for the contribution, ${authorName}! Please, make sure to follow our ${link}.`;
 };
 

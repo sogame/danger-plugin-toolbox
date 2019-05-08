@@ -4,18 +4,26 @@
 
 import getMessageLogger from '../getMessageLogger';
 import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
+import inlineLogMatching from '../inlineLogMatching';
 
-export default async ({ logType } = {}) => {
-  const usesEmUnits = filename => fileAddedLineMatch(filename, /[0-9]em[; ]/);
+const msgInline =
+  'It seems like `em` units are being used, but it is recommended to use `rem` instead.';
+const regexUsesEmUnits = /[0-9]em[; ]/;
+const usesEmUnits = filename => fileAddedLineMatch(filename, regexUsesEmUnits);
 
+export default async ({ logType, inline } = {}) => {
   const log = getMessageLogger(logType);
   const cssFiles = committedFilesGrep(/(\.scss|\.css)$/i);
   await cssFiles.forEach(async filename => {
-    const usesEm = await usesEmUnits(filename);
-    if (usesEm) {
-      log(
-        `The file \`${filename}\` seems to be using \`em\`, but it is recommended to use \`rem\` instead.`,
-      );
+    if (inline === true) {
+      inlineLogMatching(filename, regexUsesEmUnits, msgInline, log);
+    } else {
+      const usesEm = await usesEmUnits(filename);
+      if (usesEm) {
+        log(
+          `The file \`${filename}\` seems to be using \`em\`, but it is recommended to use \`rem\` instead.`,
+        );
+      }
     }
   });
 };

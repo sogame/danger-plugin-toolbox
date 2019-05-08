@@ -1,5 +1,8 @@
 import * as helpers from '../../helpers';
+import inlineLogMatching from '../../inlineLogMatching';
 import jsLocalEslintChange from '../localEslintChange';
+
+jest.mock('../../inlineLogMatching');
 
 const validJs = 'valid.js';
 const invalidJs = 'invalid.js';
@@ -24,66 +27,85 @@ describe('jsLocalEslintChange', () => {
     jest.resetAllMocks();
   });
 
-  it('should not warn when no eslint rule has been disabled', async () => {
-    const files = [validJs];
-    helpers.setMockCommittedFiles(files);
+  describe('not inline', () => {
+    afterEach(() => {
+      expect(inlineLogMatching).not.toHaveBeenCalled();
+    });
 
-    await jsLocalEslintChange();
+    it('should not warn when no eslint rule has been disabled', async () => {
+      const files = [validJs];
+      helpers.setMockCommittedFiles(files);
 
-    expect(global.warn).not.toHaveBeenCalled();
+      await jsLocalEslintChange();
+
+      expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should warn when some eslint rule has been disabled (js)', async () => {
+      const files = [validJs, invalidJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsLocalEslintChange();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidJs),
+      );
+    });
+
+    it('should warn when some eslint rule has been disabled (jsx)', async () => {
+      const files = [validJs, invalidJsx];
+      helpers.setMockCommittedFiles(files);
+
+      await jsLocalEslintChange();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidJsx),
+      );
+    });
+
+    it('should warn when some eslint rule has been disabled (ts)', async () => {
+      const files = [validJs, invalidTs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsLocalEslintChange();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidTs),
+      );
+    });
+
+    it('should ignore file extension casing', async () => {
+      const files = [invalidJsCase];
+      helpers.setMockCommittedFiles(files);
+
+      await jsLocalEslintChange();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidJsCase),
+      );
+    });
+
+    it('should log as "logType" when is provided', async () => {
+      const files = [invalidJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsLocalEslintChange({ logType: 'fail' });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).toHaveBeenCalled();
+    });
   });
 
-  it('should warn when some eslint rule has been disabled (js)', async () => {
-    const files = [validJs, invalidJs];
-    helpers.setMockCommittedFiles(files);
+  describe('inline', () => {
+    it('should call "inlineLogMatching"', async () => {
+      const files = [invalidJs];
+      helpers.setMockCommittedFiles(files);
 
-    await jsLocalEslintChange();
+      await jsLocalEslintChange({ inline: true });
 
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(invalidJs),
-    );
-  });
-
-  it('should warn when some eslint rule has been disabled (jsx)', async () => {
-    const files = [validJs, invalidJsx];
-    helpers.setMockCommittedFiles(files);
-
-    await jsLocalEslintChange();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(invalidJsx),
-    );
-  });
-
-  it('should warn when some eslint rule has been disabled (ts)', async () => {
-    const files = [validJs, invalidTs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsLocalEslintChange();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(invalidTs),
-    );
-  });
-
-  it('should ignore file extension casing', async () => {
-    const files = [invalidJsCase];
-    helpers.setMockCommittedFiles(files);
-
-    await jsLocalEslintChange();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(invalidJsCase),
-    );
-  });
-
-  it('should log as "logType" when is provided', async () => {
-    const files = [invalidJs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsLocalEslintChange({ logType: 'fail' });
-
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.fail).toHaveBeenCalled();
+      expect(inlineLogMatching).toHaveBeenCalledTimes(1);
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).not.toHaveBeenCalled();
+    });
   });
 });

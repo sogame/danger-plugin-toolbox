@@ -1,5 +1,8 @@
 import * as helpers from '../../helpers';
+import inlineLogMatching from '../../inlineLogMatching';
 import jsRecommendAsyncAwait from '../recommendAsyncAwait';
+
+jest.mock('../../inlineLogMatching');
 
 const noPromisesJs = 'noPromises.js';
 const promiseAllJs = 'promiseAll.js';
@@ -32,108 +35,127 @@ describe('jsRecommendAsyncAwait', () => {
     jest.resetAllMocks();
   });
 
-  it('should not warn when file does not use promises', async () => {
-    const files = [noPromisesJs];
-    helpers.setMockCommittedFiles(files);
+  describe('not inline', () => {
+    afterEach(() => {
+      expect(inlineLogMatching).not.toHaveBeenCalled();
+    });
 
-    await jsRecommendAsyncAwait();
+    it('should not warn when file does not use promises', async () => {
+      const files = [noPromisesJs];
+      helpers.setMockCommittedFiles(files);
 
-    expect(global.warn).not.toHaveBeenCalled();
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should not warn when file uses "Promise.all"', async () => {
+      const files = [promiseAllJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should warn when some file uses a promise method (like "Promise.resolve")', async () => {
+      const files = [noPromisesJs, promiseResolveJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(promiseResolveJs),
+      );
+    });
+
+    it('should warn when some file uses "new Promise()")', async () => {
+      const files = [noPromisesJs, newPromiseJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(newPromiseJs),
+      );
+    });
+
+    it('should warn when some file uses ".then()")', async () => {
+      const files = [noPromisesJs, dotThenJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(dotThenJs),
+      );
+    });
+
+    it('should warn when some file uses ".catch()")', async () => {
+      const files = [noPromisesJs, dotCatchJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(dotCatchJs),
+      );
+    });
+
+    it('should warn when promises are used (jsx)', async () => {
+      const files = [noPromisesJs, invalidJsx];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidJsx),
+      );
+    });
+
+    it('should warn when promises are used (ts)', async () => {
+      const files = [noPromisesJs, invalidTs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidTs),
+      );
+    });
+
+    it('should ignore file extension casing', async () => {
+      const files = [invalidJsCase];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidJsCase),
+      );
+    });
+
+    it('should log as "logType" when is provided', async () => {
+      const files = [newPromiseJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait({ logType: 'fail' });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).toHaveBeenCalled();
+    });
   });
 
-  it('should not warn when file uses "Promise.all"', async () => {
-    const files = [promiseAllJs];
-    helpers.setMockCommittedFiles(files);
+  describe('inline', () => {
+    it('should call "inlineLogMatching"', async () => {
+      const files = [promiseResolveJs];
+      helpers.setMockCommittedFiles(files);
 
-    await jsRecommendAsyncAwait();
+      await jsRecommendAsyncAwait({ inline: true });
 
-    expect(global.warn).not.toHaveBeenCalled();
-  });
-
-  it('should warn when some file uses a promise method (like "Promise.resolve")', async () => {
-    const files = [noPromisesJs, promiseResolveJs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsRecommendAsyncAwait();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(promiseResolveJs),
-    );
-  });
-
-  it('should warn when some file uses "new Promise()")', async () => {
-    const files = [noPromisesJs, newPromiseJs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsRecommendAsyncAwait();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(newPromiseJs),
-    );
-  });
-
-  it('should warn when some file uses ".then()")', async () => {
-    const files = [noPromisesJs, dotThenJs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsRecommendAsyncAwait();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(dotThenJs),
-    );
-  });
-
-  it('should warn when some file uses ".catch()")', async () => {
-    const files = [noPromisesJs, dotCatchJs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsRecommendAsyncAwait();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(dotCatchJs),
-    );
-  });
-
-  it('should warn when promises are used (jsx)', async () => {
-    const files = [noPromisesJs, invalidJsx];
-    helpers.setMockCommittedFiles(files);
-
-    await jsRecommendAsyncAwait();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(invalidJsx),
-    );
-  });
-
-  it('should warn when promises are used (ts)', async () => {
-    const files = [noPromisesJs, invalidTs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsRecommendAsyncAwait();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(invalidTs),
-    );
-  });
-
-  it('should ignore file extension casing', async () => {
-    const files = [invalidJsCase];
-    helpers.setMockCommittedFiles(files);
-
-    await jsRecommendAsyncAwait();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(invalidJsCase),
-    );
-  });
-
-  it('should log as "logType" when is provided', async () => {
-    const files = [newPromiseJs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsRecommendAsyncAwait({ logType: 'fail' });
-
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.fail).toHaveBeenCalled();
+      expect(inlineLogMatching).toHaveBeenCalledTimes(1);
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).not.toHaveBeenCalled();
+    });
   });
 });

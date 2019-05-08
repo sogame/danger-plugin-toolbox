@@ -1,5 +1,8 @@
 import * as helpers from '../../helpers';
+import inlineLogMatching from '../../inlineLogMatching';
 import cssBackpackVariables from '../backpackVariables';
+
+jest.mock('../../inlineLogMatching');
 
 const buildMessageUnits = filename =>
   `The file \`${filename}\` seems to be using non-[Backapack](https://backpack.github.io/) units (\`rem\`, \`em\`, \`px\`). [Backpack units](https://backpack.github.io/tokens/) (or whole multiples of them, like \`3 * $bpk-spacing-xs\`) should be used instead.`;
@@ -31,158 +34,178 @@ describe('cssBackpackVariables', () => {
     jest.resetAllMocks();
   });
 
-  it('should not warn when there are no files', async () => {
-    const files = [];
-    helpers.setMockCommittedFiles(files);
-
-    await cssBackpackVariables();
-
-    expect(global.warn).not.toHaveBeenCalled();
-  });
-
-  it('should not warn when all files are valid', async () => {
-    const files = [validScss];
-    helpers.setMockCommittedFiles(files);
-
-    await cssBackpackVariables();
-
-    expect(global.warn).not.toHaveBeenCalled();
-  });
-
-  it('should warn when any file contains non-Backpack units', async () => {
-    const files = [validScss, invalidUnitsScss];
-    helpers.setMockCommittedFiles(files);
-
-    const expectedMsg = buildMessageUnits(invalidUnitsScss);
-
-    await cssBackpackVariables();
-
-    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
-  });
-
-  it('should warn when any file contains $bpk-one-pixel-rem', async () => {
-    const files = [validScss, invalidPixelScss];
-    helpers.setMockCommittedFiles(files);
-
-    const expectedMsg = buildMessagePixel(invalidPixelScss);
-
-    await cssBackpackVariables();
-
-    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
-  });
-
-  it('should ignore file extension casing', async () => {
-    const files = [validScss, invalidUnitsScssCase, invalidPixelScssCase];
-    helpers.setMockCommittedFiles(files);
-
-    const expectedMsgUnits = buildMessageUnits(invalidUnitsScssCase);
-    const expectedMsgPixel = buildMessagePixel(invalidPixelScssCase);
-
-    await cssBackpackVariables();
-
-    expect(global.warn).toHaveBeenCalledWith(expectedMsgUnits);
-    expect(global.warn).toHaveBeenCalledWith(expectedMsgPixel);
-  });
-
-  it('should log as "logTypeNonBackpackUnits" when is provided', async () => {
-    const files = [invalidUnitsScss];
-    helpers.setMockCommittedFiles(files);
-
-    await cssBackpackVariables({ logTypeNonBackpackUnits: 'fail' });
-
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.fail).toHaveBeenCalled();
-  });
-
-  it('should log as "logTypeNonBackpackUnits" when "logType" is also provided', async () => {
-    const files = [invalidUnitsScss];
-    helpers.setMockCommittedFiles(files);
-
-    await cssBackpackVariables({
-      logTypeNonBackpackUnits: 'fail',
-      logType: 'message',
+  describe('not inline', () => {
+    afterEach(() => {
+      expect(inlineLogMatching).not.toHaveBeenCalled();
     });
 
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.message).not.toHaveBeenCalled();
-    expect(global.fail).toHaveBeenCalled();
-  });
+    it('should not warn when there are no files', async () => {
+      const files = [];
+      helpers.setMockCommittedFiles(files);
 
-  it('should log as "logTypeOnePixelRem" when is provided', async () => {
-    const files = [invalidPixelScssCase];
-    helpers.setMockCommittedFiles(files);
+      await cssBackpackVariables();
 
-    await cssBackpackVariables({ logTypeOnePixelRem: 'fail' });
-
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.fail).toHaveBeenCalled();
-  });
-
-  it('should log as "logTypeOnePixelRem" when "logType" is also provided', async () => {
-    const files = [invalidPixelScssCase];
-    helpers.setMockCommittedFiles(files);
-
-    await cssBackpackVariables({
-      logTypeOnePixelRem: 'fail',
-      logType: 'message',
+      expect(global.warn).not.toHaveBeenCalled();
     });
 
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.message).not.toHaveBeenCalled();
-    expect(global.fail).toHaveBeenCalled();
-  });
+    it('should not warn when all files are valid', async () => {
+      const files = [validScss];
+      helpers.setMockCommittedFiles(files);
 
-  it('should log each message accordingly when "logTypeNonBackpackUnits" and "logTypeOnePixelRem" are provided', async () => {
-    const files = [validScss, invalidUnitsScss, invalidPixelScss];
-    helpers.setMockCommittedFiles(files);
+      await cssBackpackVariables();
 
-    await cssBackpackVariables({
-      logTypeNonBackpackUnits: 'message',
-      logTypeOnePixelRem: 'fail',
+      expect(global.warn).not.toHaveBeenCalled();
     });
 
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.message).toHaveBeenCalledWith(
-      buildMessageUnits(invalidUnitsScss),
-    );
-    expect(global.fail).toHaveBeenCalledWith(
-      buildMessagePixel(invalidPixelScss),
-    );
-  });
+    it('should warn when any file contains non-Backpack units', async () => {
+      const files = [validScss, invalidUnitsScss];
+      helpers.setMockCommittedFiles(files);
 
-  it('should log as "logType" when provided but "logTypeNonBackpackUnits" is not', async () => {
-    const files = [validScss, invalidUnitsScss, invalidPixelScss];
-    helpers.setMockCommittedFiles(files);
+      const expectedMsg = buildMessageUnits(invalidUnitsScss);
 
-    await cssBackpackVariables({
-      logType: 'message',
-      logTypeOnePixelRem: 'fail',
+      await cssBackpackVariables();
+
+      expect(global.warn).toHaveBeenCalledWith(expectedMsg);
     });
 
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.message).toHaveBeenCalledWith(
-      buildMessageUnits(invalidUnitsScss),
-    );
-    expect(global.fail).toHaveBeenCalledWith(
-      buildMessagePixel(invalidPixelScss),
-    );
-  });
+    it('should warn when any file contains $bpk-one-pixel-rem', async () => {
+      const files = [validScss, invalidPixelScss];
+      helpers.setMockCommittedFiles(files);
 
-  it('should log as "logType" when provided but "logTypeOnePixelRem" is not', async () => {
-    const files = [validScss, invalidUnitsScss, invalidPixelScss];
-    helpers.setMockCommittedFiles(files);
+      const expectedMsg = buildMessagePixel(invalidPixelScss);
 
-    await cssBackpackVariables({
-      logTypeNonBackpackUnits: 'message',
-      logType: 'fail',
+      await cssBackpackVariables();
+
+      expect(global.warn).toHaveBeenCalledWith(expectedMsg);
     });
 
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.message).toHaveBeenCalledWith(
-      buildMessageUnits(invalidUnitsScss),
-    );
-    expect(global.fail).toHaveBeenCalledWith(
-      buildMessagePixel(invalidPixelScss),
-    );
+    it('should ignore file extension casing', async () => {
+      const files = [validScss, invalidUnitsScssCase, invalidPixelScssCase];
+      helpers.setMockCommittedFiles(files);
+
+      const expectedMsgUnits = buildMessageUnits(invalidUnitsScssCase);
+      const expectedMsgPixel = buildMessagePixel(invalidPixelScssCase);
+
+      await cssBackpackVariables();
+
+      expect(global.warn).toHaveBeenCalledWith(expectedMsgUnits);
+      expect(global.warn).toHaveBeenCalledWith(expectedMsgPixel);
+    });
+
+    it('should log as "logTypeNonBackpackUnits" when is provided', async () => {
+      const files = [invalidUnitsScss];
+      helpers.setMockCommittedFiles(files);
+
+      await cssBackpackVariables({ logTypeNonBackpackUnits: 'fail' });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).toHaveBeenCalled();
+    });
+
+    it('should log as "logTypeNonBackpackUnits" when "logType" is also provided', async () => {
+      const files = [invalidUnitsScss];
+      helpers.setMockCommittedFiles(files);
+
+      await cssBackpackVariables({
+        logTypeNonBackpackUnits: 'fail',
+        logType: 'message',
+      });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.message).not.toHaveBeenCalled();
+      expect(global.fail).toHaveBeenCalled();
+    });
+
+    it('should log as "logTypeOnePixelRem" when is provided', async () => {
+      const files = [invalidPixelScssCase];
+      helpers.setMockCommittedFiles(files);
+
+      await cssBackpackVariables({ logTypeOnePixelRem: 'fail' });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).toHaveBeenCalled();
+    });
+
+    it('should log as "logTypeOnePixelRem" when "logType" is also provided', async () => {
+      const files = [invalidPixelScssCase];
+      helpers.setMockCommittedFiles(files);
+
+      await cssBackpackVariables({
+        logTypeOnePixelRem: 'fail',
+        logType: 'message',
+      });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.message).not.toHaveBeenCalled();
+      expect(global.fail).toHaveBeenCalled();
+    });
+
+    it('should log each message accordingly when "logTypeNonBackpackUnits" and "logTypeOnePixelRem" are provided', async () => {
+      const files = [validScss, invalidUnitsScss, invalidPixelScss];
+      helpers.setMockCommittedFiles(files);
+
+      await cssBackpackVariables({
+        logTypeNonBackpackUnits: 'message',
+        logTypeOnePixelRem: 'fail',
+      });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.message).toHaveBeenCalledWith(
+        buildMessageUnits(invalidUnitsScss),
+      );
+      expect(global.fail).toHaveBeenCalledWith(
+        buildMessagePixel(invalidPixelScss),
+      );
+    });
+
+    it('should log as "logType" when provided but "logTypeNonBackpackUnits" is not', async () => {
+      const files = [validScss, invalidUnitsScss, invalidPixelScss];
+      helpers.setMockCommittedFiles(files);
+
+      await cssBackpackVariables({
+        logType: 'message',
+        logTypeOnePixelRem: 'fail',
+      });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.message).toHaveBeenCalledWith(
+        buildMessageUnits(invalidUnitsScss),
+      );
+      expect(global.fail).toHaveBeenCalledWith(
+        buildMessagePixel(invalidPixelScss),
+      );
+    });
+
+    it('should log as "logType" when provided but "logTypeOnePixelRem" is not', async () => {
+      const files = [validScss, invalidUnitsScss, invalidPixelScss];
+      helpers.setMockCommittedFiles(files);
+
+      await cssBackpackVariables({
+        logTypeNonBackpackUnits: 'message',
+        logType: 'fail',
+      });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.message).toHaveBeenCalledWith(
+        buildMessageUnits(invalidUnitsScss),
+      );
+      expect(global.fail).toHaveBeenCalledWith(
+        buildMessagePixel(invalidPixelScss),
+      );
+    });
+  });
+
+  describe('inline', () => {
+    it('should call "inlineLogMatching"', async () => {
+      const files = [invalidUnitsScss];
+      helpers.setMockCommittedFiles(files);
+
+      await cssBackpackVariables({ inline: true });
+
+      expect(inlineLogMatching).toHaveBeenCalledTimes(2);
+      expect(global.message).not.toHaveBeenCalled();
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).not.toHaveBeenCalled();
+    });
   });
 });

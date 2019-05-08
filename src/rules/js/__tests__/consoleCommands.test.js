@@ -1,5 +1,8 @@
 import * as helpers from '../../helpers';
+import inlineLogMatching from '../../inlineLogMatching';
 import jsConsoleCommands from '../consoleCommands';
+
+jest.mock('../../inlineLogMatching');
 
 const buildMessage = filename =>
   `The file \`${filename}\` may contain console commands.`;
@@ -27,66 +30,85 @@ describe('jsConsoleCommands', () => {
     jest.resetAllMocks();
   });
 
-  it('should not warn when no console commands are used', async () => {
-    const files = [validJs];
-    helpers.setMockCommittedFiles(files);
+  describe('not inline', () => {
+    afterEach(() => {
+      expect(inlineLogMatching).not.toHaveBeenCalled();
+    });
 
-    await jsConsoleCommands();
+    it('should not warn when no console commands are used', async () => {
+      const files = [validJs];
+      helpers.setMockCommittedFiles(files);
 
-    expect(global.warn).not.toHaveBeenCalled();
+      await jsConsoleCommands();
+
+      expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should warn when any console command is used (js)', async () => {
+      const files = [validJs, invalidJs];
+      helpers.setMockCommittedFiles(files);
+
+      const expectedMsg = buildMessage(invalidJs);
+
+      await jsConsoleCommands();
+
+      expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+    });
+
+    it('should warn when any console command is used (jsx)', async () => {
+      const files = [validJs, invalidJsx];
+      helpers.setMockCommittedFiles(files);
+
+      const expectedMsg = buildMessage(invalidJsx);
+
+      await jsConsoleCommands();
+
+      expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+    });
+
+    it('should warn when any console command is used (ts)', async () => {
+      const files = [validJs, invalidTs];
+      helpers.setMockCommittedFiles(files);
+
+      const expectedMsg = buildMessage(invalidTs);
+
+      await jsConsoleCommands();
+
+      expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+    });
+
+    it('should ignore file extension casing', async () => {
+      const files = [invalidJsCase];
+      helpers.setMockCommittedFiles(files);
+
+      await jsConsoleCommands();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidJsCase),
+      );
+    });
+
+    it('should log as "logType" when is provided', async () => {
+      const files = [invalidJs];
+      helpers.setMockCommittedFiles(files);
+
+      await jsConsoleCommands({ logType: 'fail' });
+
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).toHaveBeenCalled();
+    });
   });
 
-  it('should warn when any console command is used (js)', async () => {
-    const files = [validJs, invalidJs];
-    helpers.setMockCommittedFiles(files);
+  describe('inline', () => {
+    it('should call "inlineLogMatching"', async () => {
+      const files = [invalidJs];
+      helpers.setMockCommittedFiles(files);
 
-    const expectedMsg = buildMessage(invalidJs);
+      await jsConsoleCommands({ inline: true });
 
-    await jsConsoleCommands();
-
-    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
-  });
-
-  it('should warn when any console command is used (jsx)', async () => {
-    const files = [validJs, invalidJsx];
-    helpers.setMockCommittedFiles(files);
-
-    const expectedMsg = buildMessage(invalidJsx);
-
-    await jsConsoleCommands();
-
-    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
-  });
-
-  it('should warn when any console command is used (ts)', async () => {
-    const files = [validJs, invalidTs];
-    helpers.setMockCommittedFiles(files);
-
-    const expectedMsg = buildMessage(invalidTs);
-
-    await jsConsoleCommands();
-
-    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
-  });
-
-  it('should ignore file extension casing', async () => {
-    const files = [invalidJsCase];
-    helpers.setMockCommittedFiles(files);
-
-    await jsConsoleCommands();
-
-    expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(invalidJsCase),
-    );
-  });
-
-  it('should log as "logType" when is provided', async () => {
-    const files = [invalidJs];
-    helpers.setMockCommittedFiles(files);
-
-    await jsConsoleCommands({ logType: 'fail' });
-
-    expect(global.warn).not.toHaveBeenCalled();
-    expect(global.fail).toHaveBeenCalled();
+      expect(inlineLogMatching).toHaveBeenCalledTimes(1);
+      expect(global.warn).not.toHaveBeenCalled();
+      expect(global.fail).not.toHaveBeenCalled();
+    });
   });
 });

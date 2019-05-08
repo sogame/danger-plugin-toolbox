@@ -2,7 +2,9 @@
 
 ## Validations
 
-Most of the validations add a warning message in the Danger comment when the check fails. The message type (failure, warning, info) can be configured when using each validation.
+Most of the validations add a warning message in the Danger comment when the check fails.
+The message type (failure, warning, info) can be configured when using each validation.
+Some validations can be configured to add the comments inline in the PR (instead of in the general comment that contains all messages).
 
 ### commonChangelog
 
@@ -226,6 +228,7 @@ Recommend using [Backpack](https://backpack.github.io/) variables/spacings (or w
 
 | Property                | Type                       | Default Value |
 | ----------------------- | -------------------------- | ------------- |
+| inline                  | bool                       | false         |
 | logTypeNonBackpackUnits | enum (warn, fail, message) | warn          |
 | logTypeOnePixelRem      | enum (warn, fail, message) | warn          |
 | logType                 | enum (warn, fail, message) | warn          |
@@ -234,6 +237,7 @@ Recommend using [Backpack](https://backpack.github.io/) variables/spacings (or w
 
 ```
 cssBackpackVariables();
+cssBackpackVariables({ inline: true });
 cssBackpackVariables({ logTypeNonBackpackUnits: 'fail', logTypeOnePixelRem: 'message' });
 cssBackpackVariables({ logType: 'fail' }); // Set both log types to "fail"
 ```
@@ -268,12 +272,14 @@ Check if stylelint has been disabled in the committed files (scss or css).
 
 | Property | Type                       | Default Value |
 | -------- | -------------------------- | ------------- |
+| inline   | bool                       | false         |
 | logType  | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 cssLocalStylelintChange();
+cssLocalStylelintChange({ inline: true });
 cssLocalStylelintChange({ logType: 'fail' });
 ```
 
@@ -285,12 +291,14 @@ Check if `em` are used instead of `rem` in the committed files (scss or css).
 
 | Property | Type                       | Default Value |
 | -------- | -------------------------- | ------------- |
+| inline   | bool                       | false         |
 | logType  | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 cssRemOverEm();
+cssRemOverEm({ inline: true });
 cssRemOverEm({ logType: 'fail' });
 ```
 
@@ -421,12 +429,14 @@ Check if there are console commands (logs/asserts/counts/times/profiles/...).
 
 | Property | Type                       | Default Value |
 | -------- | -------------------------- | ------------- |
+| inline   | bool                       | false         |
 | logType  | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 jsConsoleCommands();
+jsConsoleCommands({ inline: true });
 jsConsoleCommands({ logType: 'fail' });
 ```
 
@@ -460,12 +470,14 @@ Check if eslint has been disabled in the committed files.
 
 | Property | Type                       | Default Value |
 | -------- | -------------------------- | ------------- |
+| inline   | bool                       | false         |
 | logType  | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 jsLocalEslintChange();
+jsLocalEslintChange({ inline: true });
 jsLocalEslintChange({ logType: 'fail' });
 ```
 
@@ -499,12 +511,14 @@ Check is Promises are being used, and recommend using Async/Await instead.
 
 | Property | Type                       | Default Value |
 | -------- | -------------------------- | ------------- |
+| inline   | bool                       | false         |
 | logType  | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 jsRecommendAsyncAwait();
+jsRecommendAsyncAwait({ inline: true });
 jsRecommendAsyncAwait({ logType: 'fail' });
 ```
 
@@ -516,6 +530,7 @@ Check if there are test shortcuts (skipped/focused tests).
 
 | Property       | Type                       | Default Value |
 | -------------- | -------------------------- | ------------- |
+| inline         | bool                       | false         |
 | logTypeSkipped | enum (warn, fail, message) | warn          |
 | logTypeFocused | enum (warn, fail, message) | warn          |
 | logType        | enum (warn, fail, message) | warn          |
@@ -524,6 +539,7 @@ Check if there are test shortcuts (skipped/focused tests).
 
 ```
 jsTestShortcuts();
+jsTestShortcuts({ inline: true });
 jsTestShortcuts({ logTypeSkipped: 'message', logTypeFocused: 'fail' });
 jsTestShortcuts({ logType: 'fail' }); // Set both log types to "fail"
 ```

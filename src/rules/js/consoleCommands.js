@@ -4,17 +4,24 @@
 
 import getMessageLogger from '../getMessageLogger';
 import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
+import inlineLogMatching from '../inlineLogMatching';
 
-export default async ({ logType } = {}) => {
-  const hasJsConsoleCommands = filename =>
-    fileAddedLineMatch(filename, /console\.[a-z]+/);
+const msgInline = 'Seems like a console command is being used.';
+const regexJsConsoleCommands = /console\.[a-z]+/;
+const hasJsConsoleCommands = filename =>
+  fileAddedLineMatch(filename, regexJsConsoleCommands);
 
+export default async ({ logType, inline } = {}) => {
   const log = getMessageLogger(logType);
   const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
   await jsFiles.forEach(async filename => {
-    const hasConsole = await hasJsConsoleCommands(filename);
-    if (hasConsole) {
-      log(`The file \`${filename}\` may contain console commands.`);
+    if (inline === true) {
+      inlineLogMatching(filename, regexJsConsoleCommands, msgInline, log);
+    } else {
+      const hasConsole = await hasJsConsoleCommands(filename);
+      if (hasConsole) {
+        log(`The file \`${filename}\` may contain console commands.`);
+      }
     }
   });
 };

@@ -1,3 +1,4 @@
+// const { danger } = require('danger'); // eslint-disable-line
 const {
   committedFilesGrep,
   commonChangelog,
@@ -8,7 +9,7 @@ const {
   commonFileWarnings,
   inCommit,
   inCommitGrep,
-  jsConsoleCommands,
+  // jsConsoleCommands,
   jsGlobalEslintChange,
   jsLocalEslintChange,
   jsLockfile,
@@ -32,7 +33,7 @@ commonFileWarnings('lint.log');
 
 commonFileWarnings('test.log');
 
-jsConsoleCommands();
+// jsConsoleCommands();
 
 jsGlobalEslintChange();
 
@@ -83,3 +84,52 @@ changedRules.forEach(curChange => {
     );
   }
 });
+
+// /////
+
+const {
+  git: { structuredDiffForFile },
+} = danger;
+
+const structuredFileAddedLines = async filename => {
+  const addedLines = {};
+  const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
+  chunks.forEach(({ changes }) => {
+    changes.forEach(({ type, ln, content }) => {
+      if (type === 'add') {
+        addedLines[ln] = content.substr(1);
+      }
+    });
+  });
+  return addedLines;
+};
+
+const structuredFileAddedLineMatches = async (filename, pattern) => {
+  const addedLines = await structuredFileAddedLines(filename);
+  const matches = [];
+  Object.entries(addedLines).forEach(([line, content]) => {
+    if (content.match(pattern) !== null) {
+      matches.push(parseInt(line, 10));
+    }
+  });
+  return matches;
+};
+
+const inlineLogMatching = async (filename, regex, msg, logFunc) => {
+  const lines = await structuredFileAddedLineMatches(filename, regex);
+  lines.forEach(lineNumber => {
+    logFunc(msg, filename, lineNumber);
+  });
+};
+
+const msgInline = 'Seems like a console command is being used';
+const regexJsConsoleCommands = /console\.[a-z]+/;
+
+const inlineConsoleCommands = async () => {
+  const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
+  await jsFiles.forEach(async filename => {
+    inlineLogMatching(filename, regexJsConsoleCommands, msgInline, warn);
+  });
+};
+
+inlineConsoleCommands();

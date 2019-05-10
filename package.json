@@ -38,6 +38,10 @@
     "update:changelog": "node ./scripts/update-changelog"
   },
   "lint-staged": {
+    "**/!(package|package-lock).json": [
+      "prettier --write",
+      "git add"
+    ],
     "*.js": [
       "npm run lint:fix:staged --",
       "git add"

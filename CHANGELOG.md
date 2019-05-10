@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.12.0] - 2019-5-10
+
 ### Added
 
 - Added option to add the comments inline in the PR's for [`cssBackpackVariables`](docs/validations.md#cssbackpackvariables), [`cssLocalStylelintChange`](docs/validations.md#csslocalstylelintchange), [`cssRemOverEm`](docs/validations.md#cssremoverem), [`jsConsoleCommands`](docs/validations.md#jsconsolecommands), [`jsLocalEslintChange`](docs/validations.md#jslocaleslintchange), [`jsRecommendAsyncAwait`](docs/validations.md#jsrecommendasyncawait) and [`jsTestShortcuts`](docs/validations.md#jstestshortcuts).

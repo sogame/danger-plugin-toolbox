@@ -19,9 +19,20 @@ const updateChangelog = version => {
   fs.writeFileSync(changelogPath, updatedChangelogData, 'utf8');
 };
 
+const updatePluginVersionCI = version => {
+  const ciScriptPath = './.travis.yml';
+  const ciScriptData = fs.readFileSync(ciScriptPath, 'utf8');
+
+  const regexp = /(danger-plugin-toolbox@)\d+\.\d+\.\d+/;
+  const updatedCiScriptData = ciScriptData.replace(regexp, `$1${version}`);
+
+  fs.writeFileSync(ciScriptPath, updatedCiScriptData, 'utf8');
+};
+
 const [, , version] = process.argv;
 if (!version) {
   console.error('usage: update-changelog.js <version>\n\n');
 } else {
   updateChangelog(version);
+  updatePluginVersionCI(version);
 }

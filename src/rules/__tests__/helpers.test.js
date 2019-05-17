@@ -32,6 +32,7 @@ import {
   inCommitGrep,
   fileAddedLines,
   fileAddedLineMatch,
+  fileAddedLineNumbers,
   structuredFileAddedLines,
   structuredFileAddedLineMatches,
   linkToTargetRepo,
@@ -207,6 +208,35 @@ describe('helpers', () => {
         const expected = false;
 
         const result = await fileAddedLineMatch(filename, pattern);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
+    describe('fileAddedLineNumbers', () => {
+      it('should return the list of added lines when the file has added lines', async () => {
+        const filename = 'structuredFile1.js';
+        const expected = [1, 11, 12];
+
+        const result = await fileAddedLineNumbers(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return an empty array when the file has no added lines', async () => {
+        const filename = 'structuredDelOnly.js';
+        const expected = [];
+
+        const result = await fileAddedLineNumbers(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return an empty array when the file is not in the commit', async () => {
+        const filename = 'invalidFile.js';
+        const expected = [];
+
+        const result = await fileAddedLineNumbers(filename);
 
         expect(result).toEqual(expected);
       });

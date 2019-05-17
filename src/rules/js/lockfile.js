@@ -2,10 +2,19 @@
 // If dependencies change (changes in "package.json"), "package-lock.json" also must be updated.
 //
 
-import getMessageLogger from '../getMessageLogger';
-import { inCommit } from '../helpers';
+import fs from 'fs';
 
-export default ({
+import { matchLineNumber } from '../../utils';
+import getMessageLogger from '../getMessageLogger';
+import { inCommit, fileAddedLineNumbers } from '../helpers';
+
+const lineRange = (content, pattern) => {
+  const startLine = matchLineNumber(content, pattern);
+  const endLine = matchLineNumber(content, /\}/, startLine);
+  return [startLine, endLine];
+};
+
+export default async ({
   path = '',
   logTypePackage,
   logTypePackageLock,
@@ -17,10 +26,35 @@ export default ({
   const changedPackagelock = inCommit(packagelockFilename);
 
   if (changedPackage && !changedPackagelock) {
-    const logPackage = getMessageLogger(logTypePackage || logType);
-    logPackage(
-      `Dependencies (\`${packageFilename}\`) may have changed, but lockfile (\`${packagelockFilename}\`) has not been updated.`,
+    const packageContent = fs.readFileSync(packageFilename).toString();
+    const [startDependencies, endDependencies] = lineRange(
+      packageContent,
+      /"dependencies": {/,
     );
+    const [startDevDependencies, endDevDependencies] = lineRange(
+      packageContent,
+      /"devDependencies": {/,
+    );
+
+    const addedLineNumbers = await fileAddedLineNumbers(packageFilename);
+    const changedDependencies = addedLineNumbers.reduce(
+      (alreadyChanged, ln) =>
+        (ln > startDependencies && ln < endDependencies) || alreadyChanged,
+      false,
+    );
+    const changedDevDependencies = addedLineNumbers.reduce(
+      (alreadyChanged, ln) =>
+        (ln > startDevDependencies && ln < endDevDependencies) ||
+        alreadyChanged,
+      false,
+    );
+
+    if (changedDependencies || changedDevDependencies) {
+      const logPackage = getMessageLogger(logTypePackage || logType);
+      logPackage(
+        `Dependencies (\`${packageFilename}\`) may have changed, but lockfile (\`${packagelockFilename}\`) has not been updated.`,
+      );
+    }
   }
 
   if (changedPackagelock && !changedPackage) {

@@ -22,7 +22,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --ignore *.test.js,**/__mocks__/",
-    "danger": "danger ci",
+    "danger": "danger ci --failOnErrors",
     "format:packagejson": "format-package -w",
     "lint": "eslint . --ext .js",
     "lint:fix": "npm run lint -- --fix",

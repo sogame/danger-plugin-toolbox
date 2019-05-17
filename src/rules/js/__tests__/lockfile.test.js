@@ -1,5 +1,52 @@
+import fs from 'fs';
+
 import * as helpers from '../../helpers';
 import jsLockfile from '../lockfile';
+
+const folderPath = 'folder/';
+const packageFolderFilename = `${folderPath}package.json`;
+const packageJson = `{
+  "foo": "foo value",
+  "bar": "bar value",
+  "devDependencies": {
+    "dev-dep1": "1.0.0",
+    "dev-dep2": "2.0.0",
+    "dev-dep3": "3.0.0",
+  },
+  "scripts": {
+    "script1": "script 1",
+    "script2": "script 2",
+    "script3": "script 3"
+  },
+  "dependencies": {
+    "dep1": "1.0.0",
+    "dep2": "2.0.0",
+    "dep3": "3.0.0",
+  },
+  "keywords": [
+    "foo",
+    "bar"
+  ]
+}`;
+const mockFiles = {
+  'package.json': packageJson,
+  [packageFolderFilename]: packageJson,
+};
+
+const devDependenciesChangedStructure = {
+  5: '',
+  6: '',
+};
+const dependenciesChangedStructure = {
+  2: '',
+  16: '',
+};
+const noDependenciesChangedStructure = {
+  2: '',
+  18: '',
+};
+
+fs.setMockFiles(mockFiles);
 
 const getMessagePackage = (path = '') =>
   `Dependencies (\`${path}package.json\`) may have changed, but lockfile (\`${path}package-lock.json\`) has not been updated.`;
@@ -16,83 +63,137 @@ describe('jsLockfile', () => {
     jest.resetAllMocks();
   });
 
-  it('should not warn when package.json and package-lock.json have not been changed', () => {
+  it('should not warn when package.json and package-lock.json have not been changed', async () => {
     const files = ['file.js'];
     helpers.setMockCommittedFiles(files);
 
-    jsLockfile();
+    await jsLockfile();
 
     expect(global.warn).not.toHaveBeenCalled();
   });
 
-  it('should not warn when package.json and package-lock.json have changed', () => {
+  it('should not warn when dependencies in package.json and package-lock.json have changed', async () => {
     const files = ['file.js', 'package.json', 'package-lock.json'];
     helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      'package.json': dependenciesChangedStructure,
+    });
 
-    jsLockfile();
+    await jsLockfile();
 
     expect(global.warn).not.toHaveBeenCalled();
   });
 
-  it('should warn when package.json has changed and package-lock.json has not', () => {
+  it('should not warn when devDependencies in package.json and package-lock.json have changed', async () => {
+    const files = ['file.js', 'package.json', 'package-lock.json'];
+    helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      'package.json': devDependenciesChangedStructure,
+    });
+
+    await jsLockfile();
+
+    expect(global.warn).not.toHaveBeenCalled();
+  });
+
+  it('should not warn when dependencies/devDependencies in package.json and package-lock.json have not changed', async () => {
     const files = ['file.js', 'package.json'];
     helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      'package.json': noDependenciesChangedStructure,
+    });
+
+    await jsLockfile();
+
+    expect(global.warn).not.toHaveBeenCalled();
+  });
+
+  it('should warn when dependencies in package.json have changed and package-lock.json has not', async () => {
+    const files = ['file.js', 'package.json'];
+    helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      'package.json': dependenciesChangedStructure,
+    });
 
     const expectedMsg = getMessagePackage();
 
-    jsLockfile();
+    await jsLockfile();
 
     expect(global.warn).toHaveBeenCalledWith(expectedMsg);
   });
 
-  it('should warn when package-lock.json has changed and package.json has not', () => {
+  it('should warn when devDependencies in package.json have changed and package-lock.json has not', async () => {
+    const files = ['file.js', 'package.json'];
+    helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      'package.json': devDependenciesChangedStructure,
+    });
+
+    const expectedMsg = getMessagePackage();
+
+    await jsLockfile();
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+  });
+
+  it('should warn when package-lock.json has changed and package.json has not', async () => {
     const files = ['file.js', 'package-lock.json'];
     helpers.setMockCommittedFiles(files);
 
     const expectedMsg = getMessagePackageLock();
 
-    jsLockfile();
+    await jsLockfile();
 
     expect(global.warn).toHaveBeenCalledWith(expectedMsg);
   });
 
-  it('should not warn when package.json has changed in a folder and the right "path" is not provided', () => {
-    const path = 'folder/';
-    const files = ['file.js', `${path}package.json`];
+  it('should not warn when package.json has changed in a folder and the right "path" is not provided', async () => {
+    const files = ['file.js', packageFolderFilename];
     helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      [packageFolderFilename]: dependenciesChangedStructure,
+    });
 
-    jsLockfile();
+    await jsLockfile();
 
     expect(global.warn).not.toHaveBeenCalled();
   });
 
-  it('should warn when package.json has changed in a folder and "path" is provided', () => {
-    const path = 'folder/';
-    const files = ['file.js', `${path}package.json`, 'package-lock.json'];
+  it('should warn when package.json has changed in a folder and "path" is provided', async () => {
+    const files = ['file.js', packageFolderFilename, 'package-lock.json'];
     helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      [packageFolderFilename]: dependenciesChangedStructure,
+    });
 
-    const expectedMsg = getMessagePackage(path);
+    const expectedMsg = getMessagePackage(folderPath);
 
-    jsLockfile({ path });
+    await jsLockfile({ path: folderPath });
 
     expect(global.warn).toHaveBeenCalledWith(expectedMsg);
   });
 
-  it('should log as "logTypePackage" when is provided', () => {
+  it('should log as "logTypePackage" when is provided', async () => {
     const files = ['file.js', 'package.json'];
     helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      'package.json': dependenciesChangedStructure,
+    });
 
-    jsLockfile({ logTypePackage: 'fail' });
+    await jsLockfile({ logTypePackage: 'fail' });
 
     expect(global.warn).not.toHaveBeenCalled();
     expect(global.fail).toHaveBeenCalled();
   });
 
-  it('should log as "logTypePackage" when "logType" is also provided', () => {
+  it('should log as "logTypePackage" when "logType" is also provided', async () => {
     const files = ['file.js', 'package.json'];
     helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      'package.json': dependenciesChangedStructure,
+    });
 
-    jsLockfile({
+    await jsLockfile({
       logTypePackage: 'fail',
       logType: 'message',
     });
@@ -102,21 +203,21 @@ describe('jsLockfile', () => {
     expect(global.fail).toHaveBeenCalled();
   });
 
-  it('should log as "logTypePackageLock" when is provided', () => {
+  it('should log as "logTypePackageLock" when is provided', async () => {
     const files = ['file.js', 'package-lock.json'];
     helpers.setMockCommittedFiles(files);
 
-    jsLockfile({ logTypePackageLock: 'fail' });
+    await jsLockfile({ logTypePackageLock: 'fail' });
 
     expect(global.warn).not.toHaveBeenCalled();
     expect(global.fail).toHaveBeenCalled();
   });
 
-  it('should log as "logTypePackageLock" when "logType" is also provided', () => {
+  it('should log as "logTypePackageLock" when "logType" is also provided', async () => {
     const files = ['file.js', 'package-lock.json'];
     helpers.setMockCommittedFiles(files);
 
-    jsLockfile({
+    await jsLockfile({
       logTypePackageLock: 'fail',
       logType: 'message',
     });
@@ -126,21 +227,24 @@ describe('jsLockfile', () => {
     expect(global.fail).toHaveBeenCalled();
   });
 
-  it('should log as "logType" when provided but "logTypePackage" is not', () => {
+  it('should log as "logType" when provided but "logTypePackage" is not', async () => {
     const files = ['file.js', 'package.json'];
     helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      'package.json': dependenciesChangedStructure,
+    });
 
-    jsLockfile({ logType: 'fail' });
+    await jsLockfile({ logType: 'fail' });
 
     expect(global.warn).not.toHaveBeenCalled();
     expect(global.fail).toHaveBeenCalled();
   });
 
-  it('should log as "logType" when provided but "logTypePackageLock" is not', () => {
+  it('should log as "logType" when provided but "logTypePackageLock" is not', async () => {
     const files = ['file.js', 'package-lock.json'];
     helpers.setMockCommittedFiles(files);
 
-    jsLockfile({ logType: 'fail' });
+    await jsLockfile({ logType: 'fail' });
 
     expect(global.warn).not.toHaveBeenCalled();
     expect(global.fail).toHaveBeenCalled();

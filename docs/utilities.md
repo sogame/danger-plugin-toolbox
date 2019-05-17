@@ -61,6 +61,14 @@ if (someLineMatch) {
 }
 ```
 
+### fileAddedLineNumbers
+
+Return the line number of all the lines that have been added in the provided file.
+
+```
+const addedLinesArray = fileAddedLineNumbers('file.js');
+```
+
 ### structuredFileAddedLines
 
 Return an object with the content of all the lines that have been added in the provided file. The keys in the object are the line numbers.

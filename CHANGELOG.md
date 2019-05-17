@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Changed
+
+- Improved [`jsLockfile`](docs/validations.md#jslockfile) validation: now it checks that `dependencies` or `devDependencies` have changed in `package.json` (it used to only check if `package.json` was changed).
+
+### Added
+
+- New utility [`fileAddedLineNumbers`](docs/utilities.md#fileaddedlinenumbers) to get an array with the line number of all added lines.
 
 ## [1.12.0] - 2019-5-10
 
@@ -22,7 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- New utility [`structuredFileAddedLines`](docs/utilities.md#structuredfileaddedlines) to get and object with the added line numbers and its content.
+- New utility [`structuredFileAddedLines`](docs/utilities.md#structuredfileaddedlines) to get an object with the added line numbers and its content.
 - New utility [`structuredFileAddedLineMatches`](docs/utilities.md#structuredfileaddedlinematches) to get the list of line numbers of the added lines matching a pattern.
 
 ## [1.10.0] - 2019-5-3

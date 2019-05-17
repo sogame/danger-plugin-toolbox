@@ -30,6 +30,7 @@ droneSkipRelease
 enum
 eslint
 externalPr
+fileAddedLineNumbers
 fileAddedLines
 fileAddedLineMatch
 func

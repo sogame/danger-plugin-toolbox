@@ -74,6 +74,19 @@ export const fileAddedLineMatch = async (filename, pattern) => {
   return addedLines.match(pattern) !== null;
 };
 
+export const fileAddedLineNumbers = async filename => {
+  const addedLines = [];
+  const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
+  chunks.forEach(({ changes }) => {
+    changes.forEach(({ type, ln }) => {
+      if (type === 'add') {
+        addedLines.push(ln);
+      }
+    });
+  });
+  return addedLines;
+};
+
 export const structuredFileAddedLines = async filename => {
   const addedLines = {};
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};

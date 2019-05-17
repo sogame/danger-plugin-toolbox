@@ -30,6 +30,12 @@ export const fileAddedLineMatch = (filename, pattern) =>
     resolve(fileContents.match(pattern) !== null);
   });
 
+export const fileAddedLineNumbers = filename =>
+  new Promise(resolve => {
+    const structuredLines = mockFilesStructuredAddedLines[filename] || {};
+    resolve(Object.keys(structuredLines).map(lineStr => parseInt(lineStr, 10)));
+  });
+
 export const structuredFileAddedLines = filename =>
   new Promise(resolve => {
     const structuredLines = mockFilesStructuredAddedLines[filename] || {};

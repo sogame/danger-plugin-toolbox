@@ -72,6 +72,7 @@ prAuthor
 prDescription
 proptypes
 prTitle
+reactBackpackCssModules
 reactRecommendClassProperties
 regex
 scss

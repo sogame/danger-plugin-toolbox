@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - New utility [`fileAddedLineNumbers`](docs/utilities.md#fileaddedlinenumbers) to get an array with the line number of all added lines.
+- New validation [`reactBackpackCssModules`](docs/validations.md#reactbackpackcssmodules) to recommend using [Backpack's `cssModules` utility](https://github.com/Skyscanner/backpack/tree/master/packages/bpk-react-utils#cssmodulesjs) in React components.
 
 ## [1.12.0] - 2019-5-10
 

@@ -28,6 +28,7 @@ import jsLocalEslintChange from './rules/js/localEslintChange';
 import jsLockfile from './rules/js/lockfile';
 import jsRecommendAsyncAwait from './rules/js/recommendAsyncAwait';
 import jsTestShortcuts from './rules/js/testShortcuts';
+import reactBackpackCssModules from './rules/react/backpackCssModules';
 import reactRecommendClassProperties from './rules/react/recommendClassProperties';
 
 export * from './rules/helpers';
@@ -61,5 +62,6 @@ export {
   jsLockfile,
   jsRecommendAsyncAwait,
   jsTestShortcuts,
+  reactBackpackCssModules,
   reactRecommendClassProperties,
 };

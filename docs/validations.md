@@ -544,6 +544,23 @@ jsTestShortcuts({ logTypeSkipped: 'message', logTypeFocused: 'fail' });
 jsTestShortcuts({ logType: 'fail' }); // Set both log types to "fail"
 ```
 
+### reactBackpackCssModules
+
+Recommend using [Backpack's `cssModules` utility](https://github.com/Skyscanner/backpack/tree/master/packages/bpk-react-utils#cssmodulesjs) in React components.
+
+##### Configuration
+
+| Property | Type                       | Default Value |
+| -------- | -------------------------- | ------------- |
+| logType  | enum (warn, fail, message) | warn          |
+
+##### Usage
+
+```
+reactBackpackCssModules();
+reactBackpackCssModules({ logType: 'fail' });
+```
+
 ### reactRecommendClassProperties
 
 Recommend using class properties to define `state` and PropTypes when creating React class components.

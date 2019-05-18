@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.13.0] - 2019-5-18
+
 ### Changed
 
 - Improved [`jsLockfile`](docs/validations.md#jslockfile) validation: now it checks that `dependencies` or `devDependencies` have changed in `package.json` (it used to only check if `package.json` was changed).

@@ -19,6 +19,10 @@
     "email": "sogame@gmail.com",
     "name": "Sogame"
   },
+  "keywords": [
+    "danger",
+    "danger-plugin"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --ignore *.test.js,**/__mocks__/",
@@ -36,6 +40,12 @@
     "test:coverage": "npm test -- --coverage",
     "test:watch": "npm test -- --watch",
     "update:changelog": "node ./scripts/update-changelog"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
   },
   "lint-staged": {
     "**/!(package|package-lock).json": [
@@ -56,12 +66,6 @@
       "git add"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js",
@@ -77,10 +81,6 @@
       "<rootDir>/setupTests.js"
     ]
   },
-  "keywords": [
-    "danger",
-    "danger-plugin"
-  ],
   "devDependencies": {
     "ajv": "6.10.0",
     "babel-cli": "6.26.0",
@@ -90,7 +90,7 @@
     "danger": "7.1.4",
     "ensure-node-env": "1.2.3",
     "eslint-config-skyscanner-with-prettier": "0.8.0",
-    "format-package": "^4.5.0",
+    "format-package": "^4.5.1",
     "husky": "2.4.0",
     "inquirer": "6.3.1",
     "jest": "24.8.0",

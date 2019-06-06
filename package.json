@@ -87,7 +87,7 @@
     "babel-eslint": "10.0.1",
     "babel-jest": "24.8.0",
     "babel-preset-env": "1.7.0",
-    "danger": "7.1.4",
+    "danger": "8.0.0",
     "ensure-node-env": "1.2.3",
     "eslint-config-skyscanner-with-prettier": "0.8.0",
     "format-package": "^4.5.1",

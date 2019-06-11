@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Fixed
+
+- Fix in [`committedFilesGrep`](docs/utilities.md#committedfilesgrep) and [`inCommitGrep`](docs/utilities.md#incommitgrep) to avoid crashing when the list of committed files contains a `null` value.
 
 ## [1.13.0] - 2019-5-18
 

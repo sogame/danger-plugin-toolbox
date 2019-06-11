@@ -1,6 +1,6 @@
-export const mockCreatedFiles = ['createdFile1.js', 'createdFile2.js'];
+export const mockCreatedFiles = ['createdFile1.js', 'createdFile2.js', null];
 
-export const mockModifiedFiles = ['modifiedFile1.js', 'modifiedFile2.js'];
+export const mockModifiedFiles = ['modifiedFile1.js', null, 'modifiedFile2.js'];
 
 export const mockCommits = [
   { message: 'Commit 1' },

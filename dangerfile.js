@@ -3,6 +3,7 @@ const {
   commonChangelog,
   commonContributingGuide,
   commonFileContains,
+  commonFileExists,
   commonPrDescriptionContribution,
   commonValidJson,
   commonFileWarnings,
@@ -83,3 +84,5 @@ changedRules.forEach(curChange => {
     );
   }
 });
+
+commonFileExists('package-lock.json', { logType: 'fail' });

@@ -42,9 +42,7 @@ export {
 };
 
 export const externalPr = sourceProjectId !== targetProjectId;
-
 export const committedFiles = [...createdFiles, ...modifiedFiles];
-
 export const committedFilesGrep = pattern =>
   committedFiles.filter(filename => filename.match(pattern) !== null);
 
@@ -59,10 +57,8 @@ const trivialCommits = commits.reduce(
 export const isTrivial = trivialTitle && trivialCommits;
 
 export const inCommit = filename => committedFiles.includes(filename);
-
 export const inCommitGrep = pattern =>
   committedFiles.findIndex(filename => filename.match(pattern) !== null) >= 0;
-
 export const fileAddedLines = async filename => {
   const diff = await diffForFile(filename);
   const { added } = diff || {};

@@ -16,6 +16,7 @@
   },
   "globals": {
     "danger": false,
+    "markdown": false,
     "fail": false,
     "warn": false,
     "message": false

@@ -10,6 +10,7 @@ const buildMessage = authorName =>
 describe('commonContribution', () => {
   beforeEach(() => {
     global.message = jest.fn();
+    global.markdown = jest.fn();
 
     jest.resetAllMocks();
   });
@@ -40,5 +41,16 @@ describe('commonContribution', () => {
     commonContribution({ msg: expectedMsg });
 
     expect(global.message).toHaveBeenCalledWith(expectedMsg);
+  });
+
+  it('should log as "logType" when is provided', () => {
+    helpers.externalPr = true;
+
+    buildMessage(author);
+
+    commonContribution({ logType: 'markdown' });
+
+    expect(global.markdown).toHaveBeenCalled();
+    expect(global.message).not.toHaveBeenCalled();
   });
 });

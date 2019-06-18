@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- Allow using `markdown` as log function in [`commonContribution`](docs/validations.md#commoncontribution) validation.
 
 ## [1.13.1] - 2019-6-12
 

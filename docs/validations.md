@@ -76,15 +76,17 @@ Thank the author of [external contributions](utilities.md#externalpr).
 
 ##### Configuration
 
-| Property | Type   |
-| -------- | ------ |
-| msg      | string |
+| Property | Type                     | Default Value |
+| -------- | ------------------------ | ------------- |
+| msg      | string                   |               |
+| logType  | enum (message, markdown) | message       |
 
 ##### Usage
 
 ```
 commonContribution();
 commonContribution({ msg: 'Many thanks for your collaboration!' });
+commonContribution({ logType: 'markdown', msg: '**Many thanks for your collaboration!**' });
 ```
 
 ### commonFileContains

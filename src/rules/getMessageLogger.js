@@ -1,11 +1,5 @@
-export const getPositiveMessageLogger = type => {
-  switch (type) {
-    case 'markdown':
-      return markdown;
-    default:
-      return message;
-  }
-};
+export const getPositiveMessageLogger = type =>
+  type === 'markdown' ? markdown : message;
 
 export default (type, allowMarkdown = false) => {
   if (allowMarkdown === true && type === 'markdown') {

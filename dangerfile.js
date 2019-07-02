@@ -15,14 +15,17 @@ const {
   jsTestShortcuts,
   linkToTargetRepo,
   prAuthor,
+  prTitle,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 
 commonPrDescriptionContribution();
 
 commonContributingGuide();
 
-// Only require "CHANGELOG.md" to be updated when the PR is not created by Greenkeeper
-if (prAuthor !== 'greenkeeper[bot]') {
+// Only require "CHANGELOG.md" to be updated when:
+// - The PR is not created by Greenkeeper
+// - The PR title is not "Update dependencies" (just bumping devDependencies)
+if (prAuthor !== 'greenkeeper[bot]' && prTitle !== 'Update dependencies') {
   commonChangelog();
 }
 

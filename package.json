@@ -89,7 +89,7 @@
     "babel-preset-env": "^1.7.0",
     "danger": "^9.0.2",
     "eslint-config-skyscanner-with-prettier": "^0.8.0",
-    "format-package": "^4.5.1",
+    "format-package": "^5.0.0",
     "husky": "^3.0.0",
     "inquirer": "^6.4.1",
     "jest": "^24.8.0",

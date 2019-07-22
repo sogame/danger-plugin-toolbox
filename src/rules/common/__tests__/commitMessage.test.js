@@ -90,6 +90,14 @@ describe('commonCommitMessage', () => {
         expect(result).not.toBeNull();
       });
 
+      it('should match strings starting with a Jira ticket and a colon', () => {
+        const message = 'FOO-123: Some text';
+
+        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+
+        expect(result).not.toBeNull();
+      });
+
       it('should match strings starting with "[NO-JIRA]"', () => {
         const message = '[NO-JIRA] Some text';
 
@@ -100,6 +108,14 @@ describe('commonCommitMessage', () => {
 
       it('should match strings starting with "NO-JIRA"', () => {
         const message = 'NO-JIRA Some text';
+
+        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+
+        expect(result).not.toBeNull();
+      });
+
+      it('should match strings starting with "NO-JIRA:"', () => {
+        const message = 'NO-JIRA: Some text';
 
         const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
 

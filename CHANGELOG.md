@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Changed
+
+- Change the regular expression `COMMON_COMMIT_MESSAGE_JIRA_REGEX` to allow a colon after the Jira ticket (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)).
 
 ## [1.14.0] - 2019-6-26
 

@@ -89,7 +89,7 @@ describe('commonFileExists', () => {
   it('should show a warning when the "files" parameter is missing', () => {
     commonFileExists();
 
-    const message = '`commonFileExists`: missing "files" parameter';
+    const message = '`commonFileExists`: missing "files" parameter.';
 
     expect(global.warn).toHaveBeenCalledWith(message);
   });

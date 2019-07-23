@@ -6,6 +6,33 @@ Most of the validations add a warning message in the Danger comment when the che
 The message type (failure, warning, info) can be configured when using each validation.
 Some validations can be configured to add the comments inline in the PR (instead of in the general comment that contains all messages).
 
+### commonAddedLinesContains
+
+Check if the provided regex matches any added line in the files.
+
+This can be used to prevent some text being added (like debugging commands, banned words...).
+
+##### Parameters
+
+1. `filesRegex`: The regular expression matching the files to analyse.
+1. `lineRegex`: The regular expression matching the line content to find.
+1. `buildMessage`: The function to build the message string to display. This function gets the filename as parameter.
+
+##### Configuration
+
+| Property | Type                       | Default Value |
+| -------- | -------------------------- | ------------- |
+| inline   | bool                       | false         |
+| logType  | enum (warn, fail, message) | warn          |
+
+##### Usage
+
+```
+commonAddedLinesContains(/\.(js|jsx)$/i, /console\.[a-z]+/, f => `The file "${f}" may contain console commands.`);
+commonAddedLinesContains(/\.md$/i, /react native+/, () => 'Please, use "React Native" instead of "react native".' { inline: true });
+commonAddedLinesContains(/\.(js|jsx)$/i, /console\.[a-z]+/, f => `The file "${f}" may contain console commands.`, { logType: 'fail' });
+```
+
 ### commonChangelog
 
 Make sure the changelog file has been updated.

@@ -109,7 +109,7 @@ describe('commonFileContains', () => {
   it('should show a warning when the "file" parameter is missing', () => {
     commonFileContains();
 
-    const message = '`commonFileContains`: missing "file" parameter';
+    const message = '`commonFileContains`: missing "file" parameter.';
 
     expect(global.warn).toHaveBeenCalledWith(message);
   });
@@ -117,7 +117,7 @@ describe('commonFileContains', () => {
   it('should show a warning when the "regex" parameter is missing', () => {
     commonFileContains('file.txt');
 
-    const message = '`commonFileContains`: missing "regex" parameter';
+    const message = '`commonFileContains`: missing "regex" parameter.';
 
     expect(global.warn).toHaveBeenCalledWith(message);
   });

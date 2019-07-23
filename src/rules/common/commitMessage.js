@@ -11,9 +11,9 @@ export const COMMON_COMMIT_MESSAGE_JIRA_MSG =
 
 export default (regex, message, { logType } = {}) => {
   if (!regex) {
-    warn('`commonCommitMessage`: missing "regex" parameter');
+    warn('`commonCommitMessage`: missing "regex" parameter.');
   } else if (!message) {
-    warn('`commonCommitMessage`: missing "message" parameter');
+    warn('`commonCommitMessage`: missing "message" parameter.');
   } else if (
     commits.findIndex(
       ({ message: commitMessage }) => commitMessage.match(regex) === null,

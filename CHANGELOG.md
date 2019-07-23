@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- New validation [`commonAddedLinesContains`](docs/validations.md#commonaddedlinescontains) to check if the provided regex matches any added line in the files.
+
 ### Changed
 
 - Change the regular expression `COMMON_COMMIT_MESSAGE_JIRA_REGEX` to allow a colon after the Jira ticket (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)).
@@ -71,13 +75,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- New validation [`reactRecommendClassProperties`](docs/validations.md#reactRecommendClassProperties) to recommend using class properties to define `state` and PropTypes in React components.
+- New validation [`reactRecommendClassProperties`](docs/validations.md#reactrecommendclassproperties) to recommend using class properties to define `state` and PropTypes in React components.
 
 ## [1.7.0] - 2019-4-17
 
 ### Added
 
-- New validation [`jsRecommendAsyncAwait`](docs/validations.md#jsRecommendAsyncAwait) to recommend using Async/Await instead of Promises.
+- New validation [`jsRecommendAsyncAwait`](docs/validations.md#jsrecommendasyncawait) to recommend using Async/Await instead of Promises.
 
 ### Changed
 

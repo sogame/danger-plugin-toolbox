@@ -5,6 +5,7 @@ changelog.md
 changelogFile
 committedFiles
 committedFilesGrep
+commonAddedLinesContains
 commonChangelog
 commonCommitMessage
 commonContributingGuide

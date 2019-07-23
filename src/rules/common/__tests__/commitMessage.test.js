@@ -59,7 +59,7 @@ describe('commonCommitMessage', () => {
   it('should show a warning when the "regex" parameter is missing', () => {
     commonCommitMessage();
 
-    const message = '`commonCommitMessage`: missing "regex" parameter';
+    const message = '`commonCommitMessage`: missing "regex" parameter.';
 
     expect(global.warn).toHaveBeenCalledWith(message);
   });
@@ -67,7 +67,7 @@ describe('commonCommitMessage', () => {
   it('should show a warning when the "message" parameter is missing', () => {
     commonCommitMessage(/a/);
 
-    const message = '`commonCommitMessage`: missing "message" parameter';
+    const message = '`commonCommitMessage`: missing "message" parameter.';
 
     expect(global.warn).toHaveBeenCalledWith(message);
   });

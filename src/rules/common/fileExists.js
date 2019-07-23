@@ -11,7 +11,7 @@ const defaultMessage = filename =>
 
 export default (files, { logType, buildMessage } = {}) => {
   if (!files) {
-    warn('`commonFileExists`: missing "files" parameter');
+    warn('`commonFileExists`: missing "files" parameter.');
   } else {
     let fileList;
     if (typeof files === 'string') {

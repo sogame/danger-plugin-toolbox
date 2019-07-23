@@ -1,3 +1,5 @@
+import inlineLogMatching from './rules/inlineLogMatching';
+import commonAddedLinesContains from './rules/common/addedLinesContains';
 import commonChangelog from './rules/common/changelog';
 import commonCommitMessage, {
   COMMON_COMMIT_MESSAGE_JIRA_REGEX,
@@ -33,6 +35,7 @@ import reactRecommendClassProperties from './rules/react/recommendClassPropertie
 
 export * from './rules/helpers';
 export {
+  commonAddedLinesContains,
   commonChangelog,
   commonCommitMessage,
   COMMON_COMMIT_MESSAGE_JIRA_REGEX,
@@ -56,6 +59,7 @@ export {
   imageMinifiedJpg,
   imageMinifiedPng,
   imageMinifiedSvg,
+  inlineLogMatching,
   jsConsoleCommands,
   jsGlobalEslintChange,
   jsLocalEslintChange,

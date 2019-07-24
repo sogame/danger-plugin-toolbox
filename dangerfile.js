@@ -16,6 +16,7 @@ const {
   linkToTargetRepo,
   prAuthor,
   prTitle,
+  commonAddedLinesContains,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 
 commonPrDescriptionContribution();
@@ -64,6 +65,8 @@ if (changedValidations && !changedValidationsDoc) {
   );
 }
 
+// Console
+
 const changedUtilities = inCommit('src/rules/helpers.js');
 const changedUtilitiesDoc = inCommit(utilitiesMd);
 if (changedUtilities && !changedUtilitiesDoc) {
@@ -86,3 +89,5 @@ changedRules.forEach(curChange => {
     );
   }
 });
+
+commonAddedLinesContains(/\.js/, /console/i, () => `aaa CCCCCCCCCCCC bbb.`, { inline: true });

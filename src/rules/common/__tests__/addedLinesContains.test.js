@@ -11,7 +11,7 @@ const validJs = 'valid.js';
 const invalidJs = 'invalid.js';
 const mockFiles = {
   [validJs]: 'const foo = 42;',
-  [invalidJs]: 'const bar = 42;',
+  [invalidJs]: 'const bar = 41;',
 };
 
 helpers.setMockFilesContent(mockFiles);

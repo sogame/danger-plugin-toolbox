@@ -35,15 +35,15 @@ commonFileWarnings('lint.log');
 
 commonFileWarnings('test.log');
 
-jsConsoleCommands();
+jsConsoleCommands({ inline: true });
 
 jsGlobalEslintChange();
 
-jsLocalEslintChange();
+jsLocalEslintChange({ inline: true });
 
 jsLockfile();
 
-jsTestShortcuts({ logTypeFocused: 'fail' });
+jsTestShortcuts({ logTypeFocused: 'fail', inline: true });
 
 const noUnreleasedSection = () =>
   'CHANGELOG.md is missing the "Unreleased" section.';

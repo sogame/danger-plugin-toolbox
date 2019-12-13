@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const fs = require('fs');
 
 const updateChangelog = version => {
@@ -29,10 +27,11 @@ const updatePluginVersionCI = version => {
   fs.writeFileSync(ciScriptPath, updatedCiScriptData, 'utf8');
 };
 
-const [, , version] = process.argv;
-if (!version) {
+const [, , newVersion] = process.argv;
+if (!newVersion) {
+  // eslint-disable-next-line no-console
   console.error('usage: update-changelog.js <version>\n\n');
 } else {
-  updateChangelog(version);
-  updatePluginVersionCI(version);
+  updateChangelog(newVersion);
+  updatePluginVersionCI(newVersion);
 }

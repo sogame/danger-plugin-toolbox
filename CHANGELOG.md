@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Fixed
+
+- Fix in [`jsLockfile`](docs/validations.md#jslockfile) to avoid showing a warning if `dependencies` or `devDependencies` do not exist in `package.json`.
 
 ## [1.15.0] - 2019-7-24
 

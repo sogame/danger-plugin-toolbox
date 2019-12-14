@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- New validation [`reactBackpackSubcomponents`](docs/validations.md#reactbackpacksubcomponents) to recommend using Backpack's sub-components (like [BpkButtonPrimary instead of BpkButton](https://github.com/Skyscanner/backpack/blob/master/CHANGELOG.md#2019-10-22---add-individual-exports-for-buttons)) in React components to reduce the amount of unused CSS and JS included.
+
 ### Fixed
 
 - Fix in [`jsLockfile`](docs/validations.md#jslockfile) to avoid showing a warning if `dependencies` or `devDependencies` do not exist in `package.json`.

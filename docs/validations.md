@@ -590,6 +590,23 @@ reactBackpackCssModules();
 reactBackpackCssModules({ logType: 'fail' });
 ```
 
+### reactBackpackSubcomponents
+
+Recommend using Backpack's sub-components (like [BpkButtonPrimary instead of BpkButton](https://github.com/Skyscanner/backpack/blob/master/CHANGELOG.md#2019-10-22---add-individual-exports-for-buttons)) in React components to reduce the amount of unused CSS and JS included.
+
+##### Configuration
+
+| Property | Type                       | Default Value |
+| -------- | -------------------------- | ------------- |
+| logType  | enum (warn, fail, message) | warn          |
+
+##### Usage
+
+```
+reactBackpackSubcomponents();
+reactBackpackSubcomponents({ logType: 'fail' });
+```
+
 ### reactRecommendClassProperties
 
 Recommend using class properties to define `state` and PropTypes when creating React class components.

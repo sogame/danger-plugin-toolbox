@@ -1,5 +1,7 @@
 async
 bool
+BpkButton
+BpkButtonPrimary
 buildMessage
 changelog.md
 changelogFile
@@ -74,6 +76,7 @@ prDescription
 proptypes
 prTitle
 reactBackpackCssModules
+reactBackpackSubcomponents
 reactRecommendClassProperties
 regex
 scss

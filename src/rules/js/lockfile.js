@@ -37,17 +37,24 @@ export default async ({
     );
 
     const addedLineNumbers = await fileAddedLineNumbers(packageFilename);
-    const changedDependencies = addedLineNumbers.reduce(
-      (alreadyChanged, ln) =>
-        (ln > startDependencies && ln < endDependencies) || alreadyChanged,
-      false,
-    );
-    const changedDevDependencies = addedLineNumbers.reduce(
-      (alreadyChanged, ln) =>
-        (ln > startDevDependencies && ln < endDevDependencies) ||
-        alreadyChanged,
-      false,
-    );
+    const changedDependencies =
+      startDependencies < 0
+        ? false
+        : addedLineNumbers.reduce(
+            (alreadyChanged, ln) =>
+              (ln > startDependencies && ln < endDependencies) ||
+              alreadyChanged,
+            false,
+          );
+    const changedDevDependencies =
+      startDevDependencies < 0
+        ? false
+        : addedLineNumbers.reduce(
+            (alreadyChanged, ln) =>
+              (ln > startDevDependencies && ln < endDevDependencies) ||
+              alreadyChanged,
+            false,
+          );
 
     if (changedDependencies || changedDevDependencies) {
       const logPackage = getMessageLogger(logTypePackage || logType);

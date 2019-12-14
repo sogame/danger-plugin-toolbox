@@ -5,6 +5,10 @@ import jsLockfile from '../lockfile';
 
 const folderPath = 'folder/';
 const packageFolderFilename = `${folderPath}package.json`;
+const folderPathNoDeps = 'folderNoDeps/';
+const packageNoDeps = `${folderPathNoDeps}package.json`;
+const folderPathNoDevDeps = 'folderNoDevDeps/';
+const packageNoDevDeps = `${folderPathNoDevDeps}package.json`;
 const packageJson = `{
   "foo": "foo value",
   "bar": "bar value",
@@ -28,9 +32,47 @@ const packageJson = `{
     "bar"
   ]
 }`;
+const packageJsonNoDeps = `{
+  "foo": "foo value",
+  "bar": "bar value",
+  "devDependencies": {
+    "dev-dep1": "1.0.0",
+    "dev-dep2": "2.0.0",
+    "dev-dep3": "3.0.0",
+  },
+  "scripts": {
+    "script1": "script 1",
+    "script2": "script 2",
+    "script3": "script 3"
+  },
+  "keywords": [
+    "foo",
+    "bar"
+  ]
+}`;
+const packageJsonNoDevDeps = `{
+  "foo": "foo value",
+  "bar": "bar value",
+  "scripts": {
+    "script1": "script 1",
+    "script2": "script 2",
+    "script3": "script 3"
+  },
+  "dependencies": {
+    "dep1": "1.0.0",
+    "dep2": "2.0.0",
+    "dep3": "3.0.0",
+  },
+  "keywords": [
+    "foo",
+    "bar"
+  ]
+}`;
 const mockFiles = {
   'package.json': packageJson,
   [packageFolderFilename]: packageJson,
+  [packageNoDeps]: packageJsonNoDeps,
+  [packageNoDevDeps]: packageJsonNoDevDeps,
 };
 
 const devDependenciesChangedStructure = {
@@ -43,7 +85,6 @@ const dependenciesChangedStructure = {
 };
 const noDependenciesChangedStructure = {
   2: '',
-  18: '',
 };
 
 fs.setMockFiles(mockFiles);
@@ -171,6 +212,30 @@ describe('jsLockfile', () => {
     await jsLockfile({ path: folderPath });
 
     expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+  });
+
+  it('should not warn when dependencies do not exist in package.json and package-lock.json has not changed', async () => {
+    const files = ['file.js', packageNoDeps];
+    helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      [packageNoDeps]: noDependenciesChangedStructure,
+    });
+
+    await jsLockfile({ path: folderPathNoDeps });
+
+    expect(global.warn).not.toHaveBeenCalled();
+  });
+
+  it('should not warn when devDependencies do not exist in package.json and package-lock.json has not changed', async () => {
+    const files = ['file.js', packageNoDevDeps];
+    helpers.setMockCommittedFiles(files);
+    helpers.setFilesStructuredAddedLines({
+      [packageNoDevDeps]: noDependenciesChangedStructure,
+    });
+
+    await jsLockfile({ path: folderPathNoDevDeps });
+
+    expect(global.warn).not.toHaveBeenCalled();
   });
 
   it('should log as "logTypePackage" when is provided', async () => {

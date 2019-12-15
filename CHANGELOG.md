@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.16.0] - 2019-12-15
+
 ### Added
 
 - New validation [`reactBackpackSubcomponents`](docs/validations.md#reactbackpacksubcomponents) to recommend using Backpack's sub-components (like [BpkButtonPrimary instead of BpkButton](https://github.com/Skyscanner/backpack/blob/master/CHANGELOG.md#2019-10-22---add-individual-exports-for-buttons)) in React components to reduce the amount of unused CSS and JS included.

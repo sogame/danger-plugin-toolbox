@@ -18,14 +18,16 @@ const {
   prTitle,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 
+const prAuthorIsBot = ['greenkeeper[bot]', 'snyk-bot'].includes(prAuthor);
+
 commonPrDescriptionContribution();
 
 commonContributingGuide();
 
-// Only require "CHANGELOG.md" to be updated when:
-// - The PR is not created by Greenkeeper
-// - The PR title is not "Update dependencies" (just bumping devDependencies)
-if (prAuthor !== 'greenkeeper[bot]' && prTitle !== 'Update dependencies') {
+// Do not require "CHANGELOG.md" to be updated when:
+// - The PR is created by a bot (Greenkeeper, Snyk...)
+// - The PR title is "Update dependencies" (just bumping devDependencies)
+if (!(prAuthorIsBot || prTitle === 'Update dependencies')) {
   commonChangelog();
 }
 

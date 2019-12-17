@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- Added the regular expression `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX` (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)) to allow merge commits also when expecting a Jira ticket.
 
 ## [1.16.0] - 2019-12-15
 

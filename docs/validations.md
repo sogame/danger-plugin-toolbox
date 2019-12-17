@@ -64,7 +64,8 @@ Make sure all commit messages match a regex.
 ##### Defined constants
 
 - `COMMON_COMMIT_MESSAGE_JIRA_REGEX`: When using this regex, the validation will fail if any commit message does not start with a Jira ticket (like `FOO-123`) or the string `NO-JIRA`.
-- `COMMON_COMMIT_MESSAGE_JIRA_MSG`: A sample message to use with `COMMON_COMMIT_MESSAGE_JIRA_REGEX`.
+- `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX`: Like the previous one, but also allowing merge commits (like `Merge pull request #123 from sogame/danger-plugin-toolbox` or `Merge branch 'master' of sogame/danger-plugin-toolbox`).
+- `COMMON_COMMIT_MESSAGE_JIRA_MSG`: A sample message to use with `COMMON_COMMIT_MESSAGE_JIRA_REGEX` or `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX`.
 
 ##### Configuration
 

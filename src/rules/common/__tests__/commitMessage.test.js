@@ -1,6 +1,7 @@
 import * as helpers from '../../helpers';
 import commonCommitMessage, {
   COMMON_COMMIT_MESSAGE_JIRA_REGEX,
+  COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX,
 } from '../commitMessage';
 
 const mockCommits = messages => {
@@ -73,93 +74,122 @@ describe('commonCommitMessage', () => {
   });
 
   describe('exported regex', () => {
+    describe('Jira or Merge', () => {
+      it('should match strings starting with the merge pr message', () => {
+        const message =
+          'Merge pull request #123 from sogame/danger-plugin-toolbox';
+
+        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX);
+
+        expect(result).not.toBeNull();
+      });
+
+      it('should match strings starting with the merge branch message', () => {
+        const message = "Merge branch 'master' of sogame/danger-plugin-toolbox";
+
+        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX);
+
+        expect(result).not.toBeNull();
+      });
+    });
+
     describe('Jira', () => {
-      it('should match strings starting with a Jira ticket in braces', () => {
-        const message = '[FOO-123] Some text';
+      [
+        {
+          type: 'Jira or Merge',
+          regex: COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX,
+        },
+        { type: 'Jira Only', regex: COMMON_COMMIT_MESSAGE_JIRA_REGEX },
+      ].forEach(({ type, regex }) => {
+        describe(type, () => {
+          it('should match strings starting with a Jira ticket in braces', () => {
+            const message = '[FOO-123] Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).not.toBeNull();
-      });
+            expect(result).not.toBeNull();
+          });
 
-      it('should match strings starting with a Jira ticket without braces', () => {
-        const message = 'FOO-123 Some text';
+          it('should match strings starting with a Jira ticket without braces', () => {
+            const message = 'FOO-123 Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).not.toBeNull();
-      });
+            expect(result).not.toBeNull();
+          });
 
-      it('should match strings starting with a Jira ticket and a colon', () => {
-        const message = 'FOO-123: Some text';
+          it('should match strings starting with a Jira ticket and a colon', () => {
+            const message = 'FOO-123: Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).not.toBeNull();
-      });
+            expect(result).not.toBeNull();
+          });
 
-      it('should match strings starting with "[NO-JIRA]"', () => {
-        const message = '[NO-JIRA] Some text';
+          it('should match strings starting with "[NO-JIRA]"', () => {
+            const message = '[NO-JIRA] Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).not.toBeNull();
-      });
+            expect(result).not.toBeNull();
+          });
 
-      it('should match strings starting with "NO-JIRA"', () => {
-        const message = 'NO-JIRA Some text';
+          it('should match strings starting with "NO-JIRA"', () => {
+            const message = 'NO-JIRA Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).not.toBeNull();
-      });
+            expect(result).not.toBeNull();
+          });
 
-      it('should match strings starting with "NO-JIRA:"', () => {
-        const message = 'NO-JIRA: Some text';
+          it('should match strings starting with "NO-JIRA:"', () => {
+            const message = 'NO-JIRA: Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).not.toBeNull();
-      });
+            expect(result).not.toBeNull();
+          });
 
-      it('should be case insensitive (Jira ticket)', () => {
-        const message = '[fOo-123] Some text';
+          it('should be case insensitive (Jira ticket)', () => {
+            const message = '[fOo-123] Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).not.toBeNull();
-      });
+            expect(result).not.toBeNull();
+          });
 
-      it('should be case insensitive (NO-JIRA)', () => {
-        const message = 'No-Jira Some text';
+          it('should be case insensitive (NO-JIRA)', () => {
+            const message = 'No-Jira Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).not.toBeNull();
-      });
+            expect(result).not.toBeNull();
+          });
 
-      it('should not match when the ticket is not at the start of the string', () => {
-        const message = 'Some text [FOO-123]';
+          it('should not match when the ticket is not at the start of the string', () => {
+            const message = 'Some text [FOO-123]';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).toBeNull();
-      });
+            expect(result).toBeNull();
+          });
 
-      it('should not match a string in braces', () => {
-        const message = '[FOO] Some text';
+          it('should not match a string in braces', () => {
+            const message = '[FOO] Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).toBeNull();
-      });
+            expect(result).toBeNull();
+          });
 
-      it('should not match if there is no space after the Jira ticket', () => {
-        const message = '[FOO-123]Some text';
+          it('should not match if there is no space after the Jira ticket', () => {
+            const message = '[FOO-123]Some text';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_REGEX);
+            const result = message.match(regex);
 
-        expect(result).toBeNull();
+            expect(result).toBeNull();
+          });
+        });
       });
     });
   });

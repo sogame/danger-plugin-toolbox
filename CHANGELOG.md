@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Fixed
+
+- Added missing export for `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX`.
 
 ## [1.17.0] - 2019-12-17
 

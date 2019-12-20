@@ -47,7 +47,7 @@ if (inCommitGrep(/.+\.log$/)) {
 Return the contents of all the lines that have been added in the provided file.
 
 ```
-const addedLinesString = fileAddedLines('file.js');
+const addedLinesString = await fileAddedLines('file.js');
 ```
 
 ### fileAddedLineMatch
@@ -55,7 +55,7 @@ const addedLinesString = fileAddedLines('file.js');
 Do the file added lines match a regex?
 
 ```
-const someLineMatch = fileAddedLineMatch('file.js', /pattern/);
+const someLineMatch = await fileAddedLineMatch('file.js', /pattern/);
 if (someLineMatch) {
   ...
 }
@@ -66,7 +66,7 @@ if (someLineMatch) {
 Return the line number of all the lines that have been added in the provided file.
 
 ```
-const addedLinesArray = fileAddedLineNumbers('file.js');
+const addedLinesArray = await fileAddedLineNumbers('file.js');
 ```
 
 ### structuredFileAddedLines
@@ -74,7 +74,7 @@ const addedLinesArray = fileAddedLineNumbers('file.js');
 Return an object with the content of all the lines that have been added in the provided file. The keys in the object are the line numbers.
 
 ```
-const addedLines = structuredFileAddedLines('file.js');
+const addedLines = await structuredFileAddedLines('file.js');
 Object.entries(addedLines).forEach(([lineNumber, content]) => {
   ...
 });
@@ -85,7 +85,7 @@ Object.entries(addedLines).forEach(([lineNumber, content]) => {
 Return an array with the line numbers of all the added lines that match a regex.
 
 ```
-const lineNumbers = structuredFileAddedLineMatches('file.js', /pattern/);
+const lineNumbers = await structuredFileAddedLineMatches('file.js', /pattern/);
 lineNumbers.forEach(lineNumber => {
   ...
 });

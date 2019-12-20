@@ -10,6 +10,7 @@ import {
   mockSourceBranch,
   mockSourceProjectId,
   mockLinesAddedFile,
+  mockLinesRemovedFile,
   mockStructuredLinesAddedFile,
   mockHref,
   mockTargetRepoUrl,
@@ -31,10 +32,15 @@ import {
   inCommit,
   inCommitGrep,
   fileAddedLines,
+  fileRemovedLines,
   fileAddedLineMatch,
+  fileRemovedLineMatch,
   fileAddedLineNumbers,
+  fileRemovedLineNumbers,
   structuredFileAddedLines,
+  structuredFileRemovedLines,
   structuredFileAddedLineMatches,
+  structuredFileRemovedLineMatches,
   linkToTargetRepo,
   linkToSourceRepo,
 } from '../helpers';
@@ -189,6 +195,26 @@ describe('helpers', () => {
       });
     });
 
+    describe('fileRemovedLines', () => {
+      it('should return the removed lines for the file', async () => {
+        const filename = 'file1.js';
+        const expected = mockLinesRemovedFile[filename];
+
+        const result = await fileRemovedLines(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty when the file is not in the commit', async () => {
+        const filename = 'invalidFile.js';
+        const expected = '';
+
+        const result = await fileRemovedLines(filename);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
     describe('fileAddedLineMatch', () => {
       it('should return true when added lines match the pattern', async () => {
         const filename = 'file1.js';
@@ -208,6 +234,30 @@ describe('helpers', () => {
         const expected = false;
 
         const result = await fileAddedLineMatch(filename, pattern);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
+    describe('fileRemovedLineMatch', () => {
+      it('should return true when removed lines match the pattern', async () => {
+        const filename = 'file1.js';
+        const pattern = /removed file1/;
+
+        const expected = true;
+
+        const result = await fileRemovedLineMatch(filename, pattern);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return false when removed lines do not match the pattern', async () => {
+        const filename = 'file1.js';
+        const pattern = /fake content/;
+
+        const expected = false;
+
+        const result = await fileRemovedLineMatch(filename, pattern);
 
         expect(result).toEqual(expected);
       });
@@ -237,6 +287,35 @@ describe('helpers', () => {
         const expected = [];
 
         const result = await fileAddedLineNumbers(filename);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
+    describe('fileRemovedLineNumbers', () => {
+      it('should return the list of removed lines when the file has removed lines', async () => {
+        const filename = 'structuredFile1.js';
+        const expected = [4, 20];
+
+        const result = await fileRemovedLineNumbers(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return an empty array when the file has no removed lines', async () => {
+        const filename = 'structuredAddOnly.js';
+        const expected = [];
+
+        const result = await fileRemovedLineNumbers(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return an empty array when the file is not in the commit', async () => {
+        const filename = 'invalidFile.js';
+        const expected = [];
+
+        const result = await fileRemovedLineNumbers(filename);
 
         expect(result).toEqual(expected);
       });
@@ -281,6 +360,45 @@ describe('helpers', () => {
       });
     });
 
+    describe('structuredFileRemovedLines', () => {
+      it('should return the removed lines for the file', async () => {
+        const filename = 'structuredFile1.js';
+        const { chunks } = mockStructuredLinesAddedFile[filename];
+        const changes = Object.values(chunks).reduce(
+          (acc, { changes: curChanges }) => [...acc, ...curChanges],
+          [],
+        );
+        const expected = changes.reduce((acc, { type, ln, content }) => {
+          if (type === 'del') {
+            acc[ln] = content.substr(1);
+          }
+          return acc;
+        }, {});
+
+        const result = await structuredFileRemovedLines(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty object when the file has no lines removed', async () => {
+        const filename = 'structuredAddOnly.js';
+        const expected = {};
+
+        const result = await structuredFileRemovedLines(filename);
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty object when the file is not in the commit', async () => {
+        const filename = 'invalidFile.js';
+        const expected = {};
+
+        const result = await structuredFileRemovedLines(filename);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
     describe('structuredFileAddedLineMatches', () => {
       it('should return the line numbers for the lines that match', async () => {
         const filename = 'structuredFile1.js';
@@ -311,6 +429,50 @@ describe('helpers', () => {
         const expected = [];
 
         const result = await structuredFileAddedLineMatches(filename, pattern);
+
+        expect(result).toEqual(expected);
+      });
+    });
+
+    describe('structuredFileARemovedineMatches', () => {
+      it('should return the line numbers for the lines that match', async () => {
+        const filename = 'structuredFile1.js';
+        const pattern = /line removed/;
+
+        const expected = [4, 20];
+
+        const result = await structuredFileRemovedLineMatches(
+          filename,
+          pattern,
+        );
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty array when there are not matches', async () => {
+        const filename = 'structuredFile1.js';
+        const pattern = /foo/;
+
+        const expected = [];
+
+        const result = await structuredFileRemovedLineMatches(
+          filename,
+          pattern,
+        );
+
+        expect(result).toEqual(expected);
+      });
+
+      it('should return empty array when there are no removed lines', async () => {
+        const filename = 'structuredAddOnly.js';
+        const pattern = /line/;
+
+        const expected = [];
+
+        const result = await structuredFileRemovedLineMatches(
+          filename,
+          pattern,
+        );
 
         expect(result).toEqual(expected);
       });

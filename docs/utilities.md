@@ -50,12 +50,31 @@ Return the contents of all the lines that have been added in the provided file.
 const addedLinesString = await fileAddedLines('file.js');
 ```
 
+### fileRemovedLines
+
+Return the contents of all the lines that have been removed in the provided file.
+
+```
+const removedLinesString = await fileRemovedLines('file.js');
+```
+
 ### fileAddedLineMatch
 
 Do the file added lines match a regex?
 
 ```
 const someLineMatch = await fileAddedLineMatch('file.js', /pattern/);
+if (someLineMatch) {
+  ...
+}
+```
+
+### fileRemovedLineMatch
+
+Do the file removed lines match a regex?
+
+```
+const someLineMatch = await fileRemovedLineMatch('file.js', /pattern/);
 if (someLineMatch) {
   ...
 }
@@ -69,6 +88,14 @@ Return the line number of all the lines that have been added in the provided fil
 const addedLinesArray = await fileAddedLineNumbers('file.js');
 ```
 
+### fileRemovedLineNumbers
+
+Return the line number of all the lines that have been removed in the provided file.
+
+```
+const removedLinesArray = await fileRemovedLineNumbers('file.js');
+```
+
 ### structuredFileAddedLines
 
 Return an object with the content of all the lines that have been added in the provided file. The keys in the object are the line numbers.
@@ -80,12 +107,34 @@ Object.entries(addedLines).forEach(([lineNumber, content]) => {
 });
 ```
 
+### structuredFileRemovedLines
+
+Return an object with the content of all the lines that have been removed in the provided file. The keys in the object are the line numbers.
+
+```
+const removedLines = await structuredFileRemovedLines('file.js');
+Object.entries(removedLines).forEach(([lineNumber, content]) => {
+  ...
+});
+```
+
 ### structuredFileAddedLineMatches
 
 Return an array with the line numbers of all the added lines that match a regex.
 
 ```
 const lineNumbers = await structuredFileAddedLineMatches('file.js', /pattern/);
+lineNumbers.forEach(lineNumber => {
+  ...
+});
+```
+
+### structuredFileRemovedLineMatches
+
+Return an array with the line numbers of all the removed lines that match a regex.
+
+```
+const lineNumbers = await structuredFileRemovedLineMatches('file.js', /pattern/);
 lineNumbers.forEach(lineNumber => {
   ...
 });

@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- Added the utilities [`fileRemovedLines`](docs/utilities.md#fileremovedlines), [`fileRemovedLineMatch`](docs/utilities.md#fileremovedlinematch), [`fileRemovedLineNumbers`](docs/utilities.md#fileremovedlinenumbers), [`structuredFileRemovedLines`](docs/utilities.md#structuredfileremovedlines) and [`structuredFileRemovedLineMatches`](docs/utilities.md#structuredfileremovedlinematches).
 
 ## [1.17.1] - 2019-12-17
 

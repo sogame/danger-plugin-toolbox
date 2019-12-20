@@ -34,8 +34,11 @@ enum
 eslint
 externalPr
 fileAddedLineNumbers
+fileRemovedLineNumbers
 fileAddedLines
+fileRemovedLines
 fileAddedLineMatch
+fileRemovedLineMatch
 func
 href
 imageMinified
@@ -84,7 +87,9 @@ sourceBranch
 sourceProjectId
 sourceRepoUrl
 structuredFileAddedLines
+structuredFileRemovedLines
 structuredFileAddedLineMatches
+structuredFileRemovedLineMatches
 stylelint
 targetBranch
 targetProjectId

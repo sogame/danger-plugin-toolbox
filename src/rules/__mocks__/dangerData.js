@@ -26,6 +26,10 @@ export const mockLinesAddedFile = {
   'file1.js': 'lines added file1',
 };
 
+export const mockLinesRemovedFile = {
+  'file1.js': 'lines removed file1',
+};
+
 const chunksFile1 = [
   {
     changes: [
@@ -42,7 +46,7 @@ const chunksFile1 = [
       {
         type: 'del',
         ln: 4,
-        content: '-line 4',
+        content: '-line removed 4',
       },
     ],
   },
@@ -70,7 +74,52 @@ const chunksFile1 = [
       {
         type: 'del',
         ln: 20,
-        content: '-line 20',
+        content: '-line removed 20',
+      },
+    ],
+  },
+];
+
+const chunksAddedOnly = [
+  {
+    changes: [
+      {
+        type: 'normal',
+        ln: 2,
+        content: 'line 2',
+      },
+      {
+        type: 'add',
+        ln: 4,
+        content: '+line 4',
+      },
+    ],
+  },
+  {
+    changes: [
+      {
+        type: 'normal',
+        ln: 10,
+        content: 'line 10',
+      },
+      {
+        type: 'add',
+        ln: 11,
+        content: '+line 11',
+      },
+      {
+        type: 'add',
+        ln: 12,
+        content: '+line 12',
+      },
+    ],
+  },
+  {
+    changes: [
+      {
+        type: 'add',
+        ln: 20,
+        content: '+line 20',
       },
     ],
   },
@@ -123,6 +172,7 @@ const chunksDeletedOnly = [
 
 export const mockStructuredLinesAddedFile = {
   'structuredFile1.js': { chunks: chunksFile1 },
+  'structuredAddOnly.js': { chunks: chunksAddedOnly },
   'structuredDelOnly.js': { chunks: chunksDeletedOnly },
 };
 

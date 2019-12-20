@@ -73,9 +73,20 @@ export const fileAddedLines = async filename => {
   return added || '';
 };
 
+export const fileRemovedLines = async filename => {
+  const diff = await diffForFile(filename);
+  const { removed } = diff || {};
+  return removed || '';
+};
+
 export const fileAddedLineMatch = async (filename, pattern) => {
   const addedLines = await fileAddedLines(filename);
   return addedLines.match(pattern) !== null;
+};
+
+export const fileRemovedLineMatch = async (filename, pattern) => {
+  const removedLines = await fileRemovedLines(filename);
+  return removedLines.match(pattern) !== null;
 };
 
 export const fileAddedLineNumbers = async filename => {
@@ -91,6 +102,19 @@ export const fileAddedLineNumbers = async filename => {
   return addedLines;
 };
 
+export const fileRemovedLineNumbers = async filename => {
+  const removedLines = [];
+  const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
+  chunks.forEach(({ changes }) => {
+    changes.forEach(({ type, ln }) => {
+      if (type === 'del') {
+        removedLines.push(ln);
+      }
+    });
+  });
+  return removedLines;
+};
+
 export const structuredFileAddedLines = async filename => {
   const addedLines = {};
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
@@ -104,10 +128,34 @@ export const structuredFileAddedLines = async filename => {
   return addedLines;
 };
 
+export const structuredFileRemovedLines = async filename => {
+  const removedLines = {};
+  const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
+  chunks.forEach(({ changes }) => {
+    changes.forEach(({ type, ln, content }) => {
+      if (type === 'del') {
+        removedLines[ln] = content.substr(1);
+      }
+    });
+  });
+  return removedLines;
+};
+
 export const structuredFileAddedLineMatches = async (filename, pattern) => {
   const addedLines = await structuredFileAddedLines(filename);
   const matches = [];
   Object.entries(addedLines).forEach(([line, content]) => {
+    if (content.match(pattern) !== null) {
+      matches.push(parseInt(line, 10));
+    }
+  });
+  return matches;
+};
+
+export const structuredFileRemovedLineMatches = async (filename, pattern) => {
+  const removedLines = await structuredFileRemovedLines(filename);
+  const matches = [];
+  Object.entries(removedLines).forEach(([line, content]) => {
     if (content.match(pattern) !== null) {
       matches.push(parseInt(line, 10));
     }

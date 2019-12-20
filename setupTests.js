@@ -10,6 +10,7 @@ import {
   mockSourceBranch,
   mockSourceProjectId,
   mockLinesAddedFile,
+  mockLinesRemovedFile,
   mockStructuredLinesAddedFile,
   mockHref,
   mockTargetRepoUrl,
@@ -24,7 +25,17 @@ global.danger = {
     diffForFile: filename =>
       new Promise(resolve => {
         const added = mockLinesAddedFile[filename];
-        const result = added ? { added } : null;
+        const removed = mockLinesRemovedFile[filename];
+        let result = null;
+        if (added || removed) {
+          result = {};
+          if (added) {
+            result.added = added;
+          }
+          if (removed) {
+            result.removed = removed;
+          }
+        }
         resolve(result);
       }),
     structuredDiffForFile: filename =>

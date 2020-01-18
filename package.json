@@ -82,7 +82,7 @@
     ]
   },
   "devDependencies": {
-    "ajv": "^6.10.2",
+    "ajv": "^6.11.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
@@ -90,7 +90,7 @@
     "danger": "^9.2.10",
     "eslint-config-skyscanner-with-prettier": "^0.8.0",
     "format-package": "^5.2.0",
-    "husky": "^4.0.0",
+    "husky": "^4.0.10",
     "inquirer": "^7.0.3",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",

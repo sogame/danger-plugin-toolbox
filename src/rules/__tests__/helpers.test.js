@@ -95,23 +95,76 @@ describe('helpers', () => {
   });
 
   describe('helpers exports (const)', () => {
-    /*
-    it('should expose the right externalPr (true)', () => {
-    });
+    describe('externalPr', () => {
+      it('should return "false" when the pr is from the same repo', () => {
+        global.danger.github.pr.base.repo.id = '42';
+        global.danger.github.pr.head.repo.id = '42';
 
-    it('should expose the right externalPr (false)', () => {
+        jest.resetModules();
+        const { externalPr } = require('../helpers'); // eslint-disable-line global-require
+
+        expect(externalPr).toBe(false);
+      });
+
+      it('should return "true" when the pr is from a different repo', () => {
+        global.danger.github.pr.base.repo.id = '42';
+        global.danger.github.pr.head.repo.id = '99';
+
+        jest.resetModules();
+        const { externalPr } = require('../helpers'); // eslint-disable-line global-require
+
+        expect(externalPr).toBe(true);
+      });
     });
-    */
 
     it('should expose the right committedFiles', () => {
       const expected = [...mockCreatedFiles, ...mockModifiedFiles];
       expect(committedFiles).toEqual(expected);
     });
 
-    /*
-    it('should expose the right isTrivial', () => {
+    describe('isTrivial', () => {
+      it('should return "true" when pr title and all commits are trivial', () => {
+        global.danger.github.pr.title = '[trivial] Fooo';
+        global.danger.git.commits = [
+          { message: '#trivial Commit 1' },
+          { message: '[trivial] Commit 2' },
+          { message: '[trivial] Commit 3' },
+        ];
+
+        jest.resetModules();
+        const { isTrivial } = require('../helpers'); // eslint-disable-line global-require
+
+        expect(isTrivial).toBe(true);
+      });
+
+      it('should return "false" when pr title is not trivial', () => {
+        global.danger.github.pr.title = 'Fooo';
+        global.danger.git.commits = [
+          { message: '#trivial Commit 1' },
+          { message: '[trivial] Commit 2' },
+          { message: '[trivial] Commit 3' },
+        ];
+
+        jest.resetModules();
+        const { isTrivial } = require('../helpers'); // eslint-disable-line global-require
+
+        expect(isTrivial).toBe(false);
+      });
+
+      it('should return "false" when any commit is not trivial', () => {
+        global.danger.github.pr.title = '[trivial] Fooo';
+        global.danger.git.commits = [
+          { message: '#trivial Commit 1' },
+          { message: 'Commit 2' },
+          { message: '[trivial] Commit 3' },
+        ];
+
+        jest.resetModules();
+        const { isTrivial } = require('../helpers'); // eslint-disable-line global-require
+
+        expect(isTrivial).toBe(false);
+      });
     });
-    */
   });
 
   describe('helpers exports (functions)', () => {

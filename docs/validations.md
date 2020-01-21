@@ -537,18 +537,22 @@ jsLockfile({ path: 'another/folder/' });
 
 Check is Promises are being used, and recommend using Async/Await instead.
 
+`ignoreTests` can be used to ignore test files (so using Promises will be allowed in test files).
+
 ##### Configuration
 
-| Property | Type                       | Default Value |
-| -------- | -------------------------- | ------------- |
-| inline   | bool                       | false         |
-| logType  | enum (warn, fail, message) | warn          |
+| Property    | Type                       | Default Value |
+| ----------- | -------------------------- | ------------- |
+| ignoreTests | bool                       | false         |
+| inline      | bool                       | false         |
+| logType     | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 jsRecommendAsyncAwait();
 jsRecommendAsyncAwait({ inline: true });
+jsRecommendAsyncAwait({ inline: true, ignoreTests: true });
 jsRecommendAsyncAwait({ logType: 'fail' });
 ```
 

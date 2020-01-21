@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- New option `ignoreTests` added to [`jsRecommendAsyncAwait`](docs/validations.md#jsrecommendasyncawait). This option can be used to ignore test files (so using Promises will be allowed in test files).
 - Added the utilities [`fileRemovedLines`](docs/utilities.md#fileremovedlines), [`fileRemovedLineMatch`](docs/utilities.md#fileremovedlinematch), [`fileRemovedLineNumbers`](docs/utilities.md#fileremovedlinenumbers), [`structuredFileRemovedLines`](docs/utilities.md#structuredfileremovedlines) and [`structuredFileRemovedLineMatches`](docs/utilities.md#structuredfileremovedlinematches).
 
 ## [1.17.1] - 2019-12-17

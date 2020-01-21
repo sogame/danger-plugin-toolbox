@@ -4,6 +4,8 @@ import jsRecommendAsyncAwait from '../recommendAsyncAwait';
 
 jest.mock('../../inlineLogMatching');
 
+const contentWithNewPromise = 'foo new Promise() bar';
+
 const noPromisesJs = 'noPromises.js';
 const promiseAllJs = 'promiseAll.js';
 const promiseResolveJs = 'promiseResolve.js';
@@ -11,18 +13,20 @@ const newPromiseJs = 'newPromis.js';
 const dotThenJs = 'dotThen.js';
 const dotCatchJs = 'dotCatch.js';
 const invalidJsCase = 'invalid.Js';
-const invalidJsx = 'invalid.js';
+const invalidJsx = 'invalid.jsx';
 const invalidTs = 'invalid.js';
+const invalidJsxTest = 'invalid.test.jsx';
 const mockFiles = {
   [noPromisesJs]: 'const foo = 42;',
   [promiseAllJs]: 'foo Promise.all bar',
   [promiseResolveJs]: 'foo Promise.resolve bar',
-  [newPromiseJs]: 'foo new Promise() bar',
+  [newPromiseJs]: contentWithNewPromise,
   [dotThenJs]: 'foo .then( bar',
   [dotCatchJs]: 'foo .catch( bar',
-  [invalidJsCase]: 'foo new Promise() bar',
-  [invalidJsx]: 'foo new Promise() bar',
-  [invalidTs]: 'foo new Promise() bar',
+  [invalidJsCase]: contentWithNewPromise,
+  [invalidJsx]: contentWithNewPromise,
+  [invalidTs]: contentWithNewPromise,
+  [invalidJsxTest]: contentWithNewPromise,
 };
 
 helpers.setMockFilesContent(mockFiles);
@@ -133,6 +137,26 @@ describe('jsRecommendAsyncAwait', () => {
       expect(global.warn).toHaveBeenCalledWith(
         expect.stringContaining(invalidJsCase),
       );
+    });
+
+    it('should warn when promises are used in a test file', async () => {
+      const files = [noPromisesJs, invalidJsxTest];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidJsxTest),
+      );
+    });
+
+    it('should not warn when promises are used in a test file and "ignoreTests" is set', async () => {
+      const files = [noPromisesJs, invalidJsxTest];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait({ ignoreTests: true });
+
+      expect(global.warn).not.toHaveBeenCalled();
     });
 
     it('should log as "logType" when is provided', async () => {

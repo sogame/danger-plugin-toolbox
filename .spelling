@@ -41,6 +41,7 @@ fileAddedLineMatch
 fileRemovedLineMatch
 func
 href
+ignoreTests
 imageMinified
 imageMinifiedJpg
 imageMinifiedPng

@@ -48,23 +48,13 @@
     }
   },
   "lint-staged": {
-    "**/!(package|package-lock).json": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.js": [
-      "npm run lint:fix:staged --",
-      "git add"
-    ],
+    "**/!(package|package-lock).json": "prettier --write",
+    "*.js": "npm run lint:fix:staged --",
     "*.md": [
       "npm run spellcheck",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
-    "package.json": [
-      "npm run format:packagejson",
-      "git add"
-    ]
+    "package.json": "npm run format:packagejson"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -90,10 +80,10 @@
     "danger": "^9.2.10",
     "eslint-config-skyscanner-with-prettier": "^0.8.0",
     "format-package": "^5.2.0",
-    "husky": "^4.0.10",
+    "husky": "^4.1.0",
     "inquirer": "^7.0.3",
     "jest": "^24.9.0",
-    "lint-staged": "^9.5.0",
+    "lint-staged": "^10.0.1",
     "markdown-spellcheck": "^1.3.1",
     "release-it": "^12.4.3",
     "semver": "^7.1.1"

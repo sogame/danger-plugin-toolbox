@@ -80,7 +80,7 @@
     "danger": "^9.2.10",
     "eslint-config-skyscanner-with-prettier": "^0.8.0",
     "format-package": "^5.2.0",
-    "husky": "^4.2.0",
+    "husky": "^4.2.1",
     "inquirer": "^7.0.3",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.2",

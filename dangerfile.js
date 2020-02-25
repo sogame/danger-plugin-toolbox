@@ -16,7 +16,7 @@ const {
   linkToTargetRepo,
   prAuthor,
   prTitle,
-} = require('danger-plugin-toolbox'); // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
+} = require('danger-plugin-toolbox'); // eslint-disable-line import/no-extraneous-dependencies
 
 const prAuthorIsBot = ['greenkeeper[bot]', 'snyk-bot'].includes(prAuthor);
 

@@ -1,5 +1,5 @@
 {
-  "extends": ["skyscanner-with-prettier"],
+  "extends": ["skyscanner"],
   "env": {
     "node": true,
     "jest": true
@@ -12,6 +12,7 @@
         "devDependencies": ["**/*.test.js"]
       }
     ],
+    "import/no-unresolved": ["error", { "ignore": ["dangerfile.js"] }],
     "no-console": "error"
   },
   "globals": {

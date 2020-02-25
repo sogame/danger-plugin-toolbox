@@ -7,9 +7,9 @@ import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
 import inlineLogMatching from '../inlineLogMatching';
 
 const msgNonBackpackUnits =
-  'It seems like non-[Backapack](https://backpack.github.io/) units (`rem`, `em`, `px`) are being used. [Backpack units](https://backpack.github.io/tokens/) (or whole multiples of them, like `3 * $bpk-spacing-xs`) should be used instead.';
+  'It seems like non-[Backpack](https://backpack.github.io/) units (`rem`, `em`, `px`) are being used. [Backpack units](https://backpack.github.io/tokens/) (or whole multiples of them, like `3 * $bpk-spacing-xs`) should be used instead.';
 const msgOnePixelRem =
-  'It seems like `$bpk-one-pixel-rem` is being used. This can hide the usage of `px` instead of [Backapack](https://backpack.github.io/) units. Make sure using `px` is strictly needed.';
+  'It seems like `$bpk-one-pixel-rem` is being used. This can hide the usage of `px` instead of [Backpack](https://backpack.github.io/) units. Make sure using `px` is strictly needed.';
 
 const regexNonBackpackaUnits = /[0-9](rem|em|px)[; ]/;
 const regexOnePixelRem = /\$bpk-one-pixel-rem/;
@@ -47,13 +47,13 @@ export default async ({
 
       if (usesNonBackpack) {
         logUnits(
-          `The file \`${filename}\` seems to be using non-[Backapack](https://backpack.github.io/) units (\`rem\`, \`em\`, \`px\`). [Backpack units](https://backpack.github.io/tokens/) (or whole multiples of them, like \`3 * $bpk-spacing-xs\`) should be used instead.`,
+          `The file \`${filename}\` seems to be using non-[Backpack](https://backpack.github.io/) units (\`rem\`, \`em\`, \`px\`). [Backpack units](https://backpack.github.io/tokens/) (or whole multiples of them, like \`3 * $bpk-spacing-xs\`) should be used instead.`,
         );
       }
 
       if (usesPixelRem) {
         logPixel(
-          `The file \`${filename}\` seems to be using \`$bpk-one-pixel-rem\`. This can hide the usage of \`px\` instead of [Backapack](https://backpack.github.io/) units. Make sure using \`px\` is strictly needed.`,
+          `The file \`${filename}\` seems to be using \`$bpk-one-pixel-rem\`. This can hide the usage of \`px\` instead of [Backpack](https://backpack.github.io/) units. Make sure using \`px\` is strictly needed.`,
         );
       }
     }

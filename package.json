@@ -78,7 +78,7 @@
     "babel-jest": "^25.1.0",
     "babel-preset-env": "^1.7.0",
     "danger": "^9.2.10",
-    "eslint-config-skyscanner": "^5.0.0",
+    "eslint-config-skyscanner": "^4.1.0",
     "format-package": "^5.2.0",
     "husky": "^4.2.3",
     "inquirer": "^7.0.4",

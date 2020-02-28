@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.18.0] - 2020-2-28
+
 ### Added
 
 - New option `ignoreTests` added to [`jsRecommendAsyncAwait`](docs/validations.md#jsrecommendasyncawait). This option can be used to ignore test files (so using Promises will be allowed in test files).

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.19.0] - 2020-3-6
+
 ### Added
 
 - Added the configuration option `reverse` in [`commonCommitMessage`](docs/validations.md#commoncommitmessage). This option changes the behaviour, showing the message when some commit message matches the provided regular expression.

@@ -221,7 +221,7 @@ describe('commonCommitMessage', () => {
         });
 
         it(`should not match when the ticket is not at the start of the string - ${type}`, () => {
-          const message = 'Some text [FOO-123]';
+          const message = 'Some text FOO-123 more';
 
           const result = message.match(regex);
 
@@ -314,7 +314,7 @@ describe('commonCommitMessage', () => {
         });
 
         it(`should not match when the ticket is not at the start of the string - ${type}`, () => {
-          const message = 'Some text [FOO-123]';
+          const message = 'Some text FOO-123 more';
 
           const result = message.match(regex);
 

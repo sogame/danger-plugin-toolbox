@@ -5,10 +5,10 @@
 import getMessageLogger from '../getMessageLogger';
 import { commits } from '../helpers';
 
-export const COMMON_COMMIT_MESSAGE_JIRA_REGEX = /^(\[[a-z]+-\d+\] )|([a-z]+-\d+:? )|(\[NO-JIRA\] )|(NO-JIRA:? )/i;
-export const COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX = /^(\[[a-z]+-\d+\] )|([a-z]+-\d+:? )|(\[NO-JIRA\] )|(NO-JIRA:? )|(Merge branch )|(Merge pull request )/i;
-export const COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX = /^(\[NO-JIRA\] )|(NO-JIRA:? )/i;
-export const COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX = /^(\[NO-JIRA\] )|(NO-JIRA:? )|(Merge branch )|(Merge pull request )/i;
+export const COMMON_COMMIT_MESSAGE_JIRA_REGEX = /^((\[[a-z]+-\d+\])|([a-z]+-\d+:?)|(\[NO-JIRA\])|(NO-JIRA:?)) /i;
+export const COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX = /^((\[[a-z]+-\d+\])|([a-z]+-\d+:?)|(\[NO-JIRA\])|(NO-JIRA:?)|(Merge branch)|(Merge pull request)) /i;
+export const COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX = /^((\[NO-JIRA\])|(NO-JIRA:?)) /i;
+export const COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX = /^((\[NO-JIRA\])|(NO-JIRA:?)|(Merge branch)|(Merge pull request)) /i;
 export const COMMON_COMMIT_MESSAGE_JIRA_MSG =
   'Please include a JIRA ticket (like `XXX-DDDD` or `NO-JIRA` if there is no ticket) at the beginning of each commit.';
 

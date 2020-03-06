@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- Added the configuration option `reverse` in [`commonCommitMessage`](docs/validations.md#commoncommitmessage). This option changes the behaviour, showing the message when some commit message matches the provided regular expression.
+- Added the regular expressions `COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX` and `COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX` (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)) to match only the string `NO-JIRA` and not a Jira ticket.
 
 ## [1.18.0] - 2020-2-28
 

@@ -119,6 +119,7 @@ describe('helpers', () => {
 
     it('should expose the right committedFiles', () => {
       const expected = [...mockCreatedFiles, ...mockModifiedFiles];
+
       expect(committedFiles).toEqual(expected);
     });
 

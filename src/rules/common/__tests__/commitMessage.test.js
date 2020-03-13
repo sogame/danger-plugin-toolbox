@@ -156,7 +156,7 @@ describe('commonCommitMessage', () => {
         ['Jira or Merge', COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX],
         ['Jira Only', COMMON_COMMIT_MESSAGE_JIRA_REGEX],
       ])('%s', (type, regex) => {
-        it(`should match strings starting with a Jira ticket in braces - ${type}`, () => {
+        it(`should match strings starting with a Jira ticket in brackets - ${type}`, () => {
           const message = '[FOO-123] Some text';
 
           const result = message.match(regex);
@@ -164,7 +164,15 @@ describe('commonCommitMessage', () => {
           expect(result).not.toBeNull();
         });
 
-        it(`should match strings starting with a Jira ticket without braces - ${type}`, () => {
+        it(`should match strings starting with a Jira ticket in brackets and a colon - ${type}`, () => {
+          const message = '[FOO-123]: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with a Jira ticket without brackets - ${type}`, () => {
           const message = 'FOO-123 Some text';
 
           const result = message.match(regex);
@@ -188,6 +196,46 @@ describe('commonCommitMessage', () => {
           expect(result).not.toBeNull();
         });
 
+        it(`should match strings starting with "[NOJIRA]" - ${type}`, () => {
+          const message = '[NOJIRA] Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "[NO JIRA]" - ${type}`, () => {
+          const message = '[NO JIRA] Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "[NO-JIRA]:" - ${type}`, () => {
+          const message = '[NO-JIRA]: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "[NOJIRA]:" - ${type}`, () => {
+          const message = '[NOJIRA]: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "[NO JIRA]:" - ${type}`, () => {
+          const message = '[NO JIRA]: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
         it(`should match strings starting with "NO-JIRA" - ${type}`, () => {
           const message = 'NO-JIRA Some text';
 
@@ -196,8 +244,40 @@ describe('commonCommitMessage', () => {
           expect(result).not.toBeNull();
         });
 
+        it(`should match strings starting with "NOJIRA" - ${type}`, () => {
+          const message = 'NOJIRA Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "NO JIRA" - ${type}`, () => {
+          const message = 'NO JIRA Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
         it(`should match strings starting with "NO-JIRA:" - ${type}`, () => {
           const message = 'NO-JIRA: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "NOJIRA:" - ${type}`, () => {
+          const message = 'NOJIRA: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "NO JIRA:" - ${type}`, () => {
+          const message = 'NO JIRA: Some text';
 
           const result = message.match(regex);
 
@@ -228,7 +308,7 @@ describe('commonCommitMessage', () => {
           expect(result).toBeNull();
         });
 
-        it(`should not match a string in braces - ${type}`, () => {
+        it(`should not match a string in brackets - ${type}`, () => {
           const message = '[FOO] Some text';
 
           const result = message.match(regex);
@@ -249,7 +329,7 @@ describe('commonCommitMessage', () => {
         ['No-Jira or Merge', COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX],
         ['No-Jira Only', COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX],
       ])('%s', (type, regex) => {
-        it(`should not match strings starting with a Jira ticket in braces - ${type}`, () => {
+        it(`should not match strings starting with a Jira ticket in brackets - ${type}`, () => {
           const message = '[FOO-123] Some text';
 
           const result = message.match(regex);
@@ -257,7 +337,15 @@ describe('commonCommitMessage', () => {
           expect(result).toBeNull();
         });
 
-        it(`should not match strings starting with a Jira ticket without braces - ${type}`, () => {
+        it(`should not match strings starting with a Jira ticket in brackets and a colon - ${type}`, () => {
+          const message = '[FOO-123]: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).toBeNull();
+        });
+
+        it(`should not match strings starting with a Jira ticket without brackets - ${type}`, () => {
           const message = 'FOO-123 Some text';
 
           const result = message.match(regex);
@@ -281,6 +369,46 @@ describe('commonCommitMessage', () => {
           expect(result).not.toBeNull();
         });
 
+        it(`should match strings starting with "[NOJIRA]" - ${type}`, () => {
+          const message = '[NOJIRA] Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "[NO JIRA]" - ${type}`, () => {
+          const message = '[NO JIRA] Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "[NO-JIRA]:" - ${type}`, () => {
+          const message = '[NO-JIRA]: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "[NOJIRA]:" - ${type}`, () => {
+          const message = '[NOJIRA]: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "[NO JIRA]:" - ${type}`, () => {
+          const message = '[NO JIRA]: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
         it(`should match strings starting with "NO-JIRA" - ${type}`, () => {
           const message = 'NO-JIRA Some text';
 
@@ -289,8 +417,40 @@ describe('commonCommitMessage', () => {
           expect(result).not.toBeNull();
         });
 
+        it(`should match strings starting with "NOJIRA" - ${type}`, () => {
+          const message = 'NOJIRA Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "NO JIRA" - ${type}`, () => {
+          const message = 'NO JIRA Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
         it(`should match strings starting with "NO-JIRA:" - ${type}`, () => {
           const message = 'NO-JIRA: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "NOJIRA:" - ${type}`, () => {
+          const message = 'NOJIRA: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "NO JIRA:" - ${type}`, () => {
+          const message = 'NO JIRA: Some text';
 
           const result = message.match(regex);
 
@@ -321,7 +481,7 @@ describe('commonCommitMessage', () => {
           expect(result).toBeNull();
         });
 
-        it(`should not match a string in braces - ${type}`, () => {
+        it(`should not match a string in brackets - ${type}`, () => {
           const message = '[FOO] Some text';
 
           const result = message.match(regex);

@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Changed
+
+- Change the regular expressions `COMMON_COMMIT_MESSAGE_JIRA_REGEX`, `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX`, `COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX` and `COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX` to allow `NOJIRA`, `NO JIRA` and a colon after the square brackets (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)).
 
 ## [1.19.1] - 2020-3-6
 
@@ -135,7 +137,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- The regex to check for a Jira ticket in a commit message now allows not using braces around the ticket id (so `ABC-123 My commit message` will now work). The regex is also case insensitive now.
+- The regex to check for a Jira ticket in a commit message now allows not using brackets around the ticket id (so `ABC-123 My commit message` will now work). The regex is also case insensitive now.
 
 ## [1.5.1] - 2019-3-14
 

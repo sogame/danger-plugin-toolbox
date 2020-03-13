@@ -64,7 +64,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 100
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
       }
     },
     "setupFilesAfterEnv": [
@@ -77,14 +80,14 @@
     "babel-jest": "^25.1.0",
     "babel-preset-env": "^1.7.0",
     "danger": "^9.2.10",
-    "eslint-config-skyscanner": "^5.0.0",
+    "eslint-config-skyscanner": "^5.2.0",
     "format-package": "^5.2.0",
     "husky": "^4.2.3",
-    "inquirer": "^7.0.6",
+    "inquirer": "^7.1.0",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.8",
     "markdown-spellcheck": "^1.3.1",
-    "release-it": "^12.6.3",
+    "release-it": "^13.1.1",
     "semver": "^7.1.3"
   }
 }

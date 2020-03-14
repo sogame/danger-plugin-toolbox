@@ -35,7 +35,7 @@ async function release() {
     const releaseOptions = {
       increment: isPreRelease ? 'prerelease' : versionNumber,
       preReleaseId: preReleaseTag,
-      'non-interactive': true,
+      ci: true,
       hooks: {
         'after:bump': buildCommand,
       },

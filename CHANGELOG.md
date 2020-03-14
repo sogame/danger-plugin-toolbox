@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.20.0] - 2020-3-14
+
 ### Changed
 
 - Change the regular expressions `COMMON_COMMIT_MESSAGE_JIRA_REGEX`, `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX`, `COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX` and `COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX` to allow `NOJIRA`, `NO JIRA` and a colon after the square brackets (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)).

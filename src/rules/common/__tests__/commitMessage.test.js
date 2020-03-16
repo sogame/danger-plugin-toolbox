@@ -2,8 +2,10 @@ import * as helpers from '../../helpers';
 import commonCommitMessage, {
   COMMON_COMMIT_MESSAGE_JIRA_REGEX,
   COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX,
+  COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
   COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX,
   COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX,
+  COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX,
 } from '../commitMessage';
 
 const mockCommits = messages => {
@@ -109,12 +111,30 @@ describe('commonCommitMessage', () => {
   });
 
   describe('Exported regex', () => {
-    describe('Jira or Merge', () => {
+    describe('Jira or Merge or Revert', () => {
+      it('should match strings starting with "Revert"', () => {
+        const message = 'Revert "My PR title"';
+
+        const result = message.match(
+          COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
+        );
+
+        expect(result).not.toBeNull();
+      });
+    });
+
+    describe.each([
+      [
+        'Jira or Merge or Revert',
+        COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
+      ],
+      ['Jira or Merge', COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX],
+    ])('%s', (type, regex) => {
       it('should match strings starting with the merge pr message - Jira', () => {
         const message =
           'Merge pull request #123 from sogame/danger-plugin-toolbox';
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX);
+        const result = message.match(regex);
 
         expect(result).not.toBeNull();
       });
@@ -122,20 +142,36 @@ describe('commonCommitMessage', () => {
       it('should match strings starting with the merge branch message - Jira', () => {
         const message = "Merge branch 'master' of sogame/danger-plugin-toolbox";
 
-        const result = message.match(COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX);
+        const result = message.match(regex);
 
         expect(result).not.toBeNull();
       });
     });
 
-    describe('No-Jira or Merge', () => {
+    describe('No-Jira or Merge or Revert', () => {
+      it('should match strings starting with "Revert"', () => {
+        const message = 'Revert "My PR title"';
+
+        const result = message.match(
+          COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX,
+        );
+
+        expect(result).not.toBeNull();
+      });
+    });
+
+    describe.each([
+      [
+        'No-Jira or Merge or Revert',
+        COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX,
+      ],
+      ['No-Jira or Merge', COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX],
+    ])('%s', (type, regex) => {
       it('should match strings starting with the merge pr message - No-Jira', () => {
         const message =
           'Merge pull request #123 from sogame/danger-plugin-toolbox';
 
-        const result = message.match(
-          COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX,
-        );
+        const result = message.match(regex);
 
         expect(result).not.toBeNull();
       });
@@ -143,9 +179,7 @@ describe('commonCommitMessage', () => {
       it('should match strings starting with the merge branch message - No-Jira', () => {
         const message = "Merge branch 'master' of sogame/danger-plugin-toolbox";
 
-        const result = message.match(
-          COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX,
-        );
+        const result = message.match(regex);
 
         expect(result).not.toBeNull();
       });
@@ -153,6 +187,10 @@ describe('commonCommitMessage', () => {
 
     describe('Jira', () => {
       describe.each([
+        [
+          'Jira or Merge or Revert',
+          COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
+        ],
         ['Jira or Merge', COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX],
         ['Jira Only', COMMON_COMMIT_MESSAGE_JIRA_REGEX],
       ])('%s', (type, regex) => {
@@ -326,6 +364,10 @@ describe('commonCommitMessage', () => {
       });
 
       describe.each([
+        [
+          'No-Jira or Merge or Revert',
+          COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX,
+        ],
         ['No-Jira or Merge', COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX],
         ['No-Jira Only', COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX],
       ])('%s', (type, regex) => {

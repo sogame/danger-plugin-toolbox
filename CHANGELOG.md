@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.21.0] - 2020-3-16
+
 ### Added
 
 - Added the regular expressions `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX` and `COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX` (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)) to allow revert commits also.

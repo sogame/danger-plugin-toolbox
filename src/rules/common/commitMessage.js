@@ -14,18 +14,26 @@ export const COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX = /^((\[NO[- ]?
 export const COMMON_COMMIT_MESSAGE_JIRA_MSG =
   'Please include a JIRA ticket (like `XXX-DDDD` or `NO-JIRA` if there is no ticket) at the beginning of each commit.';
 
-export default (regex, message, { logType, reverse } = {}) => {
+export default (
+  regex,
+  message,
+  { logType, reverse, ignoredAuthors = [] } = {},
+) => {
   if (!regex) {
     warn('`commonCommitMessage`: missing "regex" parameter.');
   } else if (!message) {
     warn('`commonCommitMessage`: missing "message" parameter.');
   } else {
+    const validCommits = ignoredAuthors.length
+      ? commits.filter(({ author }) => !ignoredAuthors.includes(author))
+      : commits;
+
     const hasMatching =
-      commits.findIndex(
+      validCommits.findIndex(
         ({ message: commitMessage }) => commitMessage.match(regex) !== null,
       ) >= 0;
     const hasNonMatching =
-      commits.findIndex(
+      validCommits.findIndex(
         ({ message: commitMessage }) => commitMessage.match(regex) === null,
       ) >= 0;
 

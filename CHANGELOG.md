@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- Added the configuration option `ignoredAuthors` to [`commonCommitMessage`](docs/validations.md#commoncommitmessage)) to allow ignoring commits authored by the provided users (useful to ignore bots, for example).
 
 ## [1.21.0] - 2020-3-16
 

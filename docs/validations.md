@@ -57,6 +57,7 @@ commonChangelog({ changelogFile: 'unreleased.md', logType: 'message' });
 Make sure all commit messages match a regex.
 
 `reverse` can be used to make sure no commit message matches a regex.
+`ignoredAuthors` can be used to filter out commits authored by users that can be ignored (like bots).
 
 ##### Parameters
 
@@ -75,15 +76,17 @@ Make sure all commit messages match a regex.
 
 ##### Configuration
 
-| Property | Type                       | Default Value |
-| -------- | -------------------------- | ------------- |
-| reverse  | bool                       | false         |
-| logType  | enum (warn, fail, message) | warn          |
+| Property       | Type                       | Default Value |
+| -------------- | -------------------------- | ------------- |
+| reverse        | bool                       | false         |
+| ignoredAuthors | array (of strings)         | []            |
+| logType        | enum (warn, fail, message) | warn          |
 
 ##### Usage
 
 ```
 commonCommitMessage(/foo/, 'Some commit message does not contain "foo".');
+commonCommitMessage(/foo/, 'Some commit message does not contain "foo".', { ignoredAuthors: ['snyk-bot', 'dependabot']});
 commonCommitMessage(/foo/, 'Some commit message contains "foo".', { reverse: true });
 commonCommitMessage(COMMON_COMMIT_MESSAGE_JIRA_REGEX, COMMON_COMMIT_MESSAGE_JIRA_MSG);
 commonCommitMessage(COMMON_COMMIT_MESSAGE_JIRA_REGEX, COMMON_COMMIT_MESSAGE_JIRA_MSG, { logType: 'fail' });

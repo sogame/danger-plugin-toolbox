@@ -12,6 +12,10 @@ const mockCommits = messages => {
   helpers.commits = messages.map(message => ({ message }));
 };
 
+const mockCommitsAuthor = commits => {
+  helpers.commits = commits.map(([message, author]) => ({ message, author }));
+};
+
 describe('commonCommitMessage', () => {
   beforeEach(() => {
     global.warn = jest.fn();
@@ -51,6 +55,37 @@ describe('commonCommitMessage', () => {
       expect(global.warn).toHaveBeenCalledWith(errorMsg);
       expect(global.warn).toHaveBeenCalledTimes(1);
     });
+
+    it('should not warn when a commit does not match the regex but the author is ignored', () => {
+      const ignoredAuthor = 'ignored author';
+      const commits = [
+        ['message 1', 'author 1'],
+        ['foo 1', ignoredAuthor],
+      ];
+      mockCommitsAuthor(commits);
+
+      commonCommitMessage(/^message/, errorMsg, {
+        ignoredAuthors: [ignoredAuthor],
+      });
+
+      expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should warn when a commit does not match the regex and the author is not ignored', () => {
+      const ignoredAuthor = 'ignored author';
+      const commits = [
+        ['message 1', 'author 1'],
+        ['foo 1', 'author 1'],
+      ];
+      mockCommitsAuthor(commits);
+
+      commonCommitMessage(/^message/, errorMsg, {
+        ignoredAuthors: [ignoredAuthor],
+      });
+
+      expect(global.warn).toHaveBeenCalledWith(errorMsg);
+      expect(global.warn).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('Reverse match', () => {
@@ -81,6 +116,39 @@ describe('commonCommitMessage', () => {
       commonCommitMessage(/^message/, errorMsg, { reverse: true });
 
       expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should not warn when all commits match the regex but the author is ignored', () => {
+      const ignoredAuthor = 'ignored author';
+      const commits = [
+        ['message 1', ignoredAuthor],
+        ['message 2', ignoredAuthor],
+      ];
+      mockCommitsAuthor(commits);
+
+      commonCommitMessage(/^message/, errorMsg, {
+        reverse: true,
+        ignoredAuthors: [ignoredAuthor],
+      });
+
+      expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should warn when all commits match the regex but the author is not ignored', () => {
+      const ignoredAuthor = 'ignored author';
+      const commits = [
+        ['message 1', 'author 1'],
+        ['message 2', ignoredAuthor],
+      ];
+      mockCommitsAuthor(commits);
+
+      commonCommitMessage(/^message/, errorMsg, {
+        reverse: true,
+        ignoredAuthors: [ignoredAuthor],
+      });
+
+      expect(global.warn).toHaveBeenCalledWith(errorMsg);
+      expect(global.warn).toHaveBeenCalledTimes(1);
     });
   });
 

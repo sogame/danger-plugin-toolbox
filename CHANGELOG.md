@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.22.1] - 2020-3-20
+
 ### Fixed
 
 - Fixed the configuration option `ignoredAuthors` in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)).

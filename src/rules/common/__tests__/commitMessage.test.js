@@ -13,7 +13,10 @@ const mockCommits = messages => {
 };
 
 const mockCommitsAuthor = commits => {
-  helpers.commits = commits.map(([message, author]) => ({ message, author }));
+  helpers.commits = commits.map(([message, name]) => ({
+    message,
+    author: { name },
+  }));
 };
 
 describe('commonCommitMessage', () => {

@@ -25,7 +25,7 @@ export default (
     warn('`commonCommitMessage`: missing "message" parameter.');
   } else {
     const validCommits = ignoredAuthors.length
-      ? commits.filter(({ author }) => !ignoredAuthors.includes(author))
+      ? commits.filter(({ author: { name } }) => !ignoredAuthors.includes(name))
       : commits;
 
     const hasMatching =

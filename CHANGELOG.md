@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.24.0] - 2020-4-4
+
 ### Added
 
 - Added the configuration option `ignoreRegex` to [`commonFileWarnings`](docs/validations.md#commonfilewarnings) to ignore the lines that match that regex.

@@ -548,7 +548,7 @@ jsLockfile({ path: 'another/folder/' });
 
 Check is Promises are being used, and recommend using Async/Await instead.
 
-`ignoreTests` can be used to ignore test files (so using Promises will be allowed in test files).
+`ignoreTests` can be used to ignore test files (like `file.test.js`) and mocks (files inside a `__mocks__/` folder), so using Promises will be allowed in these files.
 
 ##### Configuration
 

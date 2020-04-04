@@ -8,6 +8,8 @@ const multipleWarnings = 'multipleWarnings.log';
 const singleWarningCase = 'singleWarning.LOg';
 const warningColon = 'warningColon.log';
 const warningQuote = 'warningQuote.log';
+const multipleWarningsAllIgnored = 'multipleWarningsAllIgnored.log';
+const multipleWarningsSomeIgnored = 'multipleWarningsSomeIgnored.log';
 const mockFiles = {
   [noWarnings]: 'some content but no warnings', // should not fail, as the word is "warnings", not "warning"
   [singleWarning]: 'foo\n[[warning ]]\nbar',
@@ -15,6 +17,10 @@ const mockFiles = {
   [singleWarningCase]: 'foo\n[[warning ]]\nbar',
   [warningColon]: 'foo\n[[warning:]]\nbar',
   [warningQuote]: 'foo\n[[warning"]]\nbar',
+  [multipleWarningsAllIgnored]:
+    'foo\n[[warning 1]] TO IGNORE\nbar\n[[warning 2]] TO IGNORE',
+  [multipleWarningsSomeIgnored]:
+    'foo\n[[warning 1]] TO IGNORE\nbar\n[[warning 2]]',
 };
 
 fs.setMockFiles(mockFiles);
@@ -64,6 +70,27 @@ describe('commonFileWarnings', () => {
     commonFileWarnings(warningQuote);
 
     expect(global.warn).not.toHaveBeenCalled();
+  });
+
+  it('should not warn when the lines also match "ignoreRegex"', () => {
+    commonFileWarnings(multipleWarningsAllIgnored, {
+      ignoreRegex: /TO IGNORE/,
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+  });
+
+  it('should warn only for the lines that do not match "ignoreRegex"', () => {
+    commonFileWarnings(multipleWarningsSomeIgnored, {
+      ignoreRegex: /TO IGNORE/,
+    });
+
+    expect(global.warn).toHaveBeenCalledWith(
+      expect.not.stringContaining(`- [[warning 1]]`),
+    );
+    expect(global.warn).toHaveBeenCalledWith(
+      expect.stringContaining(`- [[warning 2]]`),
+    );
   });
 
   it('should ignore file extension casing', () => {

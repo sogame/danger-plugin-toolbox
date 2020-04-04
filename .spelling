@@ -42,6 +42,7 @@ fileRemovedLineMatch
 func
 href
 ignoredAuthors
+ignoreRegex
 ignoreTests
 imageMinified
 imageMinifiedJpg

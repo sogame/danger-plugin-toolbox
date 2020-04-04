@@ -183,16 +183,19 @@ List file lines containing warnings (like "warning " or "warning:").
 
 This can be used to surface warnings when running linters or tests: it only requires keeping the linter/test output in a log file with a command like `(set -o pipefail; npm run lint |& tee linter.log);`.
 
+`ignoreRegex` can be used to ignore the lines that match that regex.
+
 ##### Parameters
 
 1. `file`: The file to check (find warnings).
 
 ##### Configuration
 
-| Property | Type                       | Default Value |
-| -------- | -------------------------- | ------------- |
-| logType  | enum (warn, fail, message) | warn          |
-| msg      | string                     |               |
+| Property    | Type                       | Default Value |
+| ----------- | -------------------------- | ------------- |
+| logType     | enum (warn, fail, message) | warn          |
+| msg         | string                     |               |
+| ignoreRegex | regex                      |               |
 
 ##### Usage
 
@@ -200,6 +203,7 @@ This can be used to surface warnings when running linters or tests: it only requ
 commonFileWarnings('linter.log');
 commonFileWarnings('linter.log', { msg: 'There are the following linting errors:' });
 commonFileWarnings('tests.log', { logType: 'fail' });
+commonFileWarnings('tests.log', { ignoreRegex: /ignored text/ });
 ```
 
 ### commonPrDescription

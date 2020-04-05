@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.25.0] - 2020-4-5
+
 ### Changed
 
 - [`commonFileWarnings`](docs/validations.md#commonfilewarnings) show a warning when the file does not exist (instead of failing).

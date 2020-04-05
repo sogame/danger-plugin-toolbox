@@ -6,9 +6,16 @@ import fs from 'fs';
 
 import getMessageLogger from '../getMessageLogger';
 
-export default (file, { logType, msg, ignoreRegex } = {}) => {
+export default (
+  file,
+  { logType, msg, ignoreRegex, ignoreNonExistingFile = false } = {},
+) => {
   if (!file) {
     warn('`commonFileWarnings`: missing "file" parameter');
+  } else if (!fs.existsSync(file)) {
+    if (ignoreNonExistingFile !== true) {
+      warn(`\`commonFileWarnings\`: file \`${file}\` does not exist`);
+    }
   } else {
     const contents = fs.readFileSync(file).toString();
     let warnings = contents.match(/^.*\bwarning( |:).*$/gim);

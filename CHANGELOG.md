@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Changed
+
+- [`commonFileWarnings`](docs/validations.md#commonfilewarnings) show a warning when the file does not exist (instead of failing).
+
+### Added
+
+- Added the configuration option `ignoreNonExistingFile` to [`commonFileWarnings`](docs/validations.md#commonfilewarnings) to not show a warning when the file does not exist.
 
 ## [1.24.0] - 2020-4-4
 

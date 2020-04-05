@@ -182,8 +182,10 @@ commonFileExists('file.js', { logType: 'fail' });
 List file lines containing warnings (like "warning " or "warning:").
 
 This can be used to surface warnings when running linters or tests: it only requires keeping the linter/test output in a log file with a command like `(set -o pipefail; npm run lint |& tee linter.log);`.
+It will show a warning if the file does not exist.
 
 `ignoreRegex` can be used to ignore the lines that match that regex.
+`ignoreNonExistingFile` can be used to not show any warning if the file does not exist.
 
 ##### Parameters
 
@@ -191,11 +193,12 @@ This can be used to surface warnings when running linters or tests: it only requ
 
 ##### Configuration
 
-| Property    | Type                       | Default Value |
-| ----------- | -------------------------- | ------------- |
-| logType     | enum (warn, fail, message) | warn          |
-| msg         | string                     |               |
-| ignoreRegex | regex                      |               |
+| Property              | Type                       | Default Value |
+| --------------------- | -------------------------- | ------------- |
+| logType               | enum (warn, fail, message) | warn          |
+| msg                   | string                     |               |
+| ignoreRegex           | regex                      |               |
+| ignoreNonExistingFile | bool                       | false         |
 
 ##### Usage
 

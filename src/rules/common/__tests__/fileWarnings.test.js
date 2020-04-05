@@ -10,6 +10,7 @@ const warningColon = 'warningColon.log';
 const warningQuote = 'warningQuote.log';
 const multipleWarningsAllIgnored = 'multipleWarningsAllIgnored.log';
 const multipleWarningsSomeIgnored = 'multipleWarningsSomeIgnored.log';
+const missingFile = 'someMissingFile.log';
 const mockFiles = {
   [noWarnings]: 'some content but no warnings', // should not fail, as the word is "warnings", not "warning"
   [singleWarning]: 'foo\n[[warning ]]\nbar',
@@ -91,6 +92,20 @@ describe('commonFileWarnings', () => {
     expect(global.warn).toHaveBeenCalledWith(
       expect.stringContaining(`- [[warning 2]]`),
     );
+  });
+
+  it('should warn when the file does not exist', () => {
+    commonFileWarnings(missingFile);
+
+    expect(global.warn).toHaveBeenCalledWith(
+      `\`commonFileWarnings\`: file \`${missingFile}\` does not exist`,
+    );
+  });
+
+  it('should not warn when the file does not exist but "ignoreNonExistingFile" is set to "true"', () => {
+    commonFileWarnings(missingFile, { ignoreNonExistingFile: true });
+
+    expect(global.warn).not.toHaveBeenCalled();
   });
 
   it('should ignore file extension casing', () => {

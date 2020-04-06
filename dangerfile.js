@@ -16,6 +16,7 @@ const {
   linkToTargetRepo,
   prAuthor,
   prTitle,
+  commonAddedLinesContains,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-extraneous-dependencies
 
 const prAuthorIsBot = ['snyk-bot'].includes(prAuthor);
@@ -88,3 +89,11 @@ changedRules.forEach(curChange => {
     );
   }
 });
+
+warn(JSON.stringify(committedFilesGrep(/.*/)));
+
+commonAddedLinesContains(
+  /.*/,
+  /http:\/\//i,
+  file => `The file "${file}" contains insecure URL.`,
+);

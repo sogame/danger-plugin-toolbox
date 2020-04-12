@@ -8,7 +8,7 @@ import { isTrivial, prDescription } from '../helpers';
 const DEFAULT_MIN_LENGTH = 5;
 
 export default ({ logType, minLength, msg } = {}) => {
-  const prDescNoMentions = prDescription.replace(/@\w+/, '');
+  const prDescNoMentions = (prDescription || '').replace(/@\w+/, '');
   const prDescLines = prDescNoMentions.split('\n').map(line => line.trim());
   const prDescText = prDescLines.join('');
 

@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Fixed
+
+- Fix [`commonPrDescription`](docs/validations.md#commonprdescription) so it does not fail when the description is `null` or `undefined`.
 
 ## [1.25.0] - 2020-4-5
 
@@ -55,6 +57,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Change the regular expressions `COMMON_COMMIT_MESSAGE_JIRA_REGEX`, `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX`, `COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX` and `COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX` to allow `NOJIRA`, `NO JIRA` and a colon after the square brackets (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)).
 
 ## [1.19.1] - 2020-3-6
+
+### Fixed
 
 - Fix the regular expressions exported in [`commonCommitMessage`](docs/validations.md#commoncommitmessage).
 

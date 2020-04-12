@@ -9,7 +9,7 @@ const DEFAULT_MIN_LENGTH = 5;
 
 export default ({ logType, minLength, msg } = {}) => {
   const skipCheck = !externalPr || isTrivial;
-  const prDescNoMentions = prDescription.replace(/@\w+/, '');
+  const prDescNoMentions = (prDescription || '').replace(/@\w+/, '');
   const prDescLines = prDescNoMentions.split('\n').map(line => line.trim());
   const prDescText = prDescLines.join('');
 

@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Fixed
+
+- Fix [`commonPrDescriptionContribution`](docs/validations.md#commonprdescriptioncontribution) so it does not fail when the description is `null` or `undefined`.
 
 ## [1.25.1] - 2020-4-12
 

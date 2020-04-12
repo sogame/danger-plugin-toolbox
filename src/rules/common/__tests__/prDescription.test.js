@@ -32,6 +32,22 @@ describe('commonPrDescription', () => {
     expect(global.warn).not.toHaveBeenCalled();
   });
 
+  it('should warn when description is "null"', () => {
+    mockHelpers(false, null);
+
+    commonPrDescription();
+
+    expect(global.warn).toHaveBeenCalledWith(errorMsg);
+  });
+
+  it('should warn when description is "undefined"', () => {
+    mockHelpers(false, undefined);
+
+    commonPrDescription();
+
+    expect(global.warn).toHaveBeenCalledWith(errorMsg);
+  });
+
   it('should warn when description is short', () => {
     mockHelpers(false, 'abc');
 

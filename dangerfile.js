@@ -5,7 +5,7 @@ const {
   commonFileContains,
   commonPrDescriptionContribution,
   commonValidJson,
-  commonFileWarnings,
+  // commonFileWarnings,
   inCommit,
   inCommitGrep,
   jsConsoleCommands,
@@ -17,6 +17,23 @@ const {
   prAuthor,
   prTitle,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-extraneous-dependencies
+
+const commitFiles = {
+  'newfile.json': '{"foo": "bar", "aaa": 42}',
+  'README.md': 'New Readme',
+};
+danger.github.utils.createOrUpdatePR(
+  {
+    title: '[WIP] New PR from Danger',
+    body: 'This is the PR description',
+    owner: 'sogame',
+    repo: 'danger-plugin-toolbox',
+    baseBranch: 'master',
+    newBranchName: 'test_danger_new',
+    commitMessage: 'NO-JIRA New PR from Danger',
+  },
+  commitFiles,
+);
 
 const prAuthorIsBot = ['snyk-bot'].includes(prAuthor);
 
@@ -33,9 +50,11 @@ if (!(prAuthorIsBot || prTitle === 'Update dependencies')) {
 
 commonValidJson();
 
+/*
 commonFileWarnings('lint.log');
 
 commonFileWarnings('test.log');
+*/
 
 jsConsoleCommands({ inline: true });
 

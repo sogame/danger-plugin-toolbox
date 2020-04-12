@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.25.1] - 2020-4-12
+
 ### Fixed
 
 - Fix [`commonPrDescription`](docs/validations.md#commonprdescription) so it does not fail when the description is `null` or `undefined`.

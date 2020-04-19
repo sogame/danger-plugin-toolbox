@@ -18,7 +18,9 @@ const {
   prTitle,
 } = require('danger-plugin-toolbox'); // eslint-disable-line import/no-extraneous-dependencies
 
-const prAuthorIsBot = ['snyk-bot'].includes(prAuthor);
+const prAuthorIsBot = ['snyk-bot', 'dependabot-preview[bot]'].includes(
+  prAuthor,
+);
 
 commonPrDescriptionContribution();
 

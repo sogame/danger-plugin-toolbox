@@ -75,7 +75,7 @@
     ]
   },
   "devDependencies": {
-    "ajv": "^6.12.1",
+    "ajv": "^6.12.2",
     "babel-cli": "^6.26.0",
     "babel-jest": "^25.4.0",
     "babel-preset-env": "^1.7.0",

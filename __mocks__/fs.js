@@ -5,7 +5,7 @@ const fs = jest.genMockFromModule('fs');
 // `fs` APIs are used.
 let mockFiles = {};
 const setMockFiles = newMockFiles => {
-  mockFiles = Object.assign({}, newMockFiles);
+  mockFiles = { ...newMockFiles };
 };
 
 const readFileSync = filename => mockFiles[filename] || '';

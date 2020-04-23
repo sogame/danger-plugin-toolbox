@@ -1,6 +1,6 @@
 let mockFilesContent = {};
 export const setMockFilesContent = newMockFilesContent => {
-  mockFilesContent = Object.assign({}, newMockFilesContent);
+  mockFilesContent = { ...newMockFilesContent };
 };
 
 let mockCommittedFiles = [];
@@ -10,7 +10,7 @@ export const setMockCommittedFiles = newMockFiles => {
 
 let mockFilesStructuredAddedLines = {};
 export const setFilesStructuredAddedLines = newStructuredLinesFiles => {
-  mockFilesStructuredAddedLines = Object.assign({}, newStructuredLinesFiles);
+  mockFilesStructuredAddedLines = { ...newStructuredLinesFiles };
 };
 
 export const inCommit = filename => mockCommittedFiles.includes(filename);

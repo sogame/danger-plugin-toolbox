@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Changed
+
+- The option `ignoreTests` in [`jsRecommendAsyncAwait`](docs/validations.md#jsrecommendasyncawait) will also ignore files in `__tests__` and `tests` folders.
 
 ## [1.25.2] - 2020-4-12
 
@@ -38,7 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.23.0] - 2020-4-4
 
-### Added
+### Changed
 
 - The option `ignoreTests` in [`jsRecommendAsyncAwait`](docs/validations.md#jsrecommendasyncawait) will also ignore files in `__mocks__` folders.
 

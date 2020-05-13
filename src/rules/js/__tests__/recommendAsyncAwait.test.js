@@ -16,6 +16,8 @@ const invalidJsCase = 'invalid.Js';
 const invalidJsx = 'invalid.jsx';
 const invalidTs = 'invalid.js';
 const invalidJsxTest = 'invalid.test.jsx';
+const invalidTestFolder = 'tests/invalid.jsx';
+const invalidTestUnderscoreFolder = '__tests__/invalid.jsx';
 const invalidMockFolder = 'foo/__mocks__/invalid.test.jsx';
 const invalidMockRoot = '__mocks__/invalid.test.jsx';
 const mockFiles = {
@@ -29,6 +31,8 @@ const mockFiles = {
   [invalidJsx]: contentWithNewPromise,
   [invalidTs]: contentWithNewPromise,
   [invalidJsxTest]: contentWithNewPromise,
+  [invalidTestFolder]: contentWithNewPromise,
+  [invalidTestUnderscoreFolder]: contentWithNewPromise,
   [invalidMockFolder]: contentWithNewPromise,
   [invalidMockRoot]: contentWithNewPromise,
 };
@@ -154,6 +158,28 @@ describe('jsRecommendAsyncAwait', () => {
       );
     });
 
+    it('should warn when promises are used in "test" folder', async () => {
+      const files = [noPromisesJs, invalidTestFolder];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidTestFolder),
+      );
+    });
+
+    it('should warn when promises are used in "__test__" folder', async () => {
+      const files = [noPromisesJs, invalidTestUnderscoreFolder];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidTestUnderscoreFolder),
+      );
+    });
+
     it('should warn when promises are used in a mock file (in a folder)', async () => {
       const files = [noPromisesJs, invalidMockFolder];
       helpers.setMockCommittedFiles(files);
@@ -178,6 +204,24 @@ describe('jsRecommendAsyncAwait', () => {
 
     it('should not warn when promises are used in a test file and "ignoreTests" is set', async () => {
       const files = [noPromisesJs, invalidJsxTest];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait({ ignoreTests: true });
+
+      expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should not warn when promises are used in "test" folder and "ignoreTests" is set', async () => {
+      const files = [noPromisesJs, invalidTestFolder];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait({ ignoreTests: true });
+
+      expect(global.warn).not.toHaveBeenCalled();
+    });
+
+    it('should not warn when promises are used in "__tests__" folder and "ignoreTests" is set', async () => {
+      const files = [noPromisesJs, invalidTestUnderscoreFolder];
       helpers.setMockCommittedFiles(files);
 
       await jsRecommendAsyncAwait({ ignoreTests: true });

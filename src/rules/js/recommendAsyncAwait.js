@@ -13,7 +13,7 @@ const fileUsesPromises = filename =>
   fileAddedLineMatch(filename, regexUsesPromises);
 
 const regexJsFiles = /\.(js|jsx|ts)$/i;
-const regexTestJsFiles = /(\.(test|spec)\.(js|jsx|ts)$)|((\/|^)__mocks__\/)/i;
+const regexTestJsFiles = /(\.(test|spec)\.(js|jsx|ts)$)|((\/|^)__tests__\/)|((\/|^)tests\/)|((\/|^)__mocks__\/)/i;
 
 export default async ({ logType, inline, ignoreTests } = {}) => {
   const log = getMessageLogger(logType);

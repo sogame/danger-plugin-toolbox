@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.26.0] - 2020-5-15
+
 ### Added
 
 - Added the regular expression `COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX` (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)) to allow the most common exceptions (merge branch, merge pull request, revert or dependency bump).

@@ -3,6 +3,7 @@ import commonCommitMessage, {
   COMMON_COMMIT_MESSAGE_JIRA_REGEX,
   COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX,
   COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
+  COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX,
   COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX,
   COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX,
   COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX,
@@ -182,13 +183,16 @@ describe('commonCommitMessage', () => {
   });
 
   describe('Exported regex', () => {
-    describe('Jira or Merge or Revert', () => {
-      it('should match strings starting with "Revert"', () => {
-        const message = 'Revert "My PR title"';
+    describe.each([
+      [
+        'Jira or Common Exceptions',
+        COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX,
+      ],
+    ])('%s', (type, regex) => {
+      it(`should match Dependabot dependency bumps - ${type}`, () => {
+        const message = 'Bump some-dependency from 1.2.3 to 3.2.1';
 
-        const result = message.match(
-          COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
-        );
+        const result = message.match(regex);
 
         expect(result).not.toBeNull();
       });
@@ -196,12 +200,35 @@ describe('commonCommitMessage', () => {
 
     describe.each([
       [
+        'Jira or Common Exceptions',
+        COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX,
+      ],
+      [
+        'Jira or Merge or Revert',
+        COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
+      ],
+    ])('%s', (type, regex) => {
+      it(`should match strings starting with "Revert" - ${type}`, () => {
+        const message = 'Revert "My PR title"';
+
+        const result = message.match(regex);
+
+        expect(result).not.toBeNull();
+      });
+    });
+
+    describe.each([
+      [
+        'Jira or Common Exceptions',
+        COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX,
+      ],
+      [
         'Jira or Merge or Revert',
         COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
       ],
       ['Jira or Merge', COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX],
     ])('%s', (type, regex) => {
-      it('should match strings starting with the merge pr message - Jira', () => {
+      it(`should match strings starting with the merge pr message - ${type}`, () => {
         const message =
           'Merge pull request #123 from sogame/danger-plugin-toolbox';
 
@@ -210,7 +237,7 @@ describe('commonCommitMessage', () => {
         expect(result).not.toBeNull();
       });
 
-      it('should match strings starting with the merge branch message - Jira', () => {
+      it(`should match strings starting with the merge branch message - ${type}`, () => {
         const message = "Merge branch 'master' of sogame/danger-plugin-toolbox";
 
         const result = message.match(regex);
@@ -259,6 +286,10 @@ describe('commonCommitMessage', () => {
     describe('Jira', () => {
       describe.each([
         [
+          'Jira or Common Exceptions',
+          COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX,
+        ],
+        [
           'Jira or Merge or Revert',
           COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
         ],
@@ -281,6 +312,22 @@ describe('commonCommitMessage', () => {
           expect(result).not.toBeNull();
         });
 
+        it(`should match strings starting with a Jira ticket in brackets and a comma - ${type}`, () => {
+          const message = '[FOO-123], Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings containing only a Jira ticket in brackets - ${type}`, () => {
+          const message = '[FOO-123]';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
         it(`should match strings starting with a Jira ticket without brackets - ${type}`, () => {
           const message = 'FOO-123 Some text';
 
@@ -291,6 +338,22 @@ describe('commonCommitMessage', () => {
 
         it(`should match strings starting with a Jira ticket and a colon - ${type}`, () => {
           const message = 'FOO-123: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with a Jira ticket and a comma - ${type}`, () => {
+          const message = 'FOO-123, Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings containing only a Jira ticket without brackets - ${type}`, () => {
+          const message = 'FOO-123';
 
           const result = message.match(regex);
 
@@ -387,6 +450,14 @@ describe('commonCommitMessage', () => {
 
         it(`should match strings starting with "NO JIRA:" - ${type}`, () => {
           const message = 'NO JIRA: Some text';
+
+          const result = message.match(regex);
+
+          expect(result).not.toBeNull();
+        });
+
+        it(`should match strings starting with "NO-JIRA," - ${type}`, () => {
+          const message = 'NO-JIRA, Some text';
 
           const result = message.match(regex);
 

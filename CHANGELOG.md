@@ -6,8 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added the regular expression `COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX` (used in [`commonCommitMessage`](docs/validations.md#commoncommitmessage)) to allow the most common exceptions (merge branch, merge pull request, revert or dependency bump).
+
 ### Changed
 
+- The regular expressions defined in [`commonCommitMessage`](docs/validations.md#commoncommitmessage) now allow any character after the Jira ticket, not only a space or a colon.
 - The option `ignoreTests` in [`jsRecommendAsyncAwait`](docs/validations.md#jsrecommendasyncawait) will also ignore files in `__tests__` and `tests` folders.
 
 ## [1.25.2] - 2020-4-12

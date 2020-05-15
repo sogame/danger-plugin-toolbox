@@ -5,12 +5,44 @@
 import getMessageLogger from '../getMessageLogger';
 import { commits } from '../helpers';
 
-export const COMMON_COMMIT_MESSAGE_JIRA_REGEX = /^((\[[a-z]+-\d+\]:?)|([a-z]+-\d+:?)|(\[NO[- ]?JIRA\]:?)|(NO[- ]?JIRA:?)) /i;
-export const COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX = /^((\[[a-z]+-\d+\]:?)|([a-z]+-\d+:?)|(\[NO[- ]?JIRA\]:?)|(NO[- ]?JIRA:?)|(Merge branch)|(Merge pull request)) /i;
-export const COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX = /^((\[[a-z]+-\d+\]:?)|([a-z]+-\d+:?)|(\[NO[- ]?JIRA\]:?)|(NO[- ]?JIRA:?)|(Merge branch)|(Merge pull request)|(Revert)) /i;
-export const COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX = /^((\[NO[- ]?JIRA\]:?)|(NO[- ]?JIRA:?)) /i;
-export const COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX = /^((\[NO[- ]?JIRA\]:?)|(NO[- ]?JIRA:?)|(Merge branch)|(Merge pull request)) /i;
-export const COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX = /^((\[NO[- ]?JIRA\]:?)|(NO[- ]?JIRA:?)|(Merge branch)|(Merge pull request)|(Revert)) /i;
+const matchEnd = '(\\W+| |$)';
+const squareBracketsJiraId = `(\\[[a-z]+-\\d+\\]${matchEnd})`;
+const jiraId = `([a-z]+-\\d+${matchEnd})`;
+const squareBracketsNoJira = `(\\[NO[- ]?JIRA\\]${matchEnd})`;
+const noJira = `(NO[- ]?JIRA${matchEnd})`;
+const merge = '(Merge branch )|(Merge pull request )';
+const revert = '(Revert )';
+const dependencyBump =
+  '(Bump \\S+ from [0-9]+\\.[0-9]+\\.[0-9]+ to [0-9]+\\.[0-9]+\\.[0-9]+$)';
+
+export const COMMON_COMMIT_MESSAGE_JIRA_REGEX = new RegExp(
+  `^(${squareBracketsJiraId}|${jiraId}|${squareBracketsNoJira}|${noJira})`,
+  'i',
+);
+export const COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX = new RegExp(
+  `^(${squareBracketsJiraId}|${jiraId}|${squareBracketsNoJira}|${noJira}|${merge})`,
+  'i',
+);
+export const COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX = new RegExp(
+  `^(${squareBracketsJiraId}|${jiraId}|${squareBracketsNoJira}|${noJira}|${merge}|${revert})`,
+  'i',
+);
+export const COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX = new RegExp(
+  `^(${squareBracketsJiraId}|${jiraId}|${squareBracketsNoJira}|${noJira}|${merge}|${revert}|${dependencyBump})`,
+  'i',
+);
+export const COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX = new RegExp(
+  `^(${squareBracketsNoJira}|${noJira})`,
+  'i',
+);
+export const COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX = new RegExp(
+  `^(${squareBracketsNoJira}|${noJira}|${merge})`,
+  'i',
+);
+export const COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX = new RegExp(
+  `^(${squareBracketsNoJira}|${noJira}|${merge}|${revert})`,
+  'i',
+);
 export const COMMON_COMMIT_MESSAGE_JIRA_MSG =
   'Please include a JIRA ticket (like `XXX-DDDD` or `NO-JIRA` if there is no ticket) at the beginning of each commit.';
 

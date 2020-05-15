@@ -69,6 +69,7 @@ Make sure all commit messages match a regex.
 - `COMMON_COMMIT_MESSAGE_JIRA_REGEX`: When using this regex, the validation will fail if any commit message does not start with a Jira ticket (like `FOO-123`) or the string `NO-JIRA`.
 - `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX`: Like the previous one, but also allowing merge commits (like `Merge pull request #123 from sogame/danger-plugin-toolbox` or `Merge branch 'master' of sogame/danger-plugin-toolbox`).
 - `COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX`: Like the previous one, but also allowing revert commits (like `Revert "My PR title"`).
+- `COMMON_COMMIT_MESSAGE_JIRA_OR_COMMON_EXCEPTIONS_REGEX`: When using this regex, the validation will fail if any commit message does not start with a Jira ticket (like `FOO-123`), the string `NO-JIRA` or the most common exceptions (merge branch, merge pull request, revert or dependency bump).
 - `COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX`: When using this regex, the validation will fail if any commit message does not start with the string `NO-JIRA`.
 - `COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX`: Like the previous one, but also allowing merge commits (like `Merge pull request #123 from sogame/danger-plugin-toolbox` or `Merge branch 'master' of sogame/danger-plugin-toolbox`).
 - `COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX`: Like the previous one, but also allowing revert commits (like `Revert "My PR title"`).

@@ -58,6 +58,7 @@ Make sure all commit messages match a regex.
 
 `reverse` can be used to make sure no commit message matches a regex.
 `ignoredAuthors` can be used to filter out commits authored by users that can be ignored (like bots).
+`hideCommits` can be used to not show the commit messages that triggered the rule.
 
 ##### Parameters
 
@@ -81,6 +82,7 @@ Make sure all commit messages match a regex.
 | -------------- | -------------------------- | ------------- |
 | reverse        | bool                       | false         |
 | ignoredAuthors | array (of strings)         | []            |
+| hideCommits    | bool                       | false         |
 | logType        | enum (warn, fail, message) | warn          |
 
 ##### Usage
@@ -90,7 +92,7 @@ commonCommitMessage(/foo/, 'Some commit message does not contain "foo".');
 commonCommitMessage(/foo/, 'Some commit message does not contain "foo".', { ignoredAuthors: ['snyk-bot', 'dependabot']});
 commonCommitMessage(/foo/, 'Some commit message contains "foo".', { reverse: true });
 commonCommitMessage(COMMON_COMMIT_MESSAGE_JIRA_REGEX, COMMON_COMMIT_MESSAGE_JIRA_MSG);
-commonCommitMessage(COMMON_COMMIT_MESSAGE_JIRA_REGEX, COMMON_COMMIT_MESSAGE_JIRA_MSG, { logType: 'fail' });
+commonCommitMessage(COMMON_COMMIT_MESSAGE_JIRA_REGEX, COMMON_COMMIT_MESSAGE_JIRA_MSG, { logType: 'fail', hideCommits: true });
 ```
 
 ### commonContributingGuide

@@ -46,10 +46,21 @@ export const COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX = new RegExp(
 export const COMMON_COMMIT_MESSAGE_JIRA_MSG =
   'Please include a JIRA ticket (like `XXX-DDDD` or `NO-JIRA` if there is no ticket) at the beginning of each commit.';
 
+const buildFinalMessage = (message, foundCommits, hideCommits) => {
+  if (hideCommits === true) {
+    return message;
+  }
+
+  const commitMessages = foundCommits
+    .map(({ message: commitMessage }) => `- \`${commitMessage}\``)
+    .join('\n');
+  return `${message}\n${commitMessages}`;
+};
+
 export default (
   regex,
   message,
-  { logType, reverse, ignoredAuthors = [] } = {},
+  { logType, reverse, ignoredAuthors = [], hideCommits } = {},
 ) => {
   if (!regex) {
     warn('`commonCommitMessage`: missing "regex" parameter.');
@@ -60,21 +71,29 @@ export default (
       ? commits.filter(({ author: { name } }) => !ignoredAuthors.includes(name))
       : commits;
 
-    const hasMatching =
-      validCommits.findIndex(
-        ({ message: commitMessage }) => commitMessage.match(regex) !== null,
-      ) >= 0;
-    const hasNonMatching =
-      validCommits.findIndex(
-        ({ message: commitMessage }) => commitMessage.match(regex) === null,
-      ) >= 0;
+    const matchingCommits = validCommits.filter(
+      ({ message: commitMessage }) => commitMessage.match(regex) !== null,
+    );
+    const hasMatching = matchingCommits.length > 0;
+
+    const nonMatchingCommits = validCommits.filter(
+      ({ message: commitMessage }) => commitMessage.match(regex) === null,
+    );
+    const hasNonMatching = nonMatchingCommits.length > 0;
 
     const matchRegular = !reverse && hasNonMatching;
     const matchReverse = reverse && hasMatching;
 
     if (matchRegular || matchReverse) {
+      const foundCommits = matchRegular ? nonMatchingCommits : matchingCommits;
+      const finalMessage = buildFinalMessage(
+        message,
+        foundCommits,
+        hideCommits,
+      );
+
       const log = getMessageLogger(logType);
-      log(message);
+      log(finalMessage);
     }
   }
 };

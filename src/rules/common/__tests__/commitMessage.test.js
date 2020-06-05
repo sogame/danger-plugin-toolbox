@@ -46,7 +46,7 @@ describe('commonCommitMessage', () => {
 
       commonCommitMessage(/^message/, errorMsg);
 
-      expect(global.warn).toHaveBeenCalledWith(errorMsg);
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
       expect(global.warn).toHaveBeenCalledTimes(1);
     });
 
@@ -56,7 +56,7 @@ describe('commonCommitMessage', () => {
 
       commonCommitMessage(/^message/, errorMsg);
 
-      expect(global.warn).toHaveBeenCalledWith(errorMsg);
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
       expect(global.warn).toHaveBeenCalledTimes(1);
     });
 
@@ -87,7 +87,39 @@ describe('commonCommitMessage', () => {
         ignoredAuthors: [ignoredAuthor],
       });
 
-      expect(global.warn).toHaveBeenCalledWith(errorMsg);
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
+      expect(global.warn).toHaveBeenCalledTimes(1);
+    });
+
+    it('should include non-matching commit messages in the warn message', () => {
+      const messages = ['foo 1', 'message 1', 'foo 2'];
+      mockCommits(messages);
+
+      commonCommitMessage(/^message/, errorMsg);
+
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringMatching(messages[0]),
+      );
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringMatching(messages[2]),
+      );
+      expect(global.warn).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not include non-matching commit messages in the warn message when "hideCommits" is "true"', () => {
+      const messages = ['foo 1', 'message 1', 'foo 2'];
+      mockCommits(messages);
+
+      commonCommitMessage(/^message/, errorMsg, { hideCommits: true });
+
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
+      expect(global.warn).not.toHaveBeenCalledWith(
+        expect.stringMatching(messages[0]),
+      );
+      expect(global.warn).not.toHaveBeenCalledWith(
+        expect.stringMatching(messages[2]),
+      );
       expect(global.warn).toHaveBeenCalledTimes(1);
     });
   });
@@ -99,7 +131,7 @@ describe('commonCommitMessage', () => {
 
       commonCommitMessage(/^message/, errorMsg, { reverse: true });
 
-      expect(global.warn).toHaveBeenCalledWith(errorMsg);
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
       expect(global.warn).toHaveBeenCalledTimes(1);
     });
 
@@ -109,7 +141,7 @@ describe('commonCommitMessage', () => {
 
       commonCommitMessage(/^message/, errorMsg, { reverse: true });
 
-      expect(global.warn).toHaveBeenCalledWith(errorMsg);
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
       expect(global.warn).toHaveBeenCalledTimes(1);
     });
 
@@ -151,7 +183,42 @@ describe('commonCommitMessage', () => {
         ignoredAuthors: [ignoredAuthor],
       });
 
-      expect(global.warn).toHaveBeenCalledWith(errorMsg);
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
+      expect(global.warn).toHaveBeenCalledTimes(1);
+    });
+
+    it('should include matching commit messages in the warn message', () => {
+      const messages = ['message 1', 'message 2', 'foo 1'];
+      mockCommits(messages);
+
+      commonCommitMessage(/^message/, errorMsg, { reverse: true });
+
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringMatching(messages[0]),
+      );
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringMatching(messages[1]),
+      );
+      expect(global.warn).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not include matching commit messages in the warn message when "hideCommits" is "true"', () => {
+      const messages = ['message 1', 'message 2', 'foo 1'];
+      mockCommits(messages);
+
+      commonCommitMessage(/^message/, errorMsg, {
+        reverse: true,
+        hideCommits: true,
+      });
+
+      expect(global.warn).toHaveBeenCalledWith(expect.stringMatching(errorMsg));
+      expect(global.warn).not.toHaveBeenCalledWith(
+        expect.stringMatching(messages[0]),
+      );
+      expect(global.warn).not.toHaveBeenCalledWith(
+        expect.stringMatching(messages[1]),
+      );
       expect(global.warn).toHaveBeenCalledTimes(1);
     });
   });

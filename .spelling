@@ -87,6 +87,7 @@ reactBackpackSubcomponents
 reactRecommendClassProperties
 regex
 scss
+hideCommits
 sourceBranch
 sourceProjectId
 sourceRepoUrl

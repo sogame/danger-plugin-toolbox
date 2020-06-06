@@ -26,7 +26,6 @@ const prAuthorIsBot = ['snyk-bot', 'dependabot-preview[bot]'].includes(
 commonCommitMessage(/^foo/, 'Foooooo');
 commonPrDescriptionContribution();
 commonContributingGuide();
-
 // Do not require "CHANGELOG.md" to be updated when:
 // - The PR is created by a bot (Snyk...)
 // - The PR title is "Update dependencies" (just bumping devDependencies)

@@ -23,7 +23,7 @@ const prAuthorIsBot = ['snyk-bot', 'dependabot-preview[bot]'].includes(
   prAuthor,
 );
 
-commonCommitMessage(/^foo/, 'Foooooo');
+commonCommitMessage(/^foo/, 'Foooooo', { hideCommits: true });
 commonPrDescriptionContribution();
 commonContributingGuide();
 // Do not require "CHANGELOG.md" to be updated when:

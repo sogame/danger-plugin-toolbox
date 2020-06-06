@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.27.0] - 2020-6-6
+
 - [`commonCommitMessage`](docs/validations.md#commoncommitmessage)) now shows the messages of the commits that triggered the rule. This behaviour can be changed using `hideCommits` configuration.
 
 ## [1.26.0] - 2020-5-15

@@ -24,7 +24,6 @@ const prAuthorIsBot = ['snyk-bot', 'dependabot-preview[bot]'].includes(
 );
 
 commonCommitMessage(/^foo/, 'Foooooo');
-
 commonPrDescriptionContribution();
 
 commonContributingGuide();

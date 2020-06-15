@@ -83,7 +83,7 @@
     "eslint-config-skyscanner": "^6.0.0",
     "format-package": "^5.2.0",
     "husky": "^4.2.5",
-    "inquirer": "^7.1.0",
+    "inquirer": "^7.2.0",
     "jest": "^26.0.1",
     "lint-staged": "^10.2.9",
     "markdown-spellcheck": "^1.3.1",

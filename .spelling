@@ -57,6 +57,7 @@ jsConsoleCommands
 jsGlobalEslintChange
 jsLocalEslintChange
 jsLockfile
+jsOutOfSyncDeps
 jsRecommendAsyncAwait
 jsTestShortcuts
 linkToTargetRepo

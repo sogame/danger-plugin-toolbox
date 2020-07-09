@@ -34,6 +34,7 @@ import jsConsoleCommands from './rules/js/consoleCommands';
 import jsGlobalEslintChange from './rules/js/globalEslintChange';
 import jsLocalEslintChange from './rules/js/localEslintChange';
 import jsLockfile from './rules/js/lockfile';
+import jsOutOfSyncDeps from './rules/js/outOfSyncDeps';
 import jsRecommendAsyncAwait from './rules/js/recommendAsyncAwait';
 import jsTestShortcuts from './rules/js/testShortcuts';
 import reactBackpackCssModules from './rules/react/backpackCssModules';
@@ -76,6 +77,7 @@ export {
   jsGlobalEslintChange,
   jsLocalEslintChange,
   jsLockfile,
+  jsOutOfSyncDeps,
   jsRecommendAsyncAwait,
   jsTestShortcuts,
   reactBackpackCssModules,

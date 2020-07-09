@@ -6,9 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- New validation [`jsOutOfSyncDeps`](docs/validations.md#jsoutofsyncdeps) to check if `dependencies` and `devDependencies` in `package.json` and `package-lock.json` are in sync.
 
 ## [1.27.0] - 2020-6-6
+
+### Changed
 
 - [`commonCommitMessage`](docs/validations.md#commoncommitmessage)) now shows the messages of the commits that triggered the rule. This behaviour can be changed using `hideCommits` configuration.
 

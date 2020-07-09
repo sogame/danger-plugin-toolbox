@@ -556,7 +556,7 @@ jsLockfile({ path: 'another/folder/' });
 
 ### jsRecommendAsyncAwait
 
-Check is Promises are being used, and recommend using Async/Await instead.
+Check if Promises are being used, and recommend using Async/Await instead.
 
 `ignoreTests` can be used to ignore test files (like `file.test.js`) and mocks (files inside a `__mocks__/` folder), so using Promises will be allowed in these files.
 
@@ -575,6 +575,25 @@ jsRecommendAsyncAwait();
 jsRecommendAsyncAwait({ inline: true });
 jsRecommendAsyncAwait({ inline: true, ignoreTests: true });
 jsRecommendAsyncAwait({ logType: 'fail' });
+```
+
+### jsOutOfSyncDeps
+
+Check if `dependencies` and `devDependencies` in `package.json` and `package-lock.json` are in sync, and reports any mismatch between the expected version (`package.json`) and the installed one (`package-lock.json`).
+
+##### Configuration
+
+| Property | Type                       | Default Value |
+| -------- | -------------------------- | ------------- |
+| path     | string                     | ''            |
+| logType  | enum (warn, fail, message) | warn          |
+
+##### Usage
+
+```
+jsOutOfSyncDeps();
+jsOutOfSyncDeps({ inline: true });
+jsOutOfSyncDeps({ path: 'another/folder/' });
 ```
 
 ### jsTestShortcuts

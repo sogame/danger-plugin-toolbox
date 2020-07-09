@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 const {
   committedFilesGrep,
   commonChangelog,
@@ -90,3 +92,33 @@ changedRules.forEach(curChange => {
     );
   }
 });
+
+const checkDepsInSync = () => {
+  const { dependencies, devDependencies } = JSON.parse(
+    fs.readFileSync('package.json'),
+  );
+  const { dependencies: dependenciesLockfile } = JSON.parse(
+    fs.readFileSync('package-lock.json'),
+  );
+  const rows = [];
+  const allDeps = { ...dependencies, ...devDependencies };
+  Object.entries(allDeps)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .forEach(([name, version]) => {
+      const versionNum = version.slice(1);
+      const { version: versionLock } = dependenciesLockfile[name] || {};
+      if (versionNum !== versionLock) {
+        rows.push(
+          `<tr><td>${name}</td><td>${versionNum}</td><td>${versionLock}</td></tr>`,
+        );
+      }
+    });
+  if (rows.length > 0) {
+    const table = `<table><thead><tr><th>Dependency</th><th>package.json</th><th>package-lock.json</th></tr></thead><tbody>${rows.join(
+      '',
+    )}</tbody></table>`;
+    warn(`These dependencies are out of sync:\n${table}`);
+  }
+};
+
+checkDepsInSync();

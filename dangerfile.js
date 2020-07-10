@@ -12,6 +12,7 @@ const {
   jsGlobalEslintChange,
   jsLocalEslintChange,
   jsLockfile,
+  jsOutOfSyncDeps,
   jsTestShortcuts,
   linkToTargetRepo,
   prAuthor,
@@ -46,6 +47,8 @@ jsGlobalEslintChange();
 jsLocalEslintChange({ inline: true });
 
 jsLockfile();
+
+jsOutOfSyncDeps({ logType: 'fail' });
 
 jsTestShortcuts({ logTypeFocused: 'fail', inline: true });
 

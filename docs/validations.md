@@ -592,7 +592,7 @@ Check if `dependencies` and `devDependencies` in `package.json` and `package-loc
 
 ```
 jsOutOfSyncDeps();
-jsOutOfSyncDeps({ inline: true });
+jsOutOfSyncDeps({ logType: 'fail' });
 jsOutOfSyncDeps({ path: 'another/folder/' });
 ```
 

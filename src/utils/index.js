@@ -1,4 +1,4 @@
 import matchLineNumber from './matchLineNumber';
+import stringArrayToList from './stringArrayToList';
 
-// eslint-disable-next-line import/prefer-default-export
-export { matchLineNumber };
+export { matchLineNumber, stringArrayToList };

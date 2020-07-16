@@ -4,6 +4,7 @@
 
 import fs from 'fs';
 
+import { stringArrayToList } from '../../utils';
 import getMessageLogger from '../getMessageLogger';
 
 export default (
@@ -24,10 +25,10 @@ export default (
     }
     if (warnings && warnings.length) {
       const log = getMessageLogger(logType);
-      const warningsStr = warnings.map(line => `- ${line}`).join('\n');
+      const warningsStr = stringArrayToList(warnings, true);
       const introMsg =
         msg || `The file \`${file}\` contains the following warnings:`;
-      log(`${introMsg}\n${warningsStr}`);
+      log(`${introMsg}<br>${warningsStr}`);
     }
   }
 };

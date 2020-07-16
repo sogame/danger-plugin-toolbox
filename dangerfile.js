@@ -93,3 +93,8 @@ changedRules.forEach(curChange => {
     );
   }
 });
+
+const lines1 = ['- aaa', '- bbb', '- ccc'];
+const lines2 = ['- ddd', '- eee', '- fff'];
+warn(lines1.join('\n'));
+warn(lines2.join('<br>'));

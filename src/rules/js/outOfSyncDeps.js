@@ -42,6 +42,6 @@ export default async ({ path = '', logType } = {}) => {
     )}</tbody></table>`;
 
     const log = getMessageLogger(logType);
-    log(`These dependencies are out of sync:\n${table}`);
+    log(`These dependencies are out of sync:<br>${table}`);
   }
 };

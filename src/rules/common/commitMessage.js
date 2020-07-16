@@ -2,6 +2,7 @@
 // Make sure all commit messages match a regex.
 //
 
+import { stringArrayToList } from '../../utils';
 import getMessageLogger from '../getMessageLogger';
 import { commits } from '../helpers';
 
@@ -51,10 +52,11 @@ const buildFinalMessage = (message, foundCommits, hideCommits) => {
     return message;
   }
 
-  const commitMessages = foundCommits
-    .map(({ message: commitMessage }) => `- \`${commitMessage}\``)
-    .join('\n');
-  return `${message}\n${commitMessages}`;
+  const commitMessages = foundCommits.map(
+    ({ message: commitMessage }) => commitMessage,
+  );
+  const commitMessagesStr = stringArrayToList(commitMessages, true);
+  return `${message}<br>${commitMessagesStr}`;
 };
 
 export default (

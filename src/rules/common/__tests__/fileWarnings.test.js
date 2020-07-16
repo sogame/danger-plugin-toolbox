@@ -44,7 +44,7 @@ describe('commonFileWarnings', () => {
     commonFileWarnings(singleWarning);
 
     expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(`- [[warning ]]`),
+      expect.stringContaining('- `[[warning ]]`'),
     );
   });
 
@@ -52,10 +52,10 @@ describe('commonFileWarnings', () => {
     commonFileWarnings(multipleWarnings);
 
     expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(`- [[warning 1]]`),
+      expect.stringContaining('- `[[warning 1]]`'),
     );
     expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(`- [[warning 2]]`),
+      expect.stringContaining('- `[[warning 2]]`'),
     );
   });
 
@@ -63,7 +63,7 @@ describe('commonFileWarnings', () => {
     commonFileWarnings(warningColon);
 
     expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(`- [[warning:]]`),
+      expect.stringContaining('- `[[warning:]]`'),
     );
   });
 
@@ -87,10 +87,10 @@ describe('commonFileWarnings', () => {
     });
 
     expect(global.warn).toHaveBeenCalledWith(
-      expect.not.stringContaining(`- [[warning 1]]`),
+      expect.not.stringContaining('- `[[warning 1]]`'),
     );
     expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(`- [[warning 2]]`),
+      expect.stringContaining('- `[[warning 2]]`'),
     );
   });
 
@@ -112,7 +112,7 @@ describe('commonFileWarnings', () => {
     commonFileWarnings(singleWarningCase);
 
     expect(global.warn).toHaveBeenCalledWith(
-      expect.stringContaining(`- [[warning ]]`),
+      expect.stringContaining('- `[[warning ]]`'),
     );
   });
 
@@ -128,7 +128,9 @@ describe('commonFileWarnings', () => {
 
     commonFileWarnings(singleWarning, { msg: expectedMsg });
 
-    expect(global.warn).toHaveBeenCalledWith(`${expectedMsg}\n- [[warning ]]`);
+    expect(global.warn).toHaveBeenCalledWith(
+      `${expectedMsg}<br>- \`[[warning ]]\``,
+    );
   });
 
   it('should show a warning when the "file" parameter is missing', () => {

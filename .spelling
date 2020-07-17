@@ -43,6 +43,7 @@ func
 href
 ignoredAuthors
 ignoreNonExistingFile
+ignorePathRegex
 ignoreRegex
 ignoreTests
 imageMinified

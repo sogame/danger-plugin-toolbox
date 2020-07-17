@@ -476,12 +476,15 @@ imageMinifiedSvg({ logType: 'fail' });
 
 Check if there are console commands (logs/asserts/counts/times/profiles/...).
 
+`ignorePathRegex` can be used to ignore the files/folders that match it.
+
 ##### Configuration
 
-| Property | Type                       | Default Value |
-| -------- | -------------------------- | ------------- |
-| inline   | bool                       | false         |
-| logType  | enum (warn, fail, message) | warn          |
+| Property        | Type                       | Default Value |
+| --------------- | -------------------------- | ------------- |
+| inline          | bool                       | false         |
+| logType         | enum (warn, fail, message) | warn          |
+| ignorePathRegex | regex                      |               |
 
 ##### Usage
 
@@ -489,6 +492,7 @@ Check if there are console commands (logs/asserts/counts/times/profiles/...).
 jsConsoleCommands();
 jsConsoleCommands({ inline: true });
 jsConsoleCommands({ logType: 'fail' });
+jsConsoleCommands({ ignorePathRegex: '/ignoredFolder/' });
 ```
 
 ### jsGlobalEslintChange

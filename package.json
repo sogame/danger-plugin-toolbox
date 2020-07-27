@@ -79,7 +79,7 @@
     "babel-cli": "^6.26.0",
     "babel-jest": "^26.1.0",
     "babel-preset-env": "^1.7.0",
-    "danger": "^10.2.1",
+    "danger": "^10.3.0",
     "eslint-config-skyscanner": "^6.0.0",
     "format-package": "^5.2.0",
     "husky": "^4.2.5",

@@ -11,7 +11,7 @@ const questions = [
     type: 'list',
     name: 'version',
     message: 'What version do you want to release?',
-    choices: ['patch', 'minor', 'major', 'pre-release'].map(choice => ({
+    choices: ['patch', 'minor', 'major', 'pre-release'].map((choice) => ({
       name: choice,
       value: choice,
     })),

@@ -15,15 +15,15 @@ import {
   mockHref,
   mockTargetRepoUrl,
   mockSourceRepoUrl,
-} from './src/rules/__mocks__/dangerData';
+} from './src/rules/__fixtures__/dangerData';
 
 global.danger = {
   git: {
     created_files: mockCreatedFiles,
     modified_files: mockModifiedFiles,
     commits: mockCommits,
-    diffForFile: filename =>
-      new Promise(resolve => {
+    diffForFile: (filename) =>
+      new Promise((resolve) => {
         const added = mockLinesAddedFile[filename];
         const removed = mockLinesRemovedFile[filename];
         let result = null;
@@ -38,8 +38,8 @@ global.danger = {
         }
         resolve(result);
       }),
-    structuredDiffForFile: filename =>
-      new Promise(resolve => {
+    structuredDiffForFile: (filename) =>
+      new Promise((resolve) => {
         const diff = mockStructuredLinesAddedFile[filename];
         resolve(diff);
       }),

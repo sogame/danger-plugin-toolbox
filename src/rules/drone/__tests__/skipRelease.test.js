@@ -4,8 +4,8 @@ import droneSkipRelease from '../skipRelease';
 const errorMsg =
   'A new version will not be created, as `[skip release]` is part of all commit messages.';
 
-const mockCommits = messages => {
-  helpers.commits = messages.map(message => ({ message }));
+const mockCommits = (messages) => {
+  helpers.commits = messages.map((message) => ({ message }));
 };
 
 const skipReleaseMsg = '[skip release]';

@@ -8,7 +8,7 @@ import getMessageLogger from '../getMessageLogger';
 import { committedFilesGrep } from '../helpers';
 
 export default ({ logType } = {}) => {
-  const fileDoesNotUseClassProperties = filename => {
+  const fileDoesNotUseClassProperties = (filename) => {
     const contents = fs.readFileSync(filename).toString();
 
     const isClassComponent = contents.match(
@@ -22,7 +22,7 @@ export default ({ logType } = {}) => {
 
   const log = getMessageLogger(logType);
   const jsxFiles = committedFilesGrep(/\.jsx$/i);
-  jsxFiles.forEach(filename => {
+  jsxFiles.forEach((filename) => {
     const noClassProperties = fileDoesNotUseClassProperties(filename);
     if (noClassProperties) {
       log(

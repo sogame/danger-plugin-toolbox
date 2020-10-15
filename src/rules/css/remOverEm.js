@@ -9,12 +9,13 @@ import inlineLogMatching from '../inlineLogMatching';
 const msgInline =
   'It seems like `em` units are being used, but it is recommended to use `rem` instead.';
 const regexUsesEmUnits = /[0-9]em[; ]/;
-const usesEmUnits = filename => fileAddedLineMatch(filename, regexUsesEmUnits);
+const usesEmUnits = (filename) =>
+  fileAddedLineMatch(filename, regexUsesEmUnits);
 
 export default async ({ logType, inline } = {}) => {
   const log = getMessageLogger(logType);
   const cssFiles = committedFilesGrep(/(\.scss|\.css)$/i);
-  await cssFiles.forEach(async filename => {
+  await cssFiles.forEach(async (filename) => {
     if (inline === true) {
       inlineLogMatching(filename, regexUsesEmUnits, msgInline, log);
     } else {

@@ -8,12 +8,12 @@ import inlineLogMatching from '../inlineLogMatching';
 
 const msgSkippedTests = 'Seems like a test is being skipped.';
 const regexJsSkippedTests = /(xdescribe|describe\.skip|xit|it\.skip|test\.skip)\(/i;
-const hasJsSkippedTests = filename =>
+const hasJsSkippedTests = (filename) =>
   fileAddedLineMatch(filename, regexJsSkippedTests);
 
 const msgFocusedTests = 'Seems like a test is being focused.';
 const regexJsFocusedTests = /(fdescribe|describe\.only|fit|it\.only|test\.only)\(/i;
-const hasJsFocusedTests = filename =>
+const hasJsFocusedTests = (filename) =>
   fileAddedLineMatch(filename, regexJsFocusedTests);
 
 export default async ({
@@ -25,7 +25,7 @@ export default async ({
   const logSkipped = getMessageLogger(logTypeSkipped || logType);
   const logFocused = getMessageLogger(logTypeFocused || logType);
   const jsFiles = committedFilesGrep(/\.(test|spec)\.(js|jsx|ts)$/i);
-  await jsFiles.forEach(async filename => {
+  await jsFiles.forEach(async (filename) => {
     if (inline === true) {
       inlineLogMatching(
         filename,

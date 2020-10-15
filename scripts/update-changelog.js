@@ -1,12 +1,13 @@
 const fs = require('fs');
 
-const updateChangelog = version => {
+const updateChangelog = (version) => {
   const changelogPath = './CHANGELOG.md';
   const changelogData = fs.readFileSync(changelogPath, 'utf8');
 
   const date = new Date();
-  const formattedDate = `${date.getFullYear()}-${date.getMonth() +
-    1}-${date.getDate()}`;
+  const formattedDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;
 
   const regexp = /(\n)(## \[Unreleased\])/;
   const updatedChangelogData = changelogData.replace(
@@ -17,7 +18,7 @@ const updateChangelog = version => {
   fs.writeFileSync(changelogPath, updatedChangelogData, 'utf8');
 };
 
-const updatePluginVersionCI = version => {
+const updatePluginVersionCI = (version) => {
   const ciScriptPath = './.travis.yml';
   const ciScriptData = fs.readFileSync(ciScriptPath, 'utf8');
 

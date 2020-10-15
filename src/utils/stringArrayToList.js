@@ -4,6 +4,6 @@ const formatLine = (line, addBackticks = false) => {
 };
 
 const stringArrayToList = (items, addBackticks) =>
-  items.map(line => formatLine(line, addBackticks)).join('<br>');
+  items.map((line) => formatLine(line, addBackticks)).join('<br>');
 
 export default stringArrayToList;

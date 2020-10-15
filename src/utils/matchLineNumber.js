@@ -1,11 +1,6 @@
 const matchLineNumber = (content, pattern, skipLines = 0) => {
   const finalContent =
-    skipLines <= 0
-      ? content
-      : content
-          .split('\n')
-          .slice(skipLines)
-          .join('\n');
+    skipLines <= 0 ? content : content.split('\n').slice(skipLines).join('\n');
 
   const [beforeStr, afterStr] = finalContent.split(pattern);
   if (typeof afterStr === 'undefined') {

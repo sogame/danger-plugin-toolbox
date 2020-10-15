@@ -10,7 +10,7 @@ import { committedFilesGrep } from '../helpers';
 export default ({ logType } = {}) => {
   const log = getMessageLogger(logType);
   const jsonFiles = committedFilesGrep(/\.json$/i);
-  jsonFiles.forEach(filePath => {
+  jsonFiles.forEach((filePath) => {
     const fileContent = fs.readFileSync(filePath).toString();
     let isValid;
     let exceptionMessage;

@@ -15,7 +15,7 @@ import {
   mockHref,
   mockTargetRepoUrl,
   mockSourceRepoUrl,
-} from '../__mocks__/dangerData';
+} from '../__fixtures__/dangerData';
 import {
   createdFiles,
   modifiedFiles,

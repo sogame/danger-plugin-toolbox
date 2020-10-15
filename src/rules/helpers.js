@@ -45,12 +45,12 @@ export const externalPr = sourceProjectId !== targetProjectId;
 
 export const committedFiles = [...createdFiles, ...modifiedFiles];
 
-export const committedFilesGrep = pattern =>
+export const committedFilesGrep = (pattern) =>
   committedFiles.filter(
-    filename => filename && filename.match(pattern) !== null,
+    (filename) => filename && filename.match(pattern) !== null,
   );
 
-const stringIncludesTrivial = str =>
+const stringIncludesTrivial = (str) =>
   str.includes('#trivial') || str.includes('[trivial]');
 const trivialTitle = stringIncludesTrivial(prTitle);
 const trivialCommits = commits.reduce(
@@ -60,20 +60,20 @@ const trivialCommits = commits.reduce(
 );
 export const isTrivial = trivialTitle && trivialCommits;
 
-export const inCommit = filename => committedFiles.includes(filename);
+export const inCommit = (filename) => committedFiles.includes(filename);
 
-export const inCommitGrep = pattern =>
+export const inCommitGrep = (pattern) =>
   committedFiles.findIndex(
-    filename => filename && filename.match(pattern) !== null,
+    (filename) => filename && filename.match(pattern) !== null,
   ) >= 0;
 
-export const fileAddedLines = async filename => {
+export const fileAddedLines = async (filename) => {
   const diff = await diffForFile(filename);
   const { added } = diff || {};
   return added || '';
 };
 
-export const fileRemovedLines = async filename => {
+export const fileRemovedLines = async (filename) => {
   const diff = await diffForFile(filename);
   const { removed } = diff || {};
   return removed || '';
@@ -89,7 +89,7 @@ export const fileRemovedLineMatch = async (filename, pattern) => {
   return removedLines.match(pattern) !== null;
 };
 
-export const fileAddedLineNumbers = async filename => {
+export const fileAddedLineNumbers = async (filename) => {
   const addedLines = [];
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
   chunks.forEach(({ changes }) => {
@@ -102,7 +102,7 @@ export const fileAddedLineNumbers = async filename => {
   return addedLines;
 };
 
-export const fileRemovedLineNumbers = async filename => {
+export const fileRemovedLineNumbers = async (filename) => {
   const removedLines = [];
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
   chunks.forEach(({ changes }) => {
@@ -115,7 +115,7 @@ export const fileRemovedLineNumbers = async filename => {
   return removedLines;
 };
 
-export const structuredFileAddedLines = async filename => {
+export const structuredFileAddedLines = async (filename) => {
   const addedLines = {};
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
   chunks.forEach(({ changes }) => {
@@ -128,7 +128,7 @@ export const structuredFileAddedLines = async filename => {
   return addedLines;
 };
 
-export const structuredFileRemovedLines = async filename => {
+export const structuredFileRemovedLines = async (filename) => {
   const removedLines = {};
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
   chunks.forEach(({ changes }) => {

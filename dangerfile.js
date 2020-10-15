@@ -82,7 +82,7 @@ if (changedUtilities && !changedUtilitiesDoc) {
 
 // Make sure tests are added/updated when adding/updating validations or utilities
 const changedRules = committedFilesGrep(/^src\/rules\/(\w+\/)?\w+\.js$/);
-changedRules.forEach(curChange => {
+changedRules.forEach((curChange) => {
   const curChangeTest = curChange.replace(
     /^(src\/rules\/(\w+\/)?)(\w+)(\.js)$/,
     '$1__tests__/$3.test$4',

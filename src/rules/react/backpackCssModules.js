@@ -5,13 +5,13 @@
 import getMessageLogger from '../getMessageLogger';
 import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
 
-const fileUsesStylesDirectly = filename =>
+const fileUsesStylesDirectly = (filename) =>
   fileAddedLineMatch(filename, /\Wstyles(\[|\.)/i);
 
 export default async ({ logType } = {}) => {
   const log = getMessageLogger(logType);
   const jsxFiles = committedFilesGrep(/\.jsx$/i);
-  jsxFiles.forEach(async filename => {
+  jsxFiles.forEach(async (filename) => {
     const usesStyles = await fileUsesStylesDirectly(filename);
     if (usesStyles) {
       log(

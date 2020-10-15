@@ -9,11 +9,11 @@ import commonCommitMessage, {
   COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX,
 } from '../commitMessage';
 
-const mockCommits = messages => {
-  helpers.commits = messages.map(message => ({ message }));
+const mockCommits = (messages) => {
+  helpers.commits = messages.map((message) => ({ message }));
 };
 
-const mockCommitsAuthor = commits => {
+const mockCommitsAuthor = (commits) => {
   helpers.commits = commits.map(([message, name]) => ({
     message,
     author: { name },

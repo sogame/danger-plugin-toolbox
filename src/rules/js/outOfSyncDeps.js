@@ -8,7 +8,7 @@ import getMessageLogger from '../getMessageLogger';
 
 const sortDependencies = (a, b) => a[0].localeCompare(b[0]);
 
-const cleanVersion = version => version.replace(/^(\^|~|>=|>|<=|<)/, '');
+const cleanVersion = (version) => version.replace(/^(\^|~|>=|>|<=|<)/, '');
 
 export default async ({ path = '', logType } = {}) => {
   const packageFilename = `${path}package.json`;

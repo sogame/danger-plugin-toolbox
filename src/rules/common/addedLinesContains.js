@@ -21,7 +21,7 @@ export default async (
   } else {
     const log = getMessageLogger(logType);
     const files = committedFilesGrep(filesRegex);
-    await files.forEach(async filename => {
+    await files.forEach(async (filename) => {
       const msg = buildMessage(filename);
       if (inline === true) {
         inlineLogMatching(filename, lineRegex, msg, log);

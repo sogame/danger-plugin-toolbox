@@ -5,13 +5,13 @@
 import getMessageLogger from '../getMessageLogger';
 import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
 
-const fileUsesBpButton = filename =>
+const fileUsesBpButton = (filename) =>
   fileAddedLineMatch(filename, /<BpkButton[\s>]/i);
 
 export default async ({ logType } = {}) => {
   const log = getMessageLogger(logType);
   const jsxFiles = committedFilesGrep(/\.jsx$/i);
-  jsxFiles.forEach(async filename => {
+  jsxFiles.forEach(async (filename) => {
     const usesBpkButton = await fileUsesBpButton(filename);
     if (usesBpkButton) {
       log(

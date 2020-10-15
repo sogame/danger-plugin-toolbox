@@ -4,7 +4,7 @@ import commonAddedLinesContains from '../addedLinesContains';
 
 jest.mock('../../inlineLogMatching');
 
-const buildMessage = filename =>
+const buildMessage = (filename) =>
   `Some added lines in \`${filename}\` match the provided regex.`;
 
 const validJs = 'valid.js';
@@ -26,6 +26,7 @@ describe('commonAddedLinesContains', () => {
 
   describe('not inline', () => {
     afterEach(() => {
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(inlineLogMatching).not.toHaveBeenCalled();
     });
 

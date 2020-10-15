@@ -4,7 +4,7 @@ import commonContribution from '../contribution';
 const author = 'John Doe';
 helpers.prAuthor = author;
 
-const buildMessage = authorName =>
+const buildMessage = (authorName) =>
   `Thanks for the contribution, ${authorName}!`;
 
 describe('commonContribution', () => {

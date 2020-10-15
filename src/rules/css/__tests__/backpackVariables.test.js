@@ -4,10 +4,10 @@ import cssBackpackVariables from '../backpackVariables';
 
 jest.mock('../../inlineLogMatching');
 
-const buildMessageUnits = filename =>
+const buildMessageUnits = (filename) =>
   `The file \`${filename}\` seems to be using non-[Backpack](https://backpack.github.io/) units (\`rem\`, \`em\`, \`px\`). [Backpack units](https://backpack.github.io/tokens/) (or whole multiples of them, like \`3 * $bpk-spacing-xs\`) should be used instead.`;
 
-const buildMessagePixel = filename =>
+const buildMessagePixel = (filename) =>
   `The file \`${filename}\` seems to be using \`$bpk-one-pixel-rem\`. This can hide the usage of \`px\` instead of [Backpack](https://backpack.github.io/) units. Make sure using \`px\` is strictly needed.`;
 
 const validScss = 'valid.scss';
@@ -36,6 +36,7 @@ describe('cssBackpackVariables', () => {
 
   describe('not inline', () => {
     afterEach(() => {
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(inlineLogMatching).not.toHaveBeenCalled();
     });
 

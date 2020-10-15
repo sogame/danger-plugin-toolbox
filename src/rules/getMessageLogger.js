@@ -1,4 +1,4 @@
-export const getPositiveMessageLogger = type =>
+export const getPositiveMessageLogger = (type) =>
   type === 'markdown' ? markdown : message;
 
 export default (type, allowMarkdown = false) => {

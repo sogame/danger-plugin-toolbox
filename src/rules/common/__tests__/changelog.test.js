@@ -1,7 +1,7 @@
 import * as helpers from '../../helpers';
 import commonChangelog from '../changelog';
 
-const buildMessage = filename => `\`${filename}\` has not been updated.`;
+const buildMessage = (filename) => `\`${filename}\` has not been updated.`;
 
 describe('commonChangelog', () => {
   beforeEach(() => {

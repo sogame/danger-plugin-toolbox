@@ -14,10 +14,10 @@ const msgOnePixelRem =
 const regexNonBackpackaUnits = /[0-9](rem|em|px)[; ]/;
 const regexOnePixelRem = /\$bpk-one-pixel-rem/;
 
-const usesNonBackpackUnits = filename =>
+const usesNonBackpackUnits = (filename) =>
   fileAddedLineMatch(filename, regexNonBackpackaUnits);
 
-const usesOnePixelRem = filename =>
+const usesOnePixelRem = (filename) =>
   fileAddedLineMatch(filename, regexOnePixelRem);
 
 export default async ({
@@ -29,7 +29,7 @@ export default async ({
   const logUnits = getMessageLogger(logTypeNonBackpackUnits || logType);
   const logPixel = getMessageLogger(logTypeOnePixelRem || logType);
   const cssFiles = committedFilesGrep(/\.scss$/i);
-  await cssFiles.forEach(async filename => {
+  await cssFiles.forEach(async (filename) => {
     if (inline === true) {
       inlineLogMatching(
         filename,

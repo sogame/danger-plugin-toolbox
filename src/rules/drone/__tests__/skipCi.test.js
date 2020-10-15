@@ -4,8 +4,8 @@ import droneSkipCi from '../skipCi';
 const errorMsg =
   'CI will not be executed, as `[skip ci]` is part of all commit messages.';
 
-const mockCommits = messages => {
-  helpers.commits = messages.map(message => ({ message }));
+const mockCommits = (messages) => {
+  helpers.commits = messages.map((message) => ({ message }));
 };
 
 const skipCiMsg = '[skip ci]';

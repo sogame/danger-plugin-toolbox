@@ -59,6 +59,7 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js",
+      "!**/__fixtures__/**",
       "!src/utils/index.js",
       "!src/index.js"
     ],

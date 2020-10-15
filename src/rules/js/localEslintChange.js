@@ -8,13 +8,13 @@ import inlineLogMatching from '../inlineLogMatching';
 
 const msgInline = 'Seems like some eslint rule is being disabled.';
 const regexDisabledEslint = /eslint-disable/;
-const hasDisabledEslint = filename =>
+const hasDisabledEslint = (filename) =>
   fileAddedLineMatch(filename, regexDisabledEslint);
 
 export default async ({ logType, inline } = {}) => {
   const log = getMessageLogger(logType);
   const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
-  await jsFiles.forEach(async filename => {
+  await jsFiles.forEach(async (filename) => {
     if (inline === true) {
       inlineLogMatching(filename, regexDisabledEslint, msgInline, log);
     } else {

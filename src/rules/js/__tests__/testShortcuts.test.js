@@ -4,10 +4,10 @@ import jsTestShortcuts from '../testShortcuts';
 
 jest.mock('../../inlineLogMatching');
 
-const buildMessageSkipped = filename =>
+const buildMessageSkipped = (filename) =>
   `The file \`${filename}\` may contain skipped tests.`;
 
-const buildMessageFocused = filename =>
+const buildMessageFocused = (filename) =>
   `The file \`${filename}\` may contain focused ("only") tests.`;
 
 const validJs = 'valid.test.js';
@@ -58,6 +58,7 @@ describe('jsTestShortcuts', () => {
 
   describe('not inline', () => {
     afterEach(() => {
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(inlineLogMatching).not.toHaveBeenCalled();
     });
 

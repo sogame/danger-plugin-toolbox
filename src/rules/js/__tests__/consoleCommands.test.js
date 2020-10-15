@@ -4,7 +4,7 @@ import jsConsoleCommands from '../consoleCommands';
 
 jest.mock('../../inlineLogMatching');
 
-const buildMessage = filename =>
+const buildMessage = (filename) =>
   `The file \`${filename}\` may contain console commands.`;
 
 const validJs = 'valid.js';
@@ -34,6 +34,7 @@ describe('jsConsoleCommands', () => {
 
   describe('not inline', () => {
     afterEach(() => {
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(inlineLogMatching).not.toHaveBeenCalled();
     });
 

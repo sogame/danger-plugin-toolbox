@@ -21,7 +21,7 @@ export default (
     const contents = fs.readFileSync(file).toString();
     let warnings = contents.match(/^.*\bwarning( |:).*$/gim);
     if (ignoreRegex) {
-      warnings = warnings.filter(warning => !warning.match(ignoreRegex));
+      warnings = warnings.filter((warning) => !warning.match(ignoreRegex));
     }
     if (warnings && warnings.length) {
       const log = getMessageLogger(logType);

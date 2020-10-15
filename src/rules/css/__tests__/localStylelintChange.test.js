@@ -27,6 +27,7 @@ describe('cssLocalStylelintChange', () => {
 
   describe('not inline', () => {
     afterEach(() => {
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(inlineLogMatching).not.toHaveBeenCalled();
     });
 

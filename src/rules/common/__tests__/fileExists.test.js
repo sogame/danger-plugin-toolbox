@@ -13,10 +13,10 @@ const mockFiles = {
 
 fs.setMockFiles(mockFiles);
 
-const buildDefaultMessage = filename =>
+const buildDefaultMessage = (filename) =>
   `The file \`${filename}\` is required but it was not found. Please, commit it.`;
 
-const buildCustomMessage = filename => `Custom message: \`${filename}\`.`;
+const buildCustomMessage = (filename) => `Custom message: \`${filename}\`.`;
 
 describe('commonFileExists', () => {
   beforeEach(() => {

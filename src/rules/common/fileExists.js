@@ -6,7 +6,7 @@ import fs from 'fs';
 
 import getMessageLogger from '../getMessageLogger';
 
-const defaultMessage = filename =>
+const defaultMessage = (filename) =>
   `The file \`${filename}\` is required but it was not found. Please, commit it.`;
 
 export default (files, { logType, buildMessage } = {}) => {
@@ -27,7 +27,7 @@ export default (files, { logType, buildMessage } = {}) => {
     } else {
       const log = getMessageLogger(logType);
       const messageBuilder = buildMessage || defaultMessage;
-      fileList.forEach(filename => {
+      fileList.forEach((filename) => {
         if (!fs.existsSync(filename)) {
           log(messageBuilder(filename));
         }

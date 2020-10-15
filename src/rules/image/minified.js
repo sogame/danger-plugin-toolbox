@@ -6,7 +6,7 @@ import imageMinifiedJpg from './minifiedJpg';
 import imageMinifiedPng from './minifiedPng';
 import imageMinifiedSvg from './minifiedSvg';
 
-export default config => {
+export default (config) => {
   imageMinifiedJpg(config);
   imageMinifiedPng(config);
   imageMinifiedSvg(config);

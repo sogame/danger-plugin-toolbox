@@ -13,6 +13,10 @@
       }
     ],
     "import/no-unresolved": ["error", { "ignore": ["dangerfile.js"] }],
+    "jest/no-standalone-expect": [
+      "error",
+      { "additionalTestBlockFunctions": ["afterEach"] }
+    ],
     "no-console": "error"
   },
   "settings": {

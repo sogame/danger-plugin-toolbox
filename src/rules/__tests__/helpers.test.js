@@ -101,7 +101,8 @@ describe('helpers', () => {
         global.danger.github.pr.head.repo.id = '42';
 
         jest.resetModules();
-        const { externalPr } = require('../helpers'); // eslint-disable-line global-require
+        // eslint-disable-next-line global-require -- Haven't found another way get the value based on the mock data
+        const { externalPr } = require('../helpers');
 
         expect(externalPr).toBe(false);
       });
@@ -111,7 +112,8 @@ describe('helpers', () => {
         global.danger.github.pr.head.repo.id = '99';
 
         jest.resetModules();
-        const { externalPr } = require('../helpers'); // eslint-disable-line global-require
+        // eslint-disable-next-line global-require -- Haven't found another way get the value based on the mock data
+        const { externalPr } = require('../helpers');
 
         expect(externalPr).toBe(true);
       });
@@ -133,7 +135,8 @@ describe('helpers', () => {
         ];
 
         jest.resetModules();
-        const { isTrivial } = require('../helpers'); // eslint-disable-line global-require
+        // eslint-disable-next-line global-require -- Haven't found another way get the value based on the mock data
+        const { isTrivial } = require('../helpers');
 
         expect(isTrivial).toBe(true);
       });
@@ -147,7 +150,8 @@ describe('helpers', () => {
         ];
 
         jest.resetModules();
-        const { isTrivial } = require('../helpers'); // eslint-disable-line global-require
+        // eslint-disable-next-line global-require -- Haven't found another way get the value based on the mock data
+        const { isTrivial } = require('../helpers');
 
         expect(isTrivial).toBe(false);
       });
@@ -161,7 +165,8 @@ describe('helpers', () => {
         ];
 
         jest.resetModules();
-        const { isTrivial } = require('../helpers'); // eslint-disable-line global-require
+        // eslint-disable-next-line global-require -- Haven't found another way get the value based on the mock data
+        const { isTrivial } = require('../helpers');
 
         expect(isTrivial).toBe(false);
       });

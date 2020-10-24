@@ -30,7 +30,7 @@ const updatePluginVersionCI = (version) => {
 
 const [, , newVersion] = process.argv;
 if (!newVersion) {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- Needed when running the release script
   console.error('usage: update-changelog.js <version>\n\n');
 } else {
   updateChangelog(newVersion);

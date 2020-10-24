@@ -21,8 +21,7 @@ export default async ({ path = '', logType } = {}) => {
     fs.readFileSync(packagelockFilename),
   );
   const rows = [];
-  // Babel fails to build if spreading the objects
-  // eslint-disable-next-line prefer-object-spread
+  // eslint-disable-next-line prefer-object-spread -- Babel fails to build if spreading the objects
   const allDeps = Object.assign({}, dependencies, devDependencies);
   Object.entries(allDeps)
     .sort(sortDependencies)

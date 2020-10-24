@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- Needed when running the release script */
 
-const inquirer = require('inquirer'); // eslint-disable-line import/no-extraneous-dependencies
-const semver = require('semver'); // eslint-disable-line import/no-extraneous-dependencies
-const releaseit = require('release-it'); // eslint-disable-line import/no-extraneous-dependencies
+const inquirer = require('inquirer'); // eslint-disable-line import/no-extraneous-dependencies -- This is only needed when releasing
+const semver = require('semver'); // eslint-disable-line import/no-extraneous-dependencies -- This is only needed when releasing
+const releaseit = require('release-it'); // eslint-disable-line import/no-extraneous-dependencies -- This is only needed when releasing
 
 const pkg = require('../package.json');
 

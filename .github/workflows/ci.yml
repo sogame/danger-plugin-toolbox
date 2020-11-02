@@ -26,22 +26,11 @@ jobs:
       - name: Install deps
         run: npm ci --quiet
 
-      - name: Install danger-plugin-toolbox
-        run: npm install -g danger-plugin-toolbox@1.29.0
-
-      - name: Link danger-plugin-toolbox
-        run: npm link danger-plugin-toolbox # Link the global version of "danger-plugin-toolbox" into the local "node_modules/"
-
       - name: Run linters
         run: (set -o pipefail; npm run lint |& tee lint.log);
 
       - name: Run tests
         run: (set -o pipefail; npm run test:coverage |& tee test.log);
-
-      - name: Run Danger
-        run: npm run danger
-        env:
-          GITHUB_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
       - name: Run Spellcheck
         run: npm run spellcheck:ci

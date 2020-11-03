@@ -1,0 +1,40 @@
+name: danger-plugin-toolbox CI (Push)
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.14.2, 12.13]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install deps
+        run: npm ci --quiet
+
+      - name: Run linters
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test:coverage
+
+      - name: Run Spellcheck
+        run: npm run spellcheck:ci
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

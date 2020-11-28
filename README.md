@@ -2,10 +2,9 @@
 
 > Danger Plugin Toolbox is a [Danger JS](https://danger.systems/js/) plugin containing a set of common validations and utilities, build to make it easy to start using Danger JS.
 
-[![Build Status](https://travis-ci.com/sogame/danger-plugin-toolbox.svg?branch=master)](https://travis-ci.com/sogame/danger-plugin-toolbox)
+[![build](<https://github.com/sogame/danger-plugin-toolbox/workflows/danger-plugin-toolbox%20CI%20(Push)/badge.svg?branch=master>)](https://github.com/sogame/danger-plugin-toolbox/actions?query=workflow%3A%22danger-plugin-toolbox+CI+%28Push%29%22)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=sogame:danger-plugin-toolbox&metric=coverage)](https://sonarcloud.io/component_measures?id=sogame%3Adanger-plugin-toolbox&metric=coverage)
 [![npm version](https://badge.fury.io/js/danger-plugin-toolbox.svg)](https://badge.fury.io/js/danger-plugin-toolbox)
-
 
 ## Installation
 

@@ -1,4 +1,4 @@
-name: danger-plugin-toolbox CI (PR)
+name: danger-plugin-toolbox (PR)
 
 on:
   pull_request:

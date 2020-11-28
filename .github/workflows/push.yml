@@ -1,4 +1,4 @@
-name: danger-plugin-toolbox CI (Push)
+name: danger-plugin-toolbox
 
 on:
   push:

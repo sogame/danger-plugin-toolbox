@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- The regular expressions defined in [`commonCommitMessage`](docs/validations.md#commoncommitmessage) that check merges, now also identify remote branch merges.
 
 ## [1.29.0] - 2020-7-17
 

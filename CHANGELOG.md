@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.30.0] - 2021-4-16
+
 ### Added
 
 - The regular expressions defined in [`commonCommitMessage`](docs/validations.md#commoncommitmessage) that check merges, now also identify remote branch merges.

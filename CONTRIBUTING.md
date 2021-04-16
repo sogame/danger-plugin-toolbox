@@ -11,6 +11,7 @@ This project operates under a _forking model_. In order to contribute, please:
 ## Development
 
 Run `npm ci` to install the dependencies.
+Run `npm run prepare` to configure git hooks (using Husky).
 
 A pre-commit hook will lint the code and automatically fix some issues (and added to the commit). Linter can be executed manually running `npm run lint`.
 

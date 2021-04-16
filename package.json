@@ -25,13 +25,14 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist --ignore *.test.js,**/__mocks__/",
+    "build": "babel src --out-dir dist --ignore **/__tests__/,**/__fixtures__/,**/__mocks__/",
     "danger": "danger ci --failOnErrors",
     "format:packagejson": "format-package -w",
     "lint": "npm run lint:staged -- --ext .js .",
     "lint:fix": "npm run lint -- --fix",
     "lint:fix:staged": "npm run lint:staged -- --fix",
     "lint:staged": "eslint",
+    "prepare": "husky install",
     "release": "node ./scripts/release.js",
     "spellcheck": "mdspell --report --en-gb --ignore-numbers --ignore-acronyms --no-suggestions",
     "spellcheck:ci": "npm run spellcheck -- '**/*.md' '!**/node_modules/**/*.md'",
@@ -40,12 +41,6 @@
     "test:coverage": "npm test -- --coverage",
     "test:watch": "npm test -- --watch",
     "update:changelog": "node ./scripts/update-changelog"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
   },
   "lint-staged": {
     "**/!(package|package-lock).json": "prettier --write",

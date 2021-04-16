@@ -311,6 +311,14 @@ describe('commonCommitMessage', () => {
 
         expect(result).not.toBeNull();
       });
+
+      it(`should match strings starting with the merge remote branch message - ${type}`, () => {
+        const message = "Merge remote-tracking branch 'origin/master'";
+
+        const result = message.match(regex);
+
+        expect(result).not.toBeNull();
+      });
     });
 
     describe('No-Jira or Merge or Revert', () => {
@@ -343,6 +351,14 @@ describe('commonCommitMessage', () => {
 
       it('should match strings starting with the merge branch message - No-Jira', () => {
         const message = "Merge branch 'master' of sogame/danger-plugin-toolbox";
+
+        const result = message.match(regex);
+
+        expect(result).not.toBeNull();
+      });
+
+      it('should match strings starting with the merge remote branch message - No-Jira', () => {
+        const message = "Merge remote-tracking branch 'origin/master'";
 
         const result = message.match(regex);
 

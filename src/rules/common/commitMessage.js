@@ -11,7 +11,8 @@ const squareBracketsJiraId = `(\\[[a-z]+-\\d+\\]${matchEnd})`;
 const jiraId = `([a-z]+-\\d+${matchEnd})`;
 const squareBracketsNoJira = `(\\[NO[- ]?JIRA\\]${matchEnd})`;
 const noJira = `(NO[- ]?JIRA${matchEnd})`;
-const merge = '(Merge branch )|(Merge pull request )';
+const merge =
+  '(Merge branch )|(Merge remote-tracking branch )|(Merge pull request )';
 const revert = '(Revert )';
 const dependencyBump =
   '(Bump \\S+ from [0-9]+\\.[0-9]+\\.[0-9]+ to [0-9]+\\.[0-9]+\\.[0-9]+$)';

@@ -11,19 +11,25 @@ const regexJsConsoleCommands = /console\.[a-z]+/;
 const hasJsConsoleCommands = (filename) =>
   fileAddedLineMatch(filename, regexJsConsoleCommands);
 
+const checkConsole = async (filename, ignorePathRegex, inline, log) => {
+  if (!ignorePathRegex || !filename.match(ignorePathRegex)) {
+    if (inline === true) {
+      inlineLogMatching(filename, regexJsConsoleCommands, msgInline, log);
+    } else {
+      const hasConsole = await hasJsConsoleCommands(filename);
+      if (hasConsole) {
+        log(`The file \`${filename}\` may contain console commands.`);
+      }
+    }
+  }
+};
+
 export default async ({ logType, inline, ignorePathRegex } = {}) => {
   const log = getMessageLogger(logType);
   const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
-  await jsFiles.forEach(async (filename) => {
-    if (!ignorePathRegex || !filename.match(ignorePathRegex)) {
-      if (inline === true) {
-        inlineLogMatching(filename, regexJsConsoleCommands, msgInline, log);
-      } else {
-        const hasConsole = await hasJsConsoleCommands(filename);
-        if (hasConsole) {
-          log(`The file \`${filename}\` may contain console commands.`);
-        }
-      }
-    }
-  });
+  await Promise.all(
+    jsFiles.map((filename) =>
+      checkConsole(filename, ignorePathRegex, inline, log),
+    ),
+  );
 };

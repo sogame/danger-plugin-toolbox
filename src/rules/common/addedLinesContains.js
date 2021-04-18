@@ -6,6 +6,17 @@ import getMessageLogger from '../getMessageLogger';
 import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
 import inlineLogMatching from '../inlineLogMatching';
 
+const checkContains = async (filename, lineRegex, inline, msg, log) => {
+  if (inline === true) {
+    inlineLogMatching(filename, lineRegex, msg, log);
+  } else {
+    const linesMatchRegex = await fileAddedLineMatch(filename, lineRegex);
+    if (linesMatchRegex) {
+      log(msg);
+    }
+  }
+};
+
 export default async (
   filesRegex,
   lineRegex,
@@ -21,16 +32,11 @@ export default async (
   } else {
     const log = getMessageLogger(logType);
     const files = committedFilesGrep(filesRegex);
-    await files.forEach(async (filename) => {
-      const msg = buildMessage(filename);
-      if (inline === true) {
-        inlineLogMatching(filename, lineRegex, msg, log);
-      } else {
-        const linesMatchRegex = await fileAddedLineMatch(filename, lineRegex);
-        if (linesMatchRegex) {
-          log(msg);
-        }
-      }
-    });
+    await Promise.all(
+      files.map((filename) => {
+        const msg = buildMessage(filename);
+        return checkContains(filename, lineRegex, inline, msg, log);
+      }),
+    );
   }
 };

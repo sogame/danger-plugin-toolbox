@@ -11,17 +11,21 @@ const regexDisabledStylelint = /stylelint-disable/;
 const hasDisabledStylelint = (filename) =>
   fileAddedLineMatch(filename, regexDisabledStylelint);
 
+const checkChange = async (filename, inline, log) => {
+  if (inline === true) {
+    inlineLogMatching(filename, regexDisabledStylelint, msgInline, log);
+  } else {
+    const hasDisabledRules = await hasDisabledStylelint(filename);
+    if (hasDisabledRules) {
+      log(`The file \`${filename}\` may have disabled some stylelint rule.`);
+    }
+  }
+};
+
 export default async ({ logType, inline } = {}) => {
   const log = getMessageLogger(logType);
   const cssFiles = committedFilesGrep(/(\.scss|\.css)$/i);
-  await cssFiles.forEach(async (filename) => {
-    if (inline === true) {
-      inlineLogMatching(filename, regexDisabledStylelint, msgInline, log);
-    } else {
-      const hasDisabledRules = await hasDisabledStylelint(filename);
-      if (hasDisabledRules) {
-        log(`The file \`${filename}\` may have disabled some stylelint rule.`);
-      }
-    }
-  });
+  await Promise.all(
+    cssFiles.map((filename) => checkChange(filename, inline, log)),
+  );
 };

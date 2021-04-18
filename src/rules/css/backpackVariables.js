@@ -20,6 +20,36 @@ const usesNonBackpackUnits = (filename) =>
 const usesOnePixelRem = (filename) =>
   fileAddedLineMatch(filename, regexOnePixelRem);
 
+const checkVariables = async (filename, inline, logUnits, logPixel) => {
+  if (inline === true) {
+    inlineLogMatching(
+      filename,
+      regexNonBackpackaUnits,
+      msgNonBackpackUnits,
+      logUnits,
+    );
+
+    inlineLogMatching(filename, regexOnePixelRem, msgOnePixelRem, logPixel);
+  } else {
+    const [usesNonBackpack, usesPixelRem] = await Promise.all([
+      usesNonBackpackUnits(filename),
+      usesOnePixelRem(filename),
+    ]);
+
+    if (usesNonBackpack) {
+      logUnits(
+        `The file \`${filename}\` seems to be using non-[Backpack](https://backpack.github.io/) units (\`rem\`, \`em\`, \`px\`). [Backpack units](https://backpack.github.io/tokens/) (or whole multiples of them, like \`3 * $bpk-spacing-xs\`) should be used instead.`,
+      );
+    }
+
+    if (usesPixelRem) {
+      logPixel(
+        `The file \`${filename}\` seems to be using \`$bpk-one-pixel-rem\`. This can hide the usage of \`px\` instead of [Backpack](https://backpack.github.io/) units. Make sure using \`px\` is strictly needed.`,
+      );
+    }
+  }
+};
+
 export default async ({
   logTypeNonBackpackUnits,
   logTypeOnePixelRem,
@@ -29,33 +59,9 @@ export default async ({
   const logUnits = getMessageLogger(logTypeNonBackpackUnits || logType);
   const logPixel = getMessageLogger(logTypeOnePixelRem || logType);
   const cssFiles = committedFilesGrep(/\.scss$/i);
-  await cssFiles.forEach(async (filename) => {
-    if (inline === true) {
-      inlineLogMatching(
-        filename,
-        regexNonBackpackaUnits,
-        msgNonBackpackUnits,
-        logUnits,
-      );
-
-      inlineLogMatching(filename, regexOnePixelRem, msgOnePixelRem, logPixel);
-    } else {
-      const [usesNonBackpack, usesPixelRem] = await Promise.all([
-        usesNonBackpackUnits(filename),
-        usesOnePixelRem(filename),
-      ]);
-
-      if (usesNonBackpack) {
-        logUnits(
-          `The file \`${filename}\` seems to be using non-[Backpack](https://backpack.github.io/) units (\`rem\`, \`em\`, \`px\`). [Backpack units](https://backpack.github.io/tokens/) (or whole multiples of them, like \`3 * $bpk-spacing-xs\`) should be used instead.`,
-        );
-      }
-
-      if (usesPixelRem) {
-        logPixel(
-          `The file \`${filename}\` seems to be using \`$bpk-one-pixel-rem\`. This can hide the usage of \`px\` instead of [Backpack](https://backpack.github.io/) units. Make sure using \`px\` is strictly needed.`,
-        );
-      }
-    }
-  });
+  await Promise.all(
+    cssFiles.map((filename) =>
+      checkVariables(filename, inline, logUnits, logPixel),
+    ),
+  );
 };

@@ -14,17 +14,23 @@ const lineRange = (content, pattern) => {
   return [startLine, endLine];
 };
 
-export default async ({
-  path = '',
-  logTypePackage,
-  logTypePackageLock,
-  logType,
-} = {}) => {
-  const packageFilename = `${path}package.json`;
-  const packagelockFilename = `${path}package-lock.json`;
-  const changedPackage = inCommit(packageFilename);
-  const changedPackagelock = inCommit(packagelockFilename);
+const hasChangedDeps = (startDependencies, endDependencies, addedLineNumbers) =>
+  startDependencies < 0
+    ? false
+    : addedLineNumbers.reduce(
+        (alreadyChanged, ln) =>
+          (ln > startDependencies && ln < endDependencies) || alreadyChanged,
+        false,
+      );
 
+const checkMissingPackagelock = async (
+  changedPackage,
+  changedPackagelock,
+  packageFilename,
+  packagelockFilename,
+  logTypePackage,
+  logType,
+) => {
   if (changedPackage && !changedPackagelock) {
     const packageContent = fs.readFileSync(packageFilename).toString();
     const [startDependencies, endDependencies] = lineRange(
@@ -37,24 +43,16 @@ export default async ({
     );
 
     const addedLineNumbers = await fileAddedLineNumbers(packageFilename);
-    const changedDependencies =
-      startDependencies < 0
-        ? false
-        : addedLineNumbers.reduce(
-            (alreadyChanged, ln) =>
-              (ln > startDependencies && ln < endDependencies) ||
-              alreadyChanged,
-            false,
-          );
-    const changedDevDependencies =
-      startDevDependencies < 0
-        ? false
-        : addedLineNumbers.reduce(
-            (alreadyChanged, ln) =>
-              (ln > startDevDependencies && ln < endDevDependencies) ||
-              alreadyChanged,
-            false,
-          );
+    const changedDependencies = hasChangedDeps(
+      startDependencies,
+      endDependencies,
+      addedLineNumbers,
+    );
+    const changedDevDependencies = hasChangedDeps(
+      startDevDependencies,
+      endDevDependencies,
+      addedLineNumbers,
+    );
 
     if (changedDependencies || changedDevDependencies) {
       const logPackage = getMessageLogger(logTypePackage || logType);
@@ -63,11 +61,51 @@ export default async ({
       );
     }
   }
+};
 
+const checkMissingPackage = (
+  changedPackage,
+  changedPackagelock,
+  packageFilename,
+  packagelockFilename,
+  logTypePackageLock,
+  logType,
+) => {
   if (changedPackagelock && !changedPackage) {
     const logPackageLock = getMessageLogger(logTypePackageLock || logType);
     logPackageLock(
       `Lockfile (\`${packagelockFilename}\`) has been updated, but no dependencies (\`${packageFilename}\`) have changed.`,
     );
   }
+};
+
+export default async ({
+  path = '',
+  logTypePackage,
+  logTypePackageLock,
+  logType,
+} = {}) => {
+  const packageFilename = `${path}package.json`;
+  const packagelockFilename = `${path}package-lock.json`;
+  const changedPackage = inCommit(packageFilename);
+  const changedPackagelock = inCommit(packagelockFilename);
+
+  await Promise.all([
+    checkMissingPackagelock(
+      changedPackage,
+      changedPackagelock,
+      packageFilename,
+      packagelockFilename,
+      logTypePackage,
+      logType,
+    ),
+    checkMissingPackage(
+      changedPackage,
+      changedPackagelock,
+      packageFilename,
+      packagelockFilename,
+      logTypePackageLock,
+      logType,
+    ),
+  ]);
 };

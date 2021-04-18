@@ -11,17 +11,21 @@ const regexDisabledEslint = /eslint-disable/;
 const hasDisabledEslint = (filename) =>
   fileAddedLineMatch(filename, regexDisabledEslint);
 
+const checkEslint = async (filename, inline, log) => {
+  if (inline === true) {
+    inlineLogMatching(filename, regexDisabledEslint, msgInline, log);
+  } else {
+    const hasDisabledRules = await hasDisabledEslint(filename);
+    if (hasDisabledRules) {
+      log(`The file \`${filename}\` may have disabled some eslint rule.`);
+    }
+  }
+};
+
 export default async ({ logType, inline } = {}) => {
   const log = getMessageLogger(logType);
   const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
-  await jsFiles.forEach(async (filename) => {
-    if (inline === true) {
-      inlineLogMatching(filename, regexDisabledEslint, msgInline, log);
-    } else {
-      const hasDisabledRules = await hasDisabledEslint(filename);
-      if (hasDisabledRules) {
-        log(`The file \`${filename}\` may have disabled some eslint rule.`);
-      }
-    }
-  });
+  await Promise.all(
+    jsFiles.map((filename) => checkEslint(filename, inline, log)),
+  );
 };

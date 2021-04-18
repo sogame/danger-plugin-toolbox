@@ -15,21 +15,25 @@ const fileUsesPromises = (filename) =>
 const regexJsFiles = /\.(js|jsx|ts)$/i;
 const regexTestJsFiles = /(\.(test|spec)\.(js|jsx|ts)$)|((\/|^)__tests__\/)|((\/|^)tests\/)|((\/|^)__mocks__\/)/i;
 
+const checkPromise = async (filename, ignoreTests, inline, log) => {
+  if (ignoreTests !== true || filename.match(regexTestJsFiles) === null) {
+    if (inline === true) {
+      inlineLogMatching(filename, regexUsesPromises, msgInline, log);
+    } else {
+      const usesPromises = await fileUsesPromises(filename);
+      if (usesPromises) {
+        log(
+          `The file \`${filename}\` seems to be using Promises, but the preference for this project is to use Async/Await.`,
+        );
+      }
+    }
+  }
+};
+
 export default async ({ logType, inline, ignoreTests } = {}) => {
   const log = getMessageLogger(logType);
   const jsFiles = committedFilesGrep(regexJsFiles);
-  await jsFiles.forEach(async (filename) => {
-    if (ignoreTests !== true || filename.match(regexTestJsFiles) === null) {
-      if (inline === true) {
-        inlineLogMatching(filename, regexUsesPromises, msgInline, log);
-      } else {
-        const usesPromises = await fileUsesPromises(filename);
-        if (usesPromises) {
-          log(
-            `The file \`${filename}\` seems to be using Promises, but the preference for this project is to use Async/Await.`,
-          );
-        }
-      }
-    }
-  });
+  await Promise.all(
+    jsFiles.map((filename) => checkPromise(filename, ignoreTests, inline, log)),
+  );
 };

@@ -141,10 +141,9 @@ export const structuredFileRemovedLines = async (filename) => {
   return removedLines;
 };
 
-export const structuredFileAddedLineMatches = async (filename, pattern) => {
-  const addedLines = await structuredFileAddedLines(filename);
+const findMatchingLines = (lines, pattern) => {
   const matches = [];
-  Object.entries(addedLines).forEach(([line, content]) => {
+  Object.entries(lines).forEach(([line, content]) => {
     if (content.match(pattern) !== null) {
       matches.push(parseInt(line, 10));
     }
@@ -152,15 +151,14 @@ export const structuredFileAddedLineMatches = async (filename, pattern) => {
   return matches;
 };
 
+export const structuredFileAddedLineMatches = async (filename, pattern) => {
+  const addedLines = await structuredFileAddedLines(filename);
+  return findMatchingLines(addedLines, pattern);
+};
+
 export const structuredFileRemovedLineMatches = async (filename, pattern) => {
   const removedLines = await structuredFileRemovedLines(filename);
-  const matches = [];
-  Object.entries(removedLines).forEach(([line, content]) => {
-    if (content.match(pattern) !== null) {
-      matches.push(parseInt(line, 10));
-    }
-  });
-  return matches;
+  return findMatchingLines(removedLines, pattern);
 };
 
 const linkToRepo = (repoUrl, file, text, branch = 'master') => {

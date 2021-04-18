@@ -90,22 +90,21 @@ export default async ({
   const changedPackage = inCommit(packageFilename);
   const changedPackagelock = inCommit(packagelockFilename);
 
-  await Promise.all([
-    checkMissingPackagelock(
-      changedPackage,
-      changedPackagelock,
-      packageFilename,
-      packagelockFilename,
-      logTypePackage,
-      logType,
-    ),
-    checkMissingPackage(
-      changedPackage,
-      changedPackagelock,
-      packageFilename,
-      packagelockFilename,
-      logTypePackageLock,
-      logType,
-    ),
-  ]);
+  await checkMissingPackagelock(
+    changedPackage,
+    changedPackagelock,
+    packageFilename,
+    packagelockFilename,
+    logTypePackage,
+    logType,
+  );
+
+  checkMissingPackage(
+    changedPackage,
+    changedPackagelock,
+    packageFilename,
+    packagelockFilename,
+    logTypePackageLock,
+    logType,
+  );
 };

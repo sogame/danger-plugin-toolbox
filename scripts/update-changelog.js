@@ -19,7 +19,7 @@ const updateChangelog = (version) => {
 };
 
 const updatePluginVersionCI = (version) => {
-  const ciScriptPath = '.github/workflows/pull_request.yml';
+  const ciScriptPath = '.github/workflows/ci.yml';
   const ciScriptData = fs.readFileSync(ciScriptPath, 'utf8');
 
   const regexp = /(danger-plugin-toolbox@)\d+\.\d+\.\d+/;

@@ -2,6 +2,8 @@ name: danger-plugin-toolbox (PR)
 
 on:
   pull_request:
+    branches: ['**']
+  push:
     branches: [master]
 
 jobs:
@@ -11,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.14.2, 12.13]
+        node-version: ['10.14.2', '12']
 
     steps:
       - uses: actions/checkout@v2
@@ -26,26 +28,32 @@ jobs:
 
       - name: Install danger-plugin-toolbox
         run: npm install -g danger-plugin-toolbox@1.30.0
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '12'
 
       - name: Link danger-plugin-toolbox
         run: npm link danger-plugin-toolbox # Link the global version of "danger-plugin-toolbox" into the local "node_modules/"
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '12'
 
       - name: Run linters
         run: (set -o pipefail; npm run lint |& tee lint.log);
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '12'
 
       - name: Run tests
         run: (set -o pipefail; npm run test:coverage |& tee test.log);
 
       - name: Run Danger
         run: npm run danger
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '12'
         env:
           GITHUB_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
       - name: Run Spellcheck
         run: npm run spellcheck:ci
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '12'
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: matrix['node-version'] == '12'

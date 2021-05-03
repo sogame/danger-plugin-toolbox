@@ -274,7 +274,7 @@ describe('commonCommitMessage', () => {
         'Jira or Merge or Revert',
         COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
       ],
-    ])('%s', (type, regex) => {
+    ])('%s - Revert', (type, regex) => {
       it(`should match strings starting with "Revert" - ${type}`, () => {
         const message = 'Revert "My PR title"';
 
@@ -294,7 +294,7 @@ describe('commonCommitMessage', () => {
         COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REVERT_REGEX,
       ],
       ['Jira or Merge', COMMON_COMMIT_MESSAGE_JIRA_OR_MERGE_REGEX],
-    ])('%s', (type, regex) => {
+    ])('%s - Merge PR', (type, regex) => {
       it(`should match strings starting with the merge pr message - ${type}`, () => {
         const message =
           'Merge pull request #123 from sogame/danger-plugin-toolbox';
@@ -339,7 +339,7 @@ describe('commonCommitMessage', () => {
         COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX,
       ],
       ['No-Jira or Merge', COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX],
-    ])('%s', (type, regex) => {
+    ])('%s - Merge PR no-jira', (type, regex) => {
       it('should match strings starting with the merge pr message - No-Jira', () => {
         const message =
           'Merge pull request #123 from sogame/danger-plugin-toolbox';
@@ -595,7 +595,7 @@ describe('commonCommitMessage', () => {
         ],
         ['No-Jira or Merge', COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX],
         ['No-Jira Only', COMMON_COMMIT_MESSAGE_NO_JIRA_REGEX],
-      ])('%s', (type, regex) => {
+      ])('%s - Jira ticket', (type, regex) => {
         it(`should not match strings starting with a Jira ticket in brackets - ${type}`, () => {
           const message = '[FOO-123] Some text';
 

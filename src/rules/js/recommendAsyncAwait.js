@@ -8,12 +8,14 @@ import inlineLogMatching from '../inlineLogMatching';
 
 const msgInline =
   'Seems like Promises are being used, but the preference for this project is to use Async/Await.';
-const regexUsesPromises = /(new Promise\()|(\bPromise\.(?!(all)))|(\.then\()|(\.catch\()/;
+const regexUsesPromises =
+  /(new Promise\()|(\bPromise\.(?!(all)))|(\.then\()|(\.catch\()/;
 const fileUsesPromises = (filename) =>
   fileAddedLineMatch(filename, regexUsesPromises);
 
 const regexJsFiles = /\.(js|jsx|ts)$/i;
-const regexTestJsFiles = /(\.(test|spec)\.(js|jsx|ts)$)|((\/|^)__tests__\/)|((\/|^)tests\/)|((\/|^)__mocks__\/)/i;
+const regexTestJsFiles =
+  /(\.(test|spec)\.(js|jsx|ts)$)|((\/|^)__tests__\/)|((\/|^)tests\/)|((\/|^)__mocks__\/)/i;
 
 const checkPromise = async (filename, ignoreTests, inline, log) => {
   if (ignoreTests !== true || filename.match(regexTestJsFiles) === null) {

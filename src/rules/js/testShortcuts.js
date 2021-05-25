@@ -7,12 +7,14 @@ import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
 import inlineLogMatching from '../inlineLogMatching';
 
 const msgSkippedTests = 'Seems like a test is being skipped.';
-const regexJsSkippedTests = /(xdescribe|describe\.skip|xit|it\.skip|test\.skip)\(/i;
+const regexJsSkippedTests =
+  /(xdescribe|describe\.skip|xit|it\.skip|test\.skip)\(/i;
 const hasJsSkippedTests = (filename) =>
   fileAddedLineMatch(filename, regexJsSkippedTests);
 
 const msgFocusedTests = 'Seems like a test is being focused.';
-const regexJsFocusedTests = /(fdescribe|describe\.only|fit|it\.only|test\.only)\(/i;
+const regexJsFocusedTests =
+  /(fdescribe|describe\.only|fit|it\.only|test\.only)\(/i;
 const hasJsFocusedTests = (filename) =>
   fileAddedLineMatch(filename, regexJsFocusedTests);
 

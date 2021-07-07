@@ -78,7 +78,7 @@
     "danger": "^10.6.6",
     "eslint-config-skyscanner": "^9.0.1",
     "format-package": "^6.1.0",
-    "husky": "^7.0.0",
+    "husky": "^7.0.1",
     "inquirer": "^8.1.1",
     "jest": "^27.0.6",
     "lint-staged": "^11.0.0",

@@ -23,9 +23,7 @@ const prAuthorIsBot = [
   'snyk-bot',
   'dependabot-preview[bot]',
   'dependabot[bot]',
-].includes(
-  prAuthor,
-);
+].includes(prAuthor);
 
 commonPrDescriptionContribution();
 

@@ -81,7 +81,7 @@
     "husky": "^7.0.4",
     "inquirer": "^8.2.0",
     "jest": "^27.3.1",
-    "lint-staged": "^11.2.3",
+    "lint-staged": "^11.2.4",
     "markdown-spellcheck": "^1.3.1",
     "release-it": "^14.11.6",
     "semver": "^7.3.5"

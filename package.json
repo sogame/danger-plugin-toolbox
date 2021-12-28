@@ -76,7 +76,7 @@
     "ajv": "^8.8.2",
     "babel-jest": "^27.4.5",
     "danger": "^10.7.1",
-    "eslint-config-skyscanner": "^10.2.0",
+    "eslint-config-skyscanner": "^10.3.0",
     "format-package": "^6.1.0",
     "husky": "^7.0.4",
     "inquirer": "^8.2.0",

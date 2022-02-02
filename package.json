@@ -36,7 +36,6 @@
     "release": "node ./scripts/release.js",
     "spellcheck": "mdspell --report --en-gb --ignore-numbers --ignore-acronyms --no-suggestions",
     "spellcheck:ci": "npm run spellcheck -- '**/*.md' '!**/node_modules/**/*.md'",
-    "pretest": "npx ensure-node-env",
     "test": "jest --silent=false",
     "test:coverage": "npm test -- --coverage",
     "test:watch": "npm test -- --watch",

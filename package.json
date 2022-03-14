@@ -43,11 +43,12 @@
   },
   "lint-staged": {
     "**/!(package|package-lock).json": "prettier --write",
-    "*.js": "npm run lint:fix:staged --",
-    "*.md": [
+    "**/*.js": "npm run lint:fix:staged --",
+    "**/*.md": [
       "npm run spellcheck",
       "prettier --write"
     ],
+    "**/*.yml": "prettier --write",
     "package.json": "npm run format:packagejson"
   },
   "jest": {

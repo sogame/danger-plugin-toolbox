@@ -136,6 +136,7 @@ commonContribution({ logType: 'markdown', msg: '**Many thanks for your collabora
 Make sure file contents match a regex.
 
 `reverse` can be used to make sure file contents do not match a regex.
+`notInCommit` can be used to run the validation even if the file has not been committed.
 
 ##### Parameters
 
@@ -147,6 +148,7 @@ Make sure file contents match a regex.
 | Property     | Type                                   | Default Value |
 | ------------ | -------------------------------------- | ------------- |
 | reverse      | bool                                   | false         |
+| notInCommit  | bool                                   | false         |
 | logType      | enum (warn, fail, message)             | warn          |
 | buildMessage | func(filename, regex, reverse): string |               |
 

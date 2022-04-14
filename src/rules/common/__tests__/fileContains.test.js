@@ -84,6 +84,17 @@ describe('commonFileContains', () => {
     expect(global.warn).not.toHaveBeenCalled();
   });
 
+  it('should warn when the file contents do not match the regex and the file has not been committed but "notInCommit" is true', () => {
+    const file = fileBar;
+    const regex = /foo/;
+    const expectedMsg = buildRegularMessage(file, regex);
+    helpers.setMockCommittedFiles([]);
+
+    commonFileContains(file, regex, { notInCommit: true });
+
+    expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+  });
+
   it('should allow modifying the message', () => {
     const file = fileBar;
     const regex = /foo/;

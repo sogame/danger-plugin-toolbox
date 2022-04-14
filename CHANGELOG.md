@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [1.31.0] - 2022-4-14
+
 ### Added
 
 - Added the option `notInCommit` in [`commonFileContains`](docs/validations.md#commonfilecontains) to allow running the validation for files that are not included in the commit.

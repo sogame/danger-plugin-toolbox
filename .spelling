@@ -80,6 +80,7 @@ logTypeStylelintignore
 minLength
 modifiedFiles
 msg
+notInCommit
 plugin
 prAuthor
 prDescription

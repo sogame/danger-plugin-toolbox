@@ -15,13 +15,13 @@ const defaultMessage = (file, regex, reverse) =>
 export default (
   file,
   regex,
-  { buildMessage, reverse = false, logType } = {},
+  { buildMessage, reverse = false, notInCommit = false, logType } = {},
 ) => {
   if (!file) {
     warn('`commonFileContains`: missing "file" parameter.');
   } else if (!regex) {
     warn('`commonFileContains`: missing "regex" parameter.');
-  } else if (inCommit(file)) {
+  } else if (notInCommit || inCommit(file)) {
     const fileContent = fs.readFileSync(file).toString();
     const matches = fileContent.match(regex);
     const matchRegular = !reverse && !matches;

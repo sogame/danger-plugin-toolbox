@@ -10,7 +10,7 @@ const sortDependencies = (a, b) => a[0].localeCompare(b[0]);
 
 const cleanVersion = (version) => version.replace(/^(\^|~|>=|>|<=|<)/, '');
 
-export default async ({ path = '', logType } = {}) => {
+export default async ({ logType, path = '' } = {}) => {
   const packageFilename = `${path}package.json`;
   const packagelockFilename = `${path}package-lock.json`;
 

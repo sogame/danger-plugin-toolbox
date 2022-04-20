@@ -51,10 +51,10 @@ const checkVariables = async (filename, inline, logUnits, logPixel) => {
 };
 
 export default async ({
+  inline,
+  logType,
   logTypeNonBackpackUnits,
   logTypeOnePixelRem,
-  logType,
-  inline,
 } = {}) => {
   const logUnits = getMessageLogger(logTypeNonBackpackUnits || logType);
   const logPixel = getMessageLogger(logTypeOnePixelRem || logType);

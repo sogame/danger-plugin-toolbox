@@ -21,7 +21,7 @@ export default async (
   filesRegex,
   lineRegex,
   buildMessage,
-  { logType, inline } = {},
+  { inline, logType } = {},
 ) => {
   if (!filesRegex) {
     warn('`commonAddedLinesContains`: missing "filesRegex" parameter.');

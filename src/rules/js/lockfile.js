@@ -80,10 +80,10 @@ const checkMissingPackage = (
 };
 
 export default async ({
-  path = '',
+  logType,
   logTypePackage,
   logTypePackageLock,
-  logType,
+  path = '',
 } = {}) => {
   const packageFilename = `${path}package.json`;
   const packagelockFilename = `${path}package-lock.json`;

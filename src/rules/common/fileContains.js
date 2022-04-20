@@ -15,7 +15,7 @@ const defaultMessage = (file, regex, reverse) =>
 export default (
   file,
   regex,
-  { buildMessage, reverse = false, notInCommit = false, logType } = {},
+  { buildMessage, logType, notInCommit = false, reverse = false } = {},
 ) => {
   if (!file) {
     warn('`commonFileContains`: missing "file" parameter.');

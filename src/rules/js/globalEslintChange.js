@@ -6,10 +6,10 @@ import getMessageLogger from '../getMessageLogger';
 import { inCommitGrep, inCommit } from '../helpers';
 
 export default ({
-  path = '',
-  logTypeEslintrc,
-  logTypeEslintignore,
   logType,
+  logTypeEslintignore,
+  logTypeEslintrc,
+  path = '',
 } = {}) => {
   const eslintrcFilename = `${path}.eslintrc`;
   const eslintignoreFilename = `${path}.eslintignore`;

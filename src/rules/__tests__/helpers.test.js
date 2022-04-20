@@ -388,7 +388,7 @@ describe('helpers', () => {
           (acc, { changes: curChanges }) => [...acc, ...curChanges],
           [],
         );
-        const expected = changes.reduce((acc, { type, ln, content }) => {
+        const expected = changes.reduce((acc, { content, ln, type }) => {
           if (type === 'add') {
             acc[ln] = content.substr(1);
           }
@@ -427,7 +427,7 @@ describe('helpers', () => {
           (acc, { changes: curChanges }) => [...acc, ...curChanges],
           [],
         );
-        const expected = changes.reduce((acc, { type, ln, content }) => {
+        const expected = changes.reduce((acc, { content, ln, type }) => {
           if (type === 'del') {
             acc[ln] = content.substr(1);
           }

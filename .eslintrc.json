@@ -1,5 +1,5 @@
 {
-  "extends": ["skyscanner"],
+  "extends": ["@skyscanner/skyscanner"],
   "env": {
     "node": true,
     "jest": true

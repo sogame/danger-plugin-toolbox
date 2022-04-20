@@ -1,24 +1,24 @@
 const {
   git: {
-    created_files: createdFiles,
-    modified_files: modifiedFiles,
     commits,
+    created_files: createdFiles,
     diffForFile,
+    modified_files: modifiedFiles,
     structuredDiffForFile,
   },
   github: {
     pr: {
-      title: prTitle,
-      body: prDescription,
-      user: { login: prAuthor },
       base: {
         ref: targetBranch,
-        repo: { id: targetProjectId, html_url: targetRepoUrl },
+        repo: { html_url: targetRepoUrl, id: targetProjectId },
       },
+      body: prDescription,
       head: {
         ref: sourceBranch,
-        repo: { id: sourceProjectId, html_url: sourceRepoUrl },
+        repo: { html_url: sourceRepoUrl, id: sourceProjectId },
       },
+      title: prTitle,
+      user: { login: prAuthor },
     },
   },
   utils: { href },
@@ -93,7 +93,7 @@ export const fileAddedLineNumbers = async (filename) => {
   const addedLines = [];
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
   chunks.forEach(({ changes }) => {
-    changes.forEach(({ type, ln }) => {
+    changes.forEach(({ ln, type }) => {
       if (type === 'add') {
         addedLines.push(ln);
       }
@@ -106,7 +106,7 @@ export const fileRemovedLineNumbers = async (filename) => {
   const removedLines = [];
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
   chunks.forEach(({ changes }) => {
-    changes.forEach(({ type, ln }) => {
+    changes.forEach(({ ln, type }) => {
       if (type === 'del') {
         removedLines.push(ln);
       }
@@ -119,7 +119,7 @@ export const structuredFileAddedLines = async (filename) => {
   const addedLines = {};
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
   chunks.forEach(({ changes }) => {
-    changes.forEach(({ type, ln, content }) => {
+    changes.forEach(({ content, ln, type }) => {
       if (type === 'add') {
         addedLines[ln] = content.substr(1);
       }
@@ -132,7 +132,7 @@ export const structuredFileRemovedLines = async (filename) => {
   const removedLines = {};
   const { chunks = [] } = (await structuredDiffForFile(filename)) || {};
   chunks.forEach(({ changes }) => {
-    changes.forEach(({ type, ln, content }) => {
+    changes.forEach(({ content, ln, type }) => {
       if (type === 'del') {
         removedLines[ln] = content.substr(1);
       }

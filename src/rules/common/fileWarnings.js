@@ -9,7 +9,7 @@ import getMessageLogger from '../getMessageLogger';
 
 export default (
   file,
-  { logType, msg, ignoreRegex, ignoreNonExistingFile = false } = {},
+  { ignoreNonExistingFile = false, ignoreRegex, logType, msg } = {},
 ) => {
   if (!file) {
     warn('`commonFileWarnings`: missing "file" parameter');

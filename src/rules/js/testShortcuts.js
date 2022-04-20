@@ -52,10 +52,10 @@ const checkShortcut = async (filename, inline, logSkipped, logFocused) => {
 };
 
 export default async ({
-  logTypeSkipped,
-  logTypeFocused,
-  logType,
   inline,
+  logType,
+  logTypeFocused,
+  logTypeSkipped,
 } = {}) => {
   const logSkipped = getMessageLogger(logTypeSkipped || logType);
   const logFocused = getMessageLogger(logTypeFocused || logType);

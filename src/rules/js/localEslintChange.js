@@ -22,7 +22,7 @@ const checkEslint = async (filename, inline, log) => {
   }
 };
 
-export default async ({ logType, inline } = {}) => {
+export default async ({ inline, logType } = {}) => {
   const log = getMessageLogger(logType);
   const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
   await Promise.all(

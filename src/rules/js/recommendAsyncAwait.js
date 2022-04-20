@@ -32,7 +32,7 @@ const checkPromise = async (filename, ignoreTests, inline, log) => {
   }
 };
 
-export default async ({ logType, inline, ignoreTests } = {}) => {
+export default async ({ ignoreTests, inline, logType } = {}) => {
   const log = getMessageLogger(logType);
   const jsFiles = committedFilesGrep(regexJsFiles);
   await Promise.all(

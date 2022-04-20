@@ -9,7 +9,7 @@ import getMessageLogger from '../getMessageLogger';
 const defaultMessage = (filename) =>
   `The file \`${filename}\` is required but it was not found. Please, commit it.`;
 
-export default (files, { logType, buildMessage } = {}) => {
+export default (files, { buildMessage, logType } = {}) => {
   if (!files) {
     warn('`commonFileExists`: missing "files" parameter.');
   } else {

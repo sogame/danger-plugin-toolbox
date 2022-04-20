@@ -25,7 +25,7 @@ const checkEm = async (filename, inline, log) => {
   }
 };
 
-export default async ({ logType, inline } = {}) => {
+export default async ({ inline, logType } = {}) => {
   const log = getMessageLogger(logType);
   const cssFiles = committedFilesGrep(/(\.scss|\.css)$/i);
   await Promise.all(cssFiles.map((filename) => checkEm(filename, inline, log)));

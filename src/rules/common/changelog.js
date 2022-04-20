@@ -5,7 +5,7 @@
 import getMessageLogger from '../getMessageLogger';
 import { inCommit, isTrivial } from '../helpers';
 
-export default ({ logType, changelogFile } = {}) => {
+export default ({ changelogFile, logType } = {}) => {
   const filename = changelogFile || 'CHANGELOG.md';
   const changedChangelog = inCommit(filename);
   if (!changedChangelog && !isTrivial) {

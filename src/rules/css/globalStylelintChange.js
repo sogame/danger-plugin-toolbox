@@ -6,10 +6,10 @@ import getMessageLogger from '../getMessageLogger';
 import { inCommitGrep, inCommit } from '../helpers';
 
 export default ({
-  path = '',
-  logTypeStylelintrc,
-  logTypeStylelintignore,
   logType,
+  logTypeStylelintignore,
+  logTypeStylelintrc,
+  path = '',
 } = {}) => {
   const stylelintrcFilename = `${path}.stylelintrc`;
   const stylelintignoreFilename = `${path}.stylelintignore`;

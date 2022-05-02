@@ -79,7 +79,7 @@
     "danger": "^11.0.5",
     "format-package": "^7.0.0",
     "husky": "^7.0.4",
-    "inquirer": "^8.2.2",
+    "inquirer": "^8.2.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.4.0",
     "markdown-spellcheck": "^1.3.1",

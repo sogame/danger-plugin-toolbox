@@ -78,7 +78,7 @@
     "babel-jest": "^28.1.0",
     "danger": "^11.0.5",
     "format-package": "^7.0.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.1",
     "inquirer": "^8.2.4",
     "jest": "^28.1.0",
     "lint-staged": "^12.4.1",

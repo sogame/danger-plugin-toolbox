@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ['10.14.2', '12', '16']
+        node-version: ['16']
 
     steps:
       - uses: actions/checkout@v2
@@ -23,36 +23,32 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install deps
-        run: npm ci --quiet
+        run: HUSKY=0 npm ci --quiet
 
-      - name: Install danger-plugin-toolbox
-        run: npm install -g danger-plugin-toolbox@1.31.0
-        if: github.event_name == 'pull_request' && matrix['node-version'] == '12'
-
-      - name: Link danger-plugin-toolbox
-        run: npm link danger-plugin-toolbox # Link the global version of "danger-plugin-toolbox" into the local "node_modules/"
-        if: github.event_name == 'pull_request' && matrix['node-version'] == '12'
+      - name: Install danger-plugin-toolbox (for Danger step)
+        run: npm install --no-save prod-danger-plugin-toolbox@npm:danger-plugin-toolbox@1.31.0
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '16'
 
       - name: Run linters
         run: (set -o pipefail; npm run lint |& tee lint.log);
-        if: matrix['node-version'] == '12'
+        if: matrix['node-version'] == '16'
 
       - name: Run tests
         run: (set -o pipefail; npm run test:coverage |& tee test.log);
 
       - name: Run Danger
         run: npm run danger
-        if: github.event_name == 'pull_request' && matrix['node-version'] == '12'
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '16'
         env:
           GITHUB_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
       - name: Run Spellcheck
         run: npm run spellcheck:ci
-        if: matrix['node-version'] == '12'
+        if: matrix['node-version'] == '16'
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: matrix['node-version'] == '12'
+        if: matrix['node-version'] == '16'

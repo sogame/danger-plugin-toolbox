@@ -26,7 +26,7 @@ const checkConsole = async (filename, ignorePathRegex, inline, log) => {
 
 export default async ({ ignorePathRegex, inline, logType } = {}) => {
   const log = getMessageLogger(logType);
-  const jsFiles = committedFilesGrep(/\.(js|jsx|ts)$/i);
+  const jsFiles = committedFilesGrep(/\.(js|jsx|ts|tsx)$/i);
   await Promise.all(
     jsFiles.map((filename) =>
       checkConsole(filename, ignorePathRegex, inline, log),

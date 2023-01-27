@@ -9,12 +9,14 @@ const invalidJs = 'invalid.js';
 const invalidJsCase = 'invalid.Js';
 const invalidJsx = 'invalid.jsx';
 const invalidTs = 'invalid.ts';
+const invalidTsx = 'invalid.tsx';
 const mockFiles = {
   [validJs]: 'const foo = 42;',
   [invalidJs]: 'eslint-disable-line foo',
   [invalidJsCase]: 'eslint-disable foo',
   [invalidJsx]: 'eslint-disable-next-line foo',
   [invalidTs]: 'eslint-disable-line foo',
+  [invalidTsx]: 'eslint-disable-line foo',
 };
 
 helpers.setMockFilesContent(mockFiles);
@@ -71,6 +73,17 @@ describe('jsLocalEslintChange', () => {
 
       expect(global.warn).toHaveBeenCalledWith(
         expect.stringContaining(invalidTs),
+      );
+    });
+
+    it('should warn when some eslint rule has been disabled (tsx)', async () => {
+      const files = [validJs, invalidTsx];
+      helpers.setMockCommittedFiles(files);
+
+      await jsLocalEslintChange();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidTsx),
       );
     });
 

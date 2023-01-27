@@ -103,6 +103,7 @@ stylelint
 targetBranch
 targetProjectId
 targetRepoUrl
+tsx
 url
 
 danger-plugin-toolbox

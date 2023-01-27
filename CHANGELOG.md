@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-- Drop support for Node 10 and Node 12.
+### Breaking
+
+- Drop support for Node versions lower than 16.
+
+### Added
+
+- Add support for tsx TypeScript files in `jsConsoleCommands`, `jsLocalEslintChange`, `jsRecommendAsyncAwait` and `jsTestShortcuts`.
 
 ## [1.31.0] - 2022-4-14
 

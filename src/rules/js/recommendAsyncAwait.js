@@ -13,9 +13,9 @@ const regexUsesPromises =
 const fileUsesPromises = (filename) =>
   fileAddedLineMatch(filename, regexUsesPromises);
 
-const regexJsFiles = /\.(js|jsx|ts)$/i;
+const regexJsFiles = /\.(js|jsx|ts|tsx)$/i;
 const regexTestJsFiles =
-  /(\.(test|spec)\.(js|jsx|ts)$)|((\/|^)__tests__\/)|((\/|^)tests\/)|((\/|^)__mocks__\/)/i;
+  /(\.(test|spec)\.(js|jsx|ts|tsx)$)|((\/|^)__tests__\/)|((\/|^)tests\/)|((\/|^)__mocks__\/)/i;
 
 const checkPromise = async (filename, ignoreTests, inline, log) => {
   if (ignoreTests !== true || filename.match(regexTestJsFiles) === null) {

@@ -59,7 +59,7 @@ export default async ({
 } = {}) => {
   const logSkipped = getMessageLogger(logTypeSkipped || logType);
   const logFocused = getMessageLogger(logTypeFocused || logType);
-  const jsFiles = committedFilesGrep(/\.(test|spec)\.(js|jsx|ts)$/i);
+  const jsFiles = committedFilesGrep(/\.(test|spec)\.(js|jsx|ts|tsx)$/i);
   await Promise.all(
     jsFiles.map((filename) =>
       checkShortcut(filename, inline, logSkipped, logFocused),

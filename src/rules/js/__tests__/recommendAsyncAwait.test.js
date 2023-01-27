@@ -14,7 +14,8 @@ const dotThenJs = 'dotThen.js';
 const dotCatchJs = 'dotCatch.js';
 const invalidJsCase = 'invalid.Js';
 const invalidJsx = 'invalid.jsx';
-const invalidTs = 'invalid.js';
+const invalidTs = 'invalid.ts';
+const invalidTsx = 'invalid.tsx';
 const invalidJsxTest = 'invalid.test.jsx';
 const invalidTestFolder = 'tests/invalid.jsx';
 const invalidTestUnderscoreFolder = '__tests__/invalid.jsx';
@@ -30,6 +31,7 @@ const mockFiles = {
   [invalidJsCase]: contentWithNewPromise,
   [invalidJsx]: contentWithNewPromise,
   [invalidTs]: contentWithNewPromise,
+  [invalidTsx]: contentWithNewPromise,
   [invalidJsxTest]: contentWithNewPromise,
   [invalidTestFolder]: contentWithNewPromise,
   [invalidTestUnderscoreFolder]: contentWithNewPromise,
@@ -133,6 +135,17 @@ describe('jsRecommendAsyncAwait', () => {
 
       expect(global.warn).toHaveBeenCalledWith(
         expect.stringContaining(invalidTs),
+      );
+    });
+
+    it('should warn when promises are used (tsx)', async () => {
+      const files = [noPromisesJs, invalidTsx];
+      helpers.setMockCommittedFiles(files);
+
+      await jsRecommendAsyncAwait();
+
+      expect(global.warn).toHaveBeenCalledWith(
+        expect.stringContaining(invalidTsx),
       );
     });
 

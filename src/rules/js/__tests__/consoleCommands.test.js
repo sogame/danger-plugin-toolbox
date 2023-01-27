@@ -12,6 +12,7 @@ const invalidJs = 'invalid.js';
 const invalidJsCase = 'invalid.Js';
 const invalidJsx = 'invalid.jsx';
 const invalidTs = 'invalid.ts';
+const invalidTsx = 'invalid.tsx';
 const invalidWithFolder = 'some/folder/file.js';
 const mockFiles = {
   [validJs]: 'const foo = 42;',
@@ -19,6 +20,7 @@ const mockFiles = {
   [invalidJsCase]: 'console.log("foo");',
   [invalidJsx]: 'console.log("foo");',
   [invalidTs]: 'console.log("foo");',
+  [invalidTsx]: 'console.log("foo");',
   [invalidWithFolder]: 'console.log("foo");',
 };
 
@@ -73,6 +75,17 @@ describe('jsConsoleCommands', () => {
       helpers.setMockCommittedFiles(files);
 
       const expectedMsg = buildMessage(invalidTs);
+
+      await jsConsoleCommands();
+
+      expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+    });
+
+    it('should warn when any console command is used (tsx)', async () => {
+      const files = [validJs, invalidTsx];
+      helpers.setMockCommittedFiles(files);
+
+      const expectedMsg = buildMessage(invalidTsx);
 
       await jsConsoleCommands();
 

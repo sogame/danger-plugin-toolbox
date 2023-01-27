@@ -23,6 +23,7 @@ const itOnly = 'itOnly.test.js';
 const testOnly = 'testOnly.test.js';
 const invalidJsx = 'xdescribe.test.jsx';
 const invalidTs = 'xdescribe.test.ts';
+const invalidTsx = 'xdescribe.test.tsx';
 const invalidSpec = 'xdescribe.spec.jsx';
 const invalidCase = 'xdescribe.test.JS';
 const noFunctionCall = 'noFunctionCall.test.ts';
@@ -40,6 +41,7 @@ const mockFiles = {
   [testOnly]: 'test.only("should ...")',
   [invalidJsx]: 'xdescribe("should ...")',
   [invalidTs]: 'xdescribe("should ...")',
+  [invalidTsx]: 'xdescribe("should ...")',
   [invalidSpec]: 'xdescribe("should ...")',
   [invalidCase]: 'xdescribe("should ...")',
   [noFunctionCall]: 'xdescribe foo',
@@ -200,6 +202,17 @@ describe('jsTestShortcuts', () => {
       helpers.setMockCommittedFiles(files);
 
       const expectedMsg = buildMessageSkipped(invalidTs);
+
+      await jsTestShortcuts();
+
+      expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+    });
+
+    it('should support tsx files', async () => {
+      const files = [validJs, invalidTsx];
+      helpers.setMockCommittedFiles(files);
+
+      const expectedMsg = buildMessageSkipped(invalidTsx);
 
       await jsTestShortcuts();
 

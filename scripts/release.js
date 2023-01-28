@@ -1,10 +1,32 @@
 /* eslint-disable no-console -- Needed when running the release script */
 
-const inquirer = require('inquirer'); // eslint-disable-line import/no-extraneous-dependencies -- This is only needed when releasing
-const semver = require('semver'); // eslint-disable-line import/no-extraneous-dependencies -- This is only needed when releasing
-const releaseit = require('release-it'); // eslint-disable-line import/no-extraneous-dependencies -- This is only needed when releasing
+import fs from 'node:fs';
 
-const pkg = require('../package.json');
+import inquirer from 'inquirer';
+import release from 'release-it'; // eslint-disable-line import/no-unresolved -- No idea why this is needed ¯\_(ツ)_/¯
+
+const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
+
+const incVersion = (curVersion, type) => {
+  const versionArr = curVersion.split('.').map((n) => parseInt(n, 10));
+  switch (type) {
+    case 'patch':
+      versionArr[2] += 1;
+      break;
+    case 'minor':
+      versionArr[1] += 1;
+      versionArr[2] = 0;
+      break;
+    case 'major':
+      versionArr[0] += 1;
+      versionArr[1] = 0;
+      versionArr[2] = 0;
+      break;
+    default:
+      throw new Error('Invalid version increase');
+  }
+  return versionArr.join('.');
+};
 
 const questions = [
   {
@@ -18,14 +40,16 @@ const questions = [
   },
 ];
 
-async function release() {
+async function doRelease() {
+  const pkg = readJson('./package.json');
+
   try {
     const { version } = await inquirer.prompt(questions);
     const isPreRelease = version === 'pre-release';
     const preReleaseTag = isPreRelease ? 'beta' : null;
     const versionNumber = isPreRelease
       ? preReleaseTag
-      : semver.inc(pkg.version, version);
+      : incVersion(pkg.version, version);
 
     let buildCommand = 'npm run build';
     if (!isPreRelease) {
@@ -55,7 +79,7 @@ async function release() {
       },
     };
 
-    const output = await releaseit(releaseOptions);
+    const output = await release(releaseOptions);
     console.log('\n', output);
   } catch (exc) {
     console.error(exc);
@@ -63,4 +87,4 @@ async function release() {
   }
 }
 
-release();
+doRelease();

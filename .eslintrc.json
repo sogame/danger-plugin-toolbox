@@ -10,7 +10,7 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.test.js"]
+        "devDependencies": ["**/*.test.js", "scripts/**/*"]
       }
     ],
     "import/no-unresolved": ["error", { "ignore": ["dangerfile.js"] }],

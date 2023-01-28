@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'node:fs';
 
 const updateChangelog = (version) => {
   const changelogPath = './CHANGELOG.md';

@@ -59,12 +59,12 @@ async function doRelease() {
     const releaseOptions = {
       increment: isPreRelease ? 'prerelease' : versionNumber,
       preReleaseId: preReleaseTag,
-      // ci: true,
+      ci: false,
       hooks: {
         'after:bump': buildCommand,
       },
       git: {
-        requireCleanWorkingDir: false,
+        requireCleanWorkingDir: true,
         commit: true,
         tag: true,
         push: true,

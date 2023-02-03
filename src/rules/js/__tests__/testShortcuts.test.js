@@ -19,6 +19,7 @@ const testSkip = 'testSkip.test.js';
 const fdescribe = 'fdescribe.test.js';
 const describeOnly = 'describeOnly.test.js';
 const fit = 'fit.test.js';
+const validFit = 'valitFit.test.js';
 const itOnly = 'itOnly.test.js';
 const testOnly = 'testOnly.test.js';
 const invalidJsx = 'xdescribe.test.jsx';
@@ -37,6 +38,7 @@ const mockFiles = {
   [fdescribe]: 'fdescribe("should ...")',
   [describeOnly]: 'describe.only("should ...")',
   [fit]: 'fit("should ...")',
+  [validFit]: 'doesNotFit("should ...")',
   [itOnly]: 'it.only("should ...")',
   [testOnly]: 'test.only("should ...")',
   [invalidJsx]: 'xdescribe("should ...")',
@@ -161,6 +163,17 @@ describe('jsTestShortcuts', () => {
         await jsTestShortcuts();
 
         expect(global.warn).toHaveBeenCalledWith(expectedMsg);
+      });
+
+      it('should not warn for function names end with "fit"', async () => {
+        const files = [validJs, validFit];
+        helpers.setMockCommittedFiles(files);
+
+        const expectedMsg = buildMessageFocused(validFit);
+
+        await jsTestShortcuts();
+
+        expect(global.warn).not.toHaveBeenCalledWith(expectedMsg);
       });
 
       it('should warn when any file contains skipped tests (it.only)', async () => {

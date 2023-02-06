@@ -339,7 +339,7 @@ describe('commonCommitMessage', () => {
         COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REVERT_REGEX,
       ],
       ['No-Jira or Merge', COMMON_COMMIT_MESSAGE_NO_JIRA_OR_MERGE_REGEX],
-    ])('%s - Merge PR no-jira', (type, regex) => {
+    ])('%s - Merge PR no-jira', (_type, regex) => {
       it('should match strings starting with the merge pr message - No-Jira', () => {
         const message =
           'Merge pull request #123 from sogame/danger-plugin-toolbox';

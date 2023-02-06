@@ -19,7 +19,7 @@ export default (
     }
   } else {
     const contents = fs.readFileSync(file).toString();
-    let warnings = contents.match(/^.*\bwarning( |:).*$/gim);
+    let warnings = contents.match(/^.*\bwarning[ :].*$/gim);
     if (ignoreRegex) {
       warnings = warnings.filter((warning) => !warning.match(ignoreRegex));
     }

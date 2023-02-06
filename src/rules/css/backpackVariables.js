@@ -11,7 +11,7 @@ const msgNonBackpackUnits =
 const msgOnePixelRem =
   'It seems like `$bpk-one-pixel-rem` is being used. This can hide the usage of `px` instead of [Backpack](https://backpack.github.io/) units. Make sure using `px` is strictly needed.';
 
-const regexNonBackpackaUnits = /[0-9](rem|em|px)[; ]/;
+const regexNonBackpackaUnits = /\d(rem|em|px)[; ]/;
 const regexOnePixelRem = /\$bpk-one-pixel-rem/;
 
 const usesNonBackpackUnits = (filename) =>

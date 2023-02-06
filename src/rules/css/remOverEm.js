@@ -8,7 +8,7 @@ import inlineLogMatching from '../inlineLogMatching';
 
 const msgInline =
   'It seems like `em` units are being used, but it is recommended to use `rem` instead.';
-const regexUsesEmUnits = /[0-9]em[; ]/;
+const regexUsesEmUnits = /\dem[; ]/;
 const usesEmUnits = (filename) =>
   fileAddedLineMatch(filename, regexUsesEmUnits);
 

@@ -6,7 +6,7 @@ import getMessageLogger from '../getMessageLogger';
 import { fileAddedLineMatch, committedFilesGrep } from '../helpers';
 
 const fileUsesStylesDirectly = (filename) =>
-  fileAddedLineMatch(filename, /\Wstyles(\[|\.)/i);
+  fileAddedLineMatch(filename, /\Wstyles[[.]/i);
 
 export default async ({ logType } = {}) => {
   const log = getMessageLogger(logType);

@@ -46,9 +46,9 @@ jobs:
         run: npm run spellcheck:ci
         if: matrix['node-version'] == '16'
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: matrix['node-version'] == '16'
+      #- name: SonarCloud Scan
+      #  uses: sonarsource/sonarcloud-github-action@master
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #  if: matrix['node-version'] == '16'

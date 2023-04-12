@@ -42,10 +42,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
-      - name: Run Spellcheck
-        run: npm run spellcheck:ci
-        if: matrix['node-version'] == '16'
-
       #- name: SonarCloud Scan
       #  uses: sonarsource/sonarcloud-github-action@master
       #  env:

@@ -63,7 +63,7 @@ const buildFinalMessage = (message, foundCommits, hideCommits) => {
 export default (
   regex,
   message,
-  { logType, reverse, ignoredAuthors = [], hideCommits } = {},
+  { hideCommits, ignoredAuthors = [], logType, reverse } = {},
 ) => {
   if (!regex) {
     warn('`commonCommitMessage`: missing "regex" parameter.');

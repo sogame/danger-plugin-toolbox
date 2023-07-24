@@ -2,6 +2,7 @@ import * as helpers from '../../helpers';
 import commonContributingGuide from '../contributingGuide';
 
 const author = 'John Doe';
+// eslint-disable-next-line no-import-assign -- Mocking in a test file
 helpers.prAuthor = author;
 
 const buildMessage = (authorName, filename) => {
@@ -17,6 +18,7 @@ describe('commonContributingGuide', () => {
   });
 
   it('should not message when is not an external contribution', () => {
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.externalPr = false;
 
     commonContributingGuide();
@@ -25,6 +27,7 @@ describe('commonContributingGuide', () => {
   });
 
   it('should message when is an external contribution', () => {
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.externalPr = true;
 
     const expectedMsg = buildMessage(author, 'CONTRIBUTING.md');
@@ -35,6 +38,7 @@ describe('commonContributingGuide', () => {
   });
 
   it('should allow modifying the contributing filename', () => {
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.externalPr = true;
 
     const newFilename = 'another_contributing.md';

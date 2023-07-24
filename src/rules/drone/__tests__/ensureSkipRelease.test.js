@@ -5,6 +5,7 @@ const errorMsg =
   'If the changes do not require a new version, remember to add `[skip release]` to the commit messages to avoid creating a new version.';
 
 const mockCommits = (messages) => {
+  // eslint-disable-next-line no-import-assign -- Mocking in a test file
   helpers.commits = messages.map((message) => ({ message }));
 };
 

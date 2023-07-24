@@ -2,9 +2,11 @@ import * as helpers from '../../helpers';
 import commonPrDescriptionContribution from '../prDescriptionContribution';
 
 const mockHelpers = (externalPr, isTrivial, prDescription) => {
+  /* eslint-disable no-import-assign -- Mocking in a test file */
   helpers.externalPr = externalPr;
   helpers.isTrivial = isTrivial;
   helpers.prDescription = prDescription;
+  /* eslint-enable no-import-assign -- Mocking in a test file */
 };
 
 const errorMsg = 'Please provide a summary in the pull request description.';

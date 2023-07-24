@@ -14,6 +14,7 @@ describe('commonChangelog', () => {
   it('should warn when not changed and not trivial', () => {
     const files = ['file.js'];
     helpers.setMockCommittedFiles(files);
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.isTrivial = false;
 
     const expectedMsg = buildMessage('CHANGELOG.md');
@@ -26,6 +27,7 @@ describe('commonChangelog', () => {
   it('should not warn when not changed and trivial', () => {
     const files = ['file.js'];
     helpers.setMockCommittedFiles(files);
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.isTrivial = true;
 
     commonChangelog();
@@ -36,6 +38,7 @@ describe('commonChangelog', () => {
   it('should not warn when changed and trivial', () => {
     const files = ['file.js', 'CHANGELOG.md'];
     helpers.setMockCommittedFiles(files);
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.isTrivial = true;
 
     commonChangelog();
@@ -46,6 +49,7 @@ describe('commonChangelog', () => {
   it('should not warn when changed and not trivial', () => {
     const files = ['file.js', 'CHANGELOG.md'];
     helpers.setMockCommittedFiles(files);
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.isTrivial = false;
 
     commonChangelog();
@@ -58,6 +62,7 @@ describe('commonChangelog', () => {
 
     const files = ['file.js', 'CHANGELOG.md'];
     helpers.setMockCommittedFiles(files);
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.isTrivial = false;
 
     const expectedMsg = buildMessage(newFilename);
@@ -72,6 +77,7 @@ describe('commonChangelog', () => {
 
     const files = ['file.js', newFilename];
     helpers.setMockCommittedFiles(files);
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.isTrivial = false;
 
     commonChangelog({ changelogFile: newFilename });
@@ -82,6 +88,7 @@ describe('commonChangelog', () => {
   it('should log as "logType" when is provided', () => {
     const files = ['file.js'];
     helpers.setMockCommittedFiles(files);
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.isTrivial = false;
 
     commonChangelog({ logType: 'fail' });

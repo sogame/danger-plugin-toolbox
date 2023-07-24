@@ -2,6 +2,7 @@ import * as helpers from '../../helpers';
 import commonContribution from '../contribution';
 
 const author = 'John Doe';
+// eslint-disable-next-line no-import-assign -- Mocking in a test file
 helpers.prAuthor = author;
 
 const buildMessage = (authorName) =>
@@ -16,6 +17,7 @@ describe('commonContribution', () => {
   });
 
   it('should not message when is not an external contribution', () => {
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.externalPr = false;
 
     commonContribution();
@@ -24,6 +26,7 @@ describe('commonContribution', () => {
   });
 
   it('should message when is an external contribution', () => {
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.externalPr = true;
 
     const expectedMsg = buildMessage(author);
@@ -34,6 +37,7 @@ describe('commonContribution', () => {
   });
 
   it('should use the defined message when is provided', () => {
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.externalPr = true;
 
     const expectedMsg = 'Expected message';
@@ -44,6 +48,7 @@ describe('commonContribution', () => {
   });
 
   it('should log as "logType" when is provided', () => {
+    // eslint-disable-next-line no-import-assign -- Mocking in a test file
     helpers.externalPr = true;
 
     buildMessage(author);

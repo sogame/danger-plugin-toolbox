@@ -10,10 +10,12 @@ import commonCommitMessage, {
 } from '../commitMessage';
 
 const mockCommits = (messages) => {
+  // eslint-disable-next-line no-import-assign -- Mocking in a test file
   helpers.commits = messages.map((message) => ({ message }));
 };
 
 const mockCommitsAuthor = (commits) => {
+  // eslint-disable-next-line no-import-assign -- Mocking in a test file
   helpers.commits = commits.map(([message, name]) => ({
     message,
     author: { name },

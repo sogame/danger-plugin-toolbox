@@ -14,7 +14,11 @@ const lineRange = (content, pattern) => {
   return [startLine, endLine];
 };
 
-const hasChangedDeps = (startDependencies, endDependencies, addedLineNumbers) =>
+const hasChangedDeps = (
+  startDependencies,
+  endDependencies,
+  addedLineNumbers,
+) =>
   startDependencies < 0
     ? false
     : addedLineNumbers.reduce(

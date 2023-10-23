@@ -1,4 +1,3 @@
-import inlineLogMatching from './rules/inlineLogMatching';
 import commonAddedLinesContains from './rules/common/addedLinesContains';
 import commonChangelog from './rules/common/changelog';
 import commonCommitMessage, {
@@ -30,6 +29,7 @@ import imageMinified from './rules/image/minified';
 import imageMinifiedJpg from './rules/image/minifiedJpg';
 import imageMinifiedPng from './rules/image/minifiedPng';
 import imageMinifiedSvg from './rules/image/minifiedSvg';
+import inlineLogMatching from './rules/inlineLogMatching';
 import jsConsoleCommands from './rules/js/consoleCommands';
 import jsGlobalEslintChange from './rules/js/globalEslintChange';
 import jsLocalEslintChange from './rules/js/localEslintChange';

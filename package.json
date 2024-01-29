@@ -32,7 +32,7 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:fix:staged": "npm run lint:staged -- --fix",
     "lint:staged": "eslint",
-    "prepare": "husky install",
+    "prepare": "husky",
     "release": "node ./scripts/release.js",
     "test": "jest --silent=false",
     "test:coverage": "npm test -- --coverage",

@@ -10,6 +10,14 @@ const sortDependencies = (a, b) => a[0].localeCompare(b[0]);
 
 const cleanVersion = (version) => version.replace(/^(\^|~|>=|>|<=|<)/, '');
 
+const getLockVersion = (name, packagelockJson) => {
+  if (packagelockJson.packages) {
+    return packagelockJson.packages[`node_modules/${name}`]?.version;
+  }
+
+  return packagelockJson.dependencies[name]?.version;
+};
+
 export default async ({ logType, path = '' } = {}) => {
   const packageFilename = `${path}package.json`;
   const packagelockFilename = `${path}package-lock.json`;
@@ -17,9 +25,8 @@ export default async ({ logType, path = '' } = {}) => {
   const { dependencies, devDependencies } = JSON.parse(
     fs.readFileSync(packageFilename),
   );
-  const { dependencies: dependenciesLockfile } = JSON.parse(
-    fs.readFileSync(packagelockFilename),
-  );
+  const packagelockJson = JSON.parse(fs.readFileSync(packagelockFilename));
+
   const rows = [];
   // eslint-disable-next-line prefer-object-spread -- Babel fails to build if spreading the objects
   const allDeps = Object.assign({}, dependencies, devDependencies);
@@ -27,7 +34,7 @@ export default async ({ logType, path = '' } = {}) => {
     .sort(sortDependencies)
     .forEach(([name, semver]) => {
       const version = cleanVersion(semver);
-      const { version: versionLock = '' } = dependenciesLockfile[name] || {};
+      const versionLock = getLockVersion(name, packagelockJson) || '';
       if (version !== versionLock) {
         rows.push(
           `<tr><td>${name}</td><td>${version}</td><td>${versionLock}</td></tr>`,

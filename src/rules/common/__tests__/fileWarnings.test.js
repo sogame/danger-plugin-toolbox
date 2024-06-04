@@ -73,6 +73,14 @@ describe('commonFileWarnings', () => {
     expect(global.warn).not.toHaveBeenCalled();
   });
 
+  it('should not warn when there are no warnings and "ignoreRegex" is set', () => {
+    commonFileWarnings(noWarnings, {
+      ignoreRegex: /TO IGNORE/,
+    });
+
+    expect(global.warn).not.toHaveBeenCalled();
+  });
+
   it('should not warn when the lines also match "ignoreRegex"', () => {
     commonFileWarnings(multipleWarningsAllIgnored, {
       ignoreRegex: /TO IGNORE/,

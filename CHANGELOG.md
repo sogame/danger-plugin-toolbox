@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 - Fix [`commonFileWarnings`](docs/validations.md#commonfilewarnings) so it does not fail when there are no warnings and `ignoreRegex` is set.
+- Fix [`jsOutOfSyncDeps`](docs/validations.md#jsoutofsyncdeps) to support `lockfileVersion: 3` (npm v9).
 
 ### Breaking
 

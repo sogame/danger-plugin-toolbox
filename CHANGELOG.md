@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [3.0.0] - 2024-6-4
+
 ### Fixed
 
 - Fix [`commonFileWarnings`](docs/validations.md#commonfilewarnings) so it does not fail when there are no warnings and `ignoreRegex` is set.

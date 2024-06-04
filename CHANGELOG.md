@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix [`commonFileWarnings`](docs/validations.md#commonfilewarnings) so it does not fail when there are no warnings and `ignoreRegex` is set.
+
+### Breaking
+
 - Drop support for Node versions lower than 18.
 
 ## [2.0.1] - 2023-2-3

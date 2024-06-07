@@ -1,6 +1,6 @@
 {
   "name": "danger-plugin-toolbox",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Danger Plugin Toolbox is a Danger JS plugin containing a set of common validations and utilities, build to make it easy to start using Danger JS.",
   "license": "MIT",
   "engines": {

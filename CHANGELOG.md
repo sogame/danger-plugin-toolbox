@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Fixed
+
+- Fix [`jsOutOfSyncDeps`](docs/validations.md#jsoutofsyncdeps) to support (ignore) local dependencies.
 
 ## [3.0.0] - 2024-6-4
 

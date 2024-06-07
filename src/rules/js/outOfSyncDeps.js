@@ -33,12 +33,15 @@ export default async ({ logType, path = '' } = {}) => {
   Object.entries(allDeps)
     .sort(sortDependencies)
     .forEach(([name, semver]) => {
-      const version = cleanVersion(semver);
-      const versionLock = getLockVersion(name, packagelockJson) || '';
-      if (version !== versionLock) {
-        rows.push(
-          `<tr><td>${name}</td><td>${version}</td><td>${versionLock}</td></tr>`,
-        );
+      if (!semver.startsWith('file:')) {
+        // Ignore local (file) dependencies, as those don't have a version
+        const version = cleanVersion(semver);
+        const versionLock = getLockVersion(name, packagelockJson) || '';
+        if (version !== versionLock) {
+          rows.push(
+            `<tr><td>${name}</td><td>${version}</td><td>${versionLock}</td></tr>`,
+          );
+        }
       }
     });
 

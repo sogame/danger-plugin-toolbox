@@ -68,7 +68,7 @@
     "@babel/cli": "^7.24.6",
     "@babel/preset-env": "^7.24.7",
     "@skyscanner/eslint-config-skyscanner": "^18.0.0",
-    "ajv": "^8.14.0",
+    "ajv": "^8.16.0",
     "babel-jest": "^29.7.0",
     "danger": "^12.3.0",
     "husky": "^9.0.11",

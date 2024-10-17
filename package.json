@@ -76,5 +76,8 @@
     "jest": "^29.7.0",
     "lint-staged": "^15.2.10",
     "release-it": "^17.8.2"
+  },
+  "dependencies": {
+    "picomatch": "^4.0.2"
   }
 }

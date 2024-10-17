@@ -19,6 +19,14 @@ const {
   prTitle,
 } = require('prod-danger-plugin-toolbox'); // eslint-disable-line import/no-extraneous-dependencies -- This is only needed in CI
 
+const pm = require('picomatch');
+
+const isMatch = pm('*.js');
+console.log(isMatch('abcd')); //=> false
+console.log(isMatch('a.js')); //=> true
+console.log(isMatch('a.md')); //=> false
+console.log(isMatch('a/b.js')); //=> false
+
 const prAuthorIsBot = [
   'snyk-bot',
   'dependabot-preview[bot]',

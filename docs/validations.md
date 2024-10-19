@@ -260,10 +260,13 @@ commonPrDescriptionContribution({ minLength: 10, logType: 'fail' });
 
 Check all added files have an owner defined in CODEOWNERS.
 
+`pathsPattern` can be used to restrict the check the folders that match it.
+
 ##### Configuration
 
 | Property       | Type                       | Default Value |
 | -------------- | -------------------------- | ------------- |
+| pathsPattern   | regex                      | /.\*/         |
 | codeownersPath | string                     | CODEOWNERS    |
 | logType        | enum (warn, fail, message) | warn          |
 
@@ -271,6 +274,7 @@ Check all added files have an owner defined in CODEOWNERS.
 
 ```
 commonRequireFilesInCodeowners();
+commonRequireFilesInCodeowners({ pathsPattern: 'modules/' });
 commonRequireFilesInCodeowners({ codeownersPath: '.github/CODEOWNERS' });
 commonRequireFilesInCodeowners({ logType: 'fail' });
 ```

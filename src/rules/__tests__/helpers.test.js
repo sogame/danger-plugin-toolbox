@@ -739,6 +739,22 @@ describe('helpers', () => {
 
         expect(result).toEqual(['@user9']);
       });
+
+      it('relative folder in option', () => {
+        const filename = '/root/option1/folder/common/file.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@subfolders']);
+      });
+
+      it('absolute folder in option', () => {
+        const filename = '/option4/another/path/common/file.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@subfoldersRoot']);
+      });
     });
   });
 });

@@ -200,4 +200,7 @@ __tests__ @tester1
 __more_tests__/** @tester4
 
 option/{file1,file2}.js @user9
+
+{option1/folder,option2/another/path}/common @subfolders
+{/option3/folder,/option4/another/path}/common @subfoldersRoot
 `;

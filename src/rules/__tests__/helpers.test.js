@@ -1,4 +1,7 @@
+import fs from 'fs';
+
 import {
+  mockCodeowners,
   mockCreatedFiles,
   mockModifiedFiles,
   mockCommits,
@@ -37,6 +40,7 @@ import {
   fileRemovedLineMatch,
   fileAddedLineNumbers,
   fileRemovedLineNumbers,
+  getFileOwners,
   structuredFileAddedLines,
   structuredFileRemovedLines,
   structuredFileAddedLineMatches,
@@ -46,6 +50,12 @@ import {
 } from '../helpers';
 
 jest.unmock('../helpers');
+
+const mockFiles = {
+  CODEOWNERS: mockCodeowners,
+};
+
+fs.setMockFiles(mockFiles);
 
 describe('helpers', () => {
   beforeEach(() => {
@@ -634,6 +644,100 @@ describe('helpers', () => {
         const result = linkToSourceRepo(filename, linkText, branch);
 
         expect(result).toEqual(expected);
+      });
+    });
+  });
+
+  describe('getFileOwners', () => {
+    describe('files', () => {
+      it('absolute file', () => {
+        const filename = '/absolute_file.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@user1', '@user3']);
+      });
+
+      it('absolute file in folder', () => {
+        const filename = '/some/folder/file.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@user2', '@user3']);
+      });
+
+      it('relative file', () => {
+        const filename = '/root/folder/relative_file.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@user3']);
+      });
+
+      it('relative file in folder', () => {
+        const filename = '/root/another/relative/file.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@user4']);
+      });
+
+      it('should return "undefined" when there are no owners for the file', () => {
+        const filename = '/fake_file.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toBeUndefined();
+      });
+    });
+
+    describe('folders', () => {
+      it('relative folder', () => {
+        const filename = '/root/some/folder/__tests__/file1.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@tester1']);
+      });
+
+      it('relative folder (** before)', () => {
+        const filename = '/root/some/folder/__other_tests__/file1.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@tester3']);
+      });
+
+      it('relative folder (** after)', () => {
+        const filename = '/root/some/folder/__more_tests__/file1.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@tester4']);
+      });
+
+      it('relative folder (/ ending)', () => {
+        const filename = '/yet/another/folder/slash/file1.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@user2', '@user4']);
+      });
+
+      it('file in relative folder', () => {
+        const filename = '/root/some/folder/__tests__/file2.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@tester2']);
+      });
+
+      it('file in option', () => {
+        const filename = '/root/option/file2.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@user9']);
       });
     });
   });

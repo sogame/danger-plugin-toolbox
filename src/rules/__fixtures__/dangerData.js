@@ -181,3 +181,23 @@ export const mockHref = (url, text) => `[[${url}||${text || ''}]]`;
 export const mockTargetRepoUrl = 'http://www.github.com/target/repo';
 
 export const mockSourceRepoUrl = 'http://www.github.com/source/repo';
+
+export const mockCodeowners = `
+* @user1
+
+# absolute
+/absolute_file.js @user1 @user3
+/some/folder/file.js @user2 @user3
+/yet/another/folder/slash/ @user2 @user4
+
+# relative
+relative_file.js @user3
+relative/file.js @user4
+
+__tests__/file2.js @tester2
+__tests__ @tester1
+**/__other_tests__ @tester3
+__more_tests__/** @tester4
+
+option/{file1,file2}.js @user9
+`;

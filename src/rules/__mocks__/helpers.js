@@ -65,3 +65,12 @@ export const linkToTargetRepo = (file, text, branch) =>
 
 export const linkToSourceRepo = (file, text, branch) =>
   linkToRepo('sourceRepo', file, text, branch);
+
+let mockCodeownersArr = [];
+export const setMockCodeowners = (newMockArr) => {
+  mockCodeownersArr = newMockArr.slice();
+};
+export const getFileOwners = (file) => {
+  const match = mockCodeownersArr.find(([f]) => f === file);
+  return match ? match[1] : undefined;
+};

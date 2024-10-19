@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 const {
   git: {
     commits,
@@ -171,3 +173,60 @@ export const linkToTargetRepo = (file, text, branch) =>
 
 export const linkToSourceRepo = (file, text, branch) =>
   linkToRepo(sourceRepoUrl, file, text, branch);
+
+const parseCodeowners = (filename) => {
+  const codeownersLines = fs.readFileSync(filename).toString().split('\n');
+  const parsed = codeownersLines.reduce((acc, line) => {
+    // Ignore empty lines, comments and *
+    if (line && !line.startsWith('#') && !line.startsWith('* ')) {
+      const [pattern, ...owners] = line.split(/\s+/);
+      acc.push([pattern, owners]);
+    }
+    return acc;
+  }, []);
+
+  return parsed;
+};
+// Function to convert CODEOWNERS pattern to regex
+const patternToRegex = (pattern) => {
+  // Escape special characters
+  let regexPattern = pattern.replace(/[-/\\^$+?.()|[\]{}]/g, '\\$&');
+  // Replace ** with .*
+  regexPattern = regexPattern.replace(/\*\*/g, '.*');
+  // Replace * with [^/]* to match any character except /
+  regexPattern = regexPattern.replace(/\*/g, '[^/]*');
+  // Handle trailing slash for directories
+  if (pattern.endsWith('/')) {
+    regexPattern = `${regexPattern}.*`;
+  }
+  // Handle root directory patterns
+  if (pattern.startsWith('/')) {
+    regexPattern = `^${regexPattern}`;
+  }
+  // Handle patterns with brackets
+  regexPattern = regexPattern.replace(/\[!\\]/g, '[^]');
+  // Handle patterns with question marks
+  regexPattern = regexPattern.replace(/\?/g, '.');
+  // Handle patterns with commas
+  regexPattern = regexPattern.replace(
+    /\\{([^}]+)\\}/g,
+    (_, p1) => `(${p1.replace(/,/g, '|')})`,
+  );
+  return new RegExp(regexPattern, 'i'); // Case-insensitive matching
+};
+export const getFileOwners = (file, codeownersPath = 'CODEOWNERS') => {
+  const codeowners = parseCodeowners(codeownersPath);
+
+  let fileOwners;
+  for (const [pattern, owners] of codeowners) {
+    // const isMatch = picomatch(line);
+    // if (isMatch(file)) {
+    const regex = patternToRegex(pattern);
+    if (regex.test(file)) {
+      fileOwners = owners;
+      break;
+    }
+  }
+
+  return fileOwners;
+};

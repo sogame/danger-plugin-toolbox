@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-**Nothing yet**
+### Added
+
+- New validation [`commonRequireFilesInCodeowners`](docs/validations.md#commonrequirefilesincodeowners) to check all new files have an owner defined in CODEOWNERS.
+- New utility [`getFileOwners`](docs/utilities.md#getfileowners) to get the list owners of a file.
 
 ## [3.0.1] - 2024-6-7
 

@@ -256,6 +256,25 @@ commonPrDescriptionContribution({ logType: 'message' });
 commonPrDescriptionContribution({ minLength: 10, logType: 'fail' });
 ```
 
+### commonRequireFilesInCodeowners
+
+Check all added files have an owner defined in CODEOWNERS.
+
+##### Configuration
+
+| Property       | Type                       | Default Value |
+| -------------- | -------------------------- | ------------- |
+| codeownersPath | string                     | CODEOWNERS    |
+| logType        | enum (warn, fail, message) | warn          |
+
+##### Usage
+
+```
+commonRequireFilesInCodeowners();
+commonRequireFilesInCodeowners({ codeownersPath: '.github/CODEOWNERS' });
+commonRequireFilesInCodeowners({ logType: 'fail' });
+```
+
 ### commonValidJson
 
 Check JSON files are valid.

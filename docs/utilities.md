@@ -225,3 +225,17 @@ Project repository url where the pull request is being send from (shorthand for 
 ### href
 
 Generate a link to a file in the repository (shorthand for `danger.utils.href`).
+
+### getFileOwners
+
+Get an array with the owners of a file (defined in CODEOWNERS).
+
+Parameters:
+
+1. `filename`: The file to get the owners.
+1. `codeownersPath`: Path to the codeowners file. Defaults to `CODEOWNERS`.
+
+```
+const owners = getFileOwners('foler/file.js');
+const owners = getFileOwners('foler/file.js', '.github/CODEOWNERS');
+```

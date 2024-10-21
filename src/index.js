@@ -17,6 +17,7 @@ import commonFileExists from './rules/common/fileExists';
 import commonFileWarnings from './rules/common/fileWarnings';
 import commonPrDescription from './rules/common/prDescription';
 import commonPrDescriptionContribution from './rules/common/prDescriptionContribution';
+import commonRequireFilesInCodeowners from './rules/common/requireFilesInCodeowners';
 import commonValidJson from './rules/common/validJson';
 import cssBackpackVariables from './rules/css/backpackVariables';
 import cssGlobalStylelintChange from './rules/css/globalStylelintChange';
@@ -60,6 +61,7 @@ export {
   commonFileWarnings,
   commonPrDescription,
   commonPrDescriptionContribution,
+  commonRequireFilesInCodeowners,
   commonValidJson,
   cssBackpackVariables,
   cssGlobalStylelintChange,

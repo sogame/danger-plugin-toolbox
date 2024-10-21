@@ -5,6 +5,7 @@ const {
   commonFileContains,
   commonFileWarnings,
   commonPrDescriptionContribution,
+  commonRequireFilesInCodeowners,
   commonValidJson,
   inCommit,
   inCommitGrep,
@@ -24,6 +25,8 @@ const prAuthorIsBot = [
   'dependabot-preview[bot]',
   'dependabot[bot]',
 ].includes(prAuthor);
+
+commonRequireFilesInCodeowners();
 
 commonPrDescriptionContribution();
 

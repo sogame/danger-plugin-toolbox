@@ -725,7 +725,7 @@ describe('helpers', () => {
       });
 
       it('file in relative folder', () => {
-        const filename = '/root/some/folder/__tests__/file2.js';
+        const filename = '/root/some/folder/__tests2__/file2.js';
 
         const result = getFileOwners(filename);
 
@@ -754,6 +754,24 @@ describe('helpers', () => {
         const result = getFileOwners(filename);
 
         expect(result).toEqual(['@subfoldersRoot']);
+      });
+    });
+
+    describe('duplicated', () => {
+      it('duplicated folder', () => {
+        const filename = '/root/duplicated/file.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@duplicated2']);
+      });
+
+      it('only subfile owned', () => {
+        const filename = '/root/duplicated/new_owner.js';
+
+        const result = getFileOwners(filename);
+
+        expect(result).toEqual(['@duplicated3']);
       });
     });
   });

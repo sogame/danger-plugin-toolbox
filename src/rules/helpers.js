@@ -185,7 +185,9 @@ const parseCodeowners = (filename) => {
     return acc;
   }, []);
 
-  return parsed;
+  // GitHub uses the last match (in case of multiple matches).
+  // Returning the lines reversed to make it easier to use
+  return parsed.reverse();
 };
 // Function to convert CODEOWNERS pattern to regex
 const patternToRegex = (pattern) => {

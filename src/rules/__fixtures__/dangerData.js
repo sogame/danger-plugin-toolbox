@@ -194,10 +194,14 @@ export const mockCodeowners = `
 relative_file.js @user3
 relative/file.js @user4
 
-__tests__/file2.js @tester2
 __tests__ @tester1
+__tests2__/file2.js @tester2
 **/__other_tests__ @tester3
 __more_tests__/** @tester4
+
+duplicated/ @duplicated1
+duplicated/ @duplicated2
+duplicated/new_owner.js @duplicated3
 
 option/{file1,file2}.js @user9
 

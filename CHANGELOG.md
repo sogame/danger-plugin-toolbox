@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+**Nothing yet**
+
+## [3.1.2] - 2024-10-22
+
 ### Fixed
 
 - Fixed [`getFileOwners`](docs/utilities.md#getfileowners) to return the last match. See [GitHub documentation](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#codeowners-syntax)

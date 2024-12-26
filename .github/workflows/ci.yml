@@ -41,10 +41,3 @@ jobs:
         if: github.event_name == 'pull_request' && matrix['node-version'] == '18'
         env:
           GITHUB_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
-
-      #- name: SonarCloud Scan
-      #  uses: sonarsource/sonarcloud-github-action@master
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #  if: matrix['node-version'] == '18'

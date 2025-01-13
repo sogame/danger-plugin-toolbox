@@ -1,5 +1,12 @@
 name: danger-plugin-toolbox CI
 
+permissions:
+  actions: read
+  contents: read
+  id-token: read
+  pull-requests: write
+  statuses: write
+
 on:
   pull_request:
     branches: ['**']

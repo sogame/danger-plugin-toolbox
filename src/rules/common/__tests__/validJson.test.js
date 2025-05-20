@@ -47,7 +47,7 @@ describe('commonValidJson', () => {
     const files = [validJson, invalidJson];
     helpers.setMockCommittedFiles(files);
 
-    const exception = 'SyntaxError: Unexpected token } in JSON at position 8';
+    const exception = `SyntaxError: Unexpected token '}', "{"foo": }" is not valid JSON`;
     const expectedMsg = buildMessage(invalidJson, exception);
 
     commonValidJson();
@@ -59,7 +59,7 @@ describe('commonValidJson', () => {
     const files = [validJson, invalidJsonCase];
     helpers.setMockCommittedFiles(files);
 
-    const exception = 'SyntaxError: Unexpected token } in JSON at position 8';
+    const exception = `SyntaxError: Unexpected token '}', "{"foo": }" is not valid JSON`;
     const expectedMsg = buildMessage(invalidJsonCase, exception);
 
     commonValidJson();

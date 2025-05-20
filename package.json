@@ -4,8 +4,8 @@
   "description": "Danger Plugin Toolbox is a Danger JS plugin containing a set of common validations and utilities, build to make it easy to start using Danger JS.",
   "license": "MIT",
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=22.13.1",
+    "npm": ">=10.9.2"
   },
   "repository": {
     "type": "git",

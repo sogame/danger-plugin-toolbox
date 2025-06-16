@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 
 import inquirer from 'inquirer';
-import release from 'release-it'; // eslint-disable-line import/no-unresolved -- No idea why this is needed ¯\_(ツ)_/¯
+import release from 'release-it';
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 

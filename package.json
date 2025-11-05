@@ -75,6 +75,6 @@
     "inquirer": "^12.10.0",
     "jest": "^30.2.0",
     "lint-staged": "^16.2.6",
-    "release-it": "^19.0.5"
+    "release-it": "^19.0.6"
   }
 }

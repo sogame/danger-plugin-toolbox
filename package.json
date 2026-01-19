@@ -65,7 +65,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
+    "@babel/cli": "^7.28.6",
     "@babel/preset-env": "^7.28.6",
     "@skyscanner/eslint-config-skyscanner": "^22.6.0",
     "ajv": "^8.17.1",

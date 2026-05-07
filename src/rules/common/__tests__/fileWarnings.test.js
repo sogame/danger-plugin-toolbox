@@ -10,6 +10,8 @@ const warningColon = 'warningColon.log';
 const warningQuote = 'warningQuote.log';
 const multipleWarningsAllIgnored = 'multipleWarningsAllIgnored.log';
 const multipleWarningsSomeIgnored = 'multipleWarningsSomeIgnored.log';
+const duplicateWarnings = 'duplicateWarnings.log';
+const duplicateAndUniqueWarnings = 'duplicateAndUniqueWarnings.log';
 const missingFile = 'someMissingFile.log';
 const mockFiles = {
   [noWarnings]: 'some content but no warnings', // should not fail, as the word is "warnings", not "warning"
@@ -22,6 +24,9 @@ const mockFiles = {
     'foo\n[[warning 1]] TO IGNORE\nbar\n[[warning 2]] TO IGNORE',
   [multipleWarningsSomeIgnored]:
     'foo\n[[warning 1]] TO IGNORE\nbar\n[[warning 2]]',
+  [duplicateWarnings]: 'foo\n[[warning 1]]\nbar\n[[warning 1]]',
+  [duplicateAndUniqueWarnings]:
+    'foo\n[[warning 1]]\nbar\n[[warning 1]]\nbaz\n[[warning 2]]',
 };
 
 fs.setMockFiles(mockFiles);
@@ -147,5 +152,32 @@ describe('commonFileWarnings', () => {
     const message = '`commonFileWarnings`: missing "file" parameter';
 
     expect(global.warn).toHaveBeenCalledWith(message);
+  });
+
+  it('should show a duplicate warning line only once', () => {
+    commonFileWarnings(duplicateWarnings);
+
+    expect(global.warn).toHaveBeenCalledTimes(1);
+    expect(global.warn).toHaveBeenCalledWith(
+      expect.stringContaining('- `[[warning 1]]`'),
+    );
+    expect(global.warn).toHaveBeenCalledWith(
+      expect.not.stringContaining('- `[[warning 1]]`<br>- `[[warning 1]]`'),
+    );
+  });
+
+  it('should show each unique warning once when some are duplicated', () => {
+    commonFileWarnings(duplicateAndUniqueWarnings);
+
+    expect(global.warn).toHaveBeenCalledTimes(1);
+    expect(global.warn).toHaveBeenCalledWith(
+      expect.stringContaining('- `[[warning 1]]`'),
+    );
+    expect(global.warn).toHaveBeenCalledWith(
+      expect.stringContaining('- `[[warning 2]]`'),
+    );
+    expect(global.warn).toHaveBeenCalledWith(
+      expect.not.stringContaining('- `[[warning 1]]`<br>- `[[warning 1]]`'),
+    );
   });
 });

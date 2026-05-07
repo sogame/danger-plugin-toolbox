@@ -23,6 +23,8 @@ export default (
     if (ignoreRegex) {
       warnings = warnings.filter((warning) => !warning.match(ignoreRegex));
     }
+    // Show each warning only once
+    warnings = [...new Set(warnings)];
     if (warnings && warnings.length) {
       const log = getMessageLogger(logType);
       const warningsStr = stringArrayToList(warnings, true);

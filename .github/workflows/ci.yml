@@ -32,7 +32,7 @@ jobs:
         run: HUSKY=0 npm ci --quiet
 
       - name: Install danger-plugin-toolbox (for Danger step)
-        run: npm install --no-save prod-danger-plugin-toolbox@npm:danger-plugin-toolbox@3.1.2
+        run: npm install --no-save prod-danger-plugin-toolbox@npm:danger-plugin-toolbox@4.0.0
         if: github.event_name == 'pull_request' && matrix['node-version'] == '22'
 
       - name: Run linters

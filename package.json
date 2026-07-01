@@ -28,6 +28,8 @@
   "scripts": {
     "build": "babel src --out-dir dist --ignore **/__tests__/,**/__fixtures__/,**/__mocks__/",
     "danger": "danger ci --failOnErrors",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:fix:staged": "eslint --fix",
@@ -41,7 +43,10 @@
   },
   "lint-staged": {
     "**/!(package-lock).json": "prettier --write",
-    "**/*.js": "npm run lint:fix:staged --",
+    "**/*.js": [
+      "prettier --write",
+      "npm run lint:fix:staged --"
+    ],
     "**/*.md": "prettier --write",
     "**/*.yml": "prettier --write"
   },
@@ -75,7 +80,7 @@
     "eslint": "^10.6.0",
     "eslint-plugin-import-x": "^4.17.1",
     "eslint-plugin-jest": "^29.15.4",
-    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-config-prettier": "^10.1.8",
     "globals": "^17.7.0",
     "husky": "^9.1.7",
     "inquirer": "^14.0.2",

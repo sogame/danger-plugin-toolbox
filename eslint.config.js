@@ -1,8 +1,8 @@
 import js from '@eslint/js';
 import eslintComments from '@eslint-community/eslint-plugin-eslint-comments';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import-x';
 import jestPlugin from 'eslint-plugin-jest';
-import prettier from 'eslint-plugin-prettier';
 import globals from 'globals';
 
 export default [
@@ -358,13 +358,6 @@ export default [
     },
   },
 
-  // eslint-plugin-prettier
-  {
-    plugins: { prettier },
-    rules: {
-      'prettier/prettier': 'error',
-      'arrow-body-style': 'off',
-      'prefer-arrow-callback': 'off',
-    },
-  },
+  // Disable ESLint rules that conflict with Prettier (must be last)
+  eslintConfigPrettier,
 ];

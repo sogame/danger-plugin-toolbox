@@ -4,9 +4,26 @@ updates:
     directory: '/'
     schedule:
       interval: weekly
+      day: monday
     open-pull-requests-limit: 99
     versioning-strategy: increase
+    groups:
+      babel:
+        patterns:
+          - '@babel/*'
+          - 'babel-*'
+      jest:
+        patterns:
+          - 'jest'
+          - 'babel-jest'
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'eslint-*'
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
       interval: weekly
+      day: monday
+    open-pull-requests-limit: 99

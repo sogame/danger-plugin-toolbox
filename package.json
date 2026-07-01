@@ -28,9 +28,9 @@
   "scripts": {
     "build": "babel src --out-dir dist --ignore **/__tests__/,**/__fixtures__/,**/__mocks__/",
     "danger": "danger ci --failOnErrors",
-    "lint": "npm run lint:staged -- --ext .js .",
-    "lint:fix": "npm run lint -- --fix",
-    "lint:fix:staged": "npm run lint:staged -- --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:fix:staged": "eslint --fix",
     "lint:staged": "eslint",
     "prepare": "husky",
     "release": "node ./scripts/release.js",
@@ -67,14 +67,21 @@
   "devDependencies": {
     "@babel/cli": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
-    "@skyscanner/eslint-config-skyscanner": "^22.11.1",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
+    "@eslint/js": "^10.0.1",
     "ajv": "^8.20.0",
     "babel-jest": "^30.4.1",
     "danger": "^13.0.10",
+    "eslint": "^10.6.0",
+    "eslint-plugin-import-x": "^4.17.1",
+    "eslint-plugin-jest": "^29.15.4",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^17.7.0",
     "husky": "^9.1.7",
     "inquirer": "^14.0.2",
     "jest": "^30.4.2",
     "lint-staged": "^17.0.8",
+    "prettier": "^3.9.4",
     "release-it": "^20.2.1"
   }
 }

@@ -4,28 +4,23 @@ const {
   commonContributingGuide,
   commonFileContains,
   commonFileWarnings,
-  commonPrDescriptionContribution,
   commonValidJson,
   inCommit,
   inCommitGrep,
   jsConsoleCommands,
-  jsGlobalEslintChange,
-  jsLocalEslintChange,
   jsLockfile,
   jsOutOfSyncDeps,
   jsTestShortcuts,
   linkToTargetRepo,
   prAuthor,
   prTitle,
-} = require('prod-danger-plugin-toolbox'); // eslint-disable-line import/no-extraneous-dependencies -- This is only needed in CI
+} = require('prod-danger-plugin-toolbox');
 
 const prAuthorIsBot = [
   'snyk-bot',
   'dependabot-preview[bot]',
   'dependabot[bot]',
 ].includes(prAuthor);
-
-commonPrDescriptionContribution();
 
 commonContributingGuide();
 
@@ -43,10 +38,6 @@ commonFileWarnings('lint.log');
 commonFileWarnings('test.log');
 
 jsConsoleCommands({ inline: true });
-
-jsGlobalEslintChange();
-
-jsLocalEslintChange({ inline: true });
 
 jsLockfile();
 

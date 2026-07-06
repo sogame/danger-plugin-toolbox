@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^8.0.1",
+    "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
     "@eslint/js": "^10.0.1",
@@ -78,9 +79,9 @@
     "babel-jest": "^30.4.1",
     "danger": "^13.0.10",
     "eslint": "^10.6.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import-x": "^4.17.1",
     "eslint-plugin-jest": "^29.15.4",
-    "eslint-config-prettier": "^10.1.8",
     "globals": "^17.7.0",
     "husky": "^9.1.7",
     "inquirer": "^14.0.2",

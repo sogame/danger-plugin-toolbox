@@ -87,7 +87,7 @@
     "inquirer": "^14.2.3",
     "jest": "^30.5.2",
     "lint-staged": "^17.6.0",
-    "prettier": "^3.9.9",
+    "prettier": "^3.9.10",
     "release-it": "^21.1.1"
   }
 }

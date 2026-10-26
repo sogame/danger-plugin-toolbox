@@ -16,11 +16,7 @@ const {
   prTitle,
 } = require('prod-danger-plugin-toolbox');
 
-const prAuthorIsBot = [
-  'snyk-bot',
-  'dependabot-preview[bot]',
-  'dependabot[bot]',
-].includes(prAuthor);
+const prAuthorIsBot = ['dependabot[bot]'].includes(prAuthor);
 
 commonContributingGuide();
 

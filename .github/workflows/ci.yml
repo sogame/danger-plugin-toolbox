@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ['22']
+        node-version: ['22', '24', '26']
 
     steps:
       - uses: actions/checkout@v7
@@ -33,21 +33,21 @@ jobs:
 
       - name: Install danger-plugin-toolbox (for Danger step)
         run: npm install --no-save prod-danger-plugin-toolbox@npm:danger-plugin-toolbox@4.0.0
-        if: github.event_name == 'pull_request' && matrix['node-version'] == '22'
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '26'
 
       - name: Run linters
         run: (set -o pipefail; npm run lint |& tee lint.log);
-        if: matrix['node-version'] == '22'
+        if: matrix['node-version'] == '26'
 
       - name: Check formatting
         run: npm run format:check
-        if: matrix['node-version'] == '22'
+        if: matrix['node-version'] == '26'
 
       - name: Run tests
         run: (set -o pipefail; npm run test:coverage |& tee test.log);
 
       - name: Run Danger
         run: npm run danger
-        if: github.event_name == 'pull_request' && matrix['node-version'] == '22'
+        if: github.event_name == 'pull_request' && matrix['node-version'] == '26'
         env:
           GITHUB_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}

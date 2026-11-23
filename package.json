@@ -86,7 +86,7 @@
     "husky": "^9.1.7",
     "inquirer": "^14.3.0",
     "jest": "^30.5.2",
-    "lint-staged": "^17.6.0",
+    "lint-staged": "^17.6.1",
     "prettier": "^3.10.1",
     "release-it": "^21.1.2"
   }
